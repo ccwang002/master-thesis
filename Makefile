@@ -19,15 +19,15 @@ files := $(files) $(wildcard images/*) $(wildcard pdfs/*.pdf)
 all: $(MAIN).pdf
 
 $(MAIN).pdf: $(files) src/without-watermark.tex
-	# cp src/without-watermark.tex watermark.tex
+#   cp src/without-watermark.tex watermark.tex
 	$(LATEX) $(MAIN)
 	$(BIBTEX) $(MAIN)
 	$(LATEX) $(MAIN)
 	$(LATEX) $(MAIN)
-	# $(RM) watermark.tex
+#   $(RM) watermark.tex
 
 ntulib: pdfs/watermark.pdf src/with-watermark.tex $(files)
-    mv watermark.tex watermark.empty.tex
+	mv watermark.tex watermark.empty.tex
 	cp src/with-watermark.tex watermark.tex
 	$(LATEX) $(MAIN)
 	$(BIBTEX) $(MAIN)
