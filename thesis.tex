@@ -1,6 +1,7 @@
 \documentclass[oneside]{ntuthesis}
 
 \usepackage{times}
+\usepackage{lmodern}  % monofont
 \usepackage{verbatim}
 \usepackage{color}
 \usepackage{url}
@@ -27,6 +28,9 @@
 % For barchart
 % \usepackage{pgfplots}
 
+% For sourcecode
+\usepackage{listings}
+
 % Using the tex-text mapping for ligatures etc.
 \defaultfontfeatures{Mapping=tex-text}
 
@@ -51,6 +55,12 @@
 \input{watermark.tex}
 
 \hypersetup{pageanchor=false}
+\lstset{
+    language=Python,
+    frame=single,
+    basicstyle=\ttfamily,
+    lineskip={-0.35em},
+}
 
 \frontmatter
 \pagenumbering{gobble}
@@ -87,12 +97,13 @@
 \input{chapters/introduction}
 \input{chapters/related}
 \input{chapters/method}
-\input{chapters/experiment}
+\input{chapters/result}
+\input{chapters/discussion}
 \input{chapters/conclusion}
 
 \@startappendix
 
-\input{chapters/dataset}
+% \input{chapters/dataset}
 
 \backmatter
 

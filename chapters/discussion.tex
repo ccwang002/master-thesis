@@ -1,0 +1,15 @@
+\chapter{Discussions}
+\label{c:discussion}
+
+
+\begin{lstlisting}
+class Hello:
+
+    def __init__(self, a, b):
+        self.x = a
+        self.y = b
+
+    @classmethod
+    def from_str(cls, raw_str):
+        return cls(*raw_str.split('\t', 1))
+\end{lstlisting}

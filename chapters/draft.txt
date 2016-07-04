@@ -1,0 +1,181 @@
+The structure of the thesis:
+
+
+Introduction                                            10-15 pages
+
+    Motivation
+
+        Why we need an online analysis platform
+
+    Specific aims
+
+        Propose the analysis platform and report generator
+
+    Next-generation sequencing
+
+    RNA sequencing application
+
+    DNA sequencing application
+
+    Genome reference
+
+
+Literacture Review                                      5-10 pages
+
+    DNA Nexus
+        https://www.dnanexus.com/
+
+    Partek Flow
+        http://www.partek.com/partekflow
+
+    Galaxy
+        https://galaxyproject.org/
+
+    WashU - Genome Modeling System
+        http://gmt.genome.wustl.edu/index.html
+
+    bcbio-nextgen
+        http://bcb.io/
+
+    Snakemake
+        https://bitbucket.org/snakemake/snakemake/wiki/Home
+
+    MultiQC
+        http://multiqc.info/
+
+
+Material and Methods                                    25-35 pages
+
+    RNA-Seq pipelines
+
+    DNA-Seq pipelines
+
+    HMAC encryption
+
+        secure hash
+
+        hash and salt
+
+        HMAC
+
+    Website workflow
+
+        HMAC-based Email account registration
+
+        Experiment Design
+
+            Reactive programming
+
+        Genome reference
+
+        Analysis submission
+
+        Job queue management
+
+            Email notification
+
+        Report and result access control
+
+            HMAC-based token
+
+            public access
+
+    Report generation
+
+        BCReport: result processing framework
+
+            job info YAML
+
+        HTML template rendering
+
+    Implementation
+
+        Website
+
+            Django
+            Django-Q
+            Vue.js
+
+        Deployment
+
+            nginx systemd
+            nginx x-Accel and Django auth integration
+
+        Report
+
+            YAML
+            Jinja2
+            skbio
+            Vue.js
+            plotting libraries
+
+Results                                                 10-15 pages
+
+    Account registration
+
+    Data source discovery
+
+        checksum check
+
+    Experiment design
+
+        condition
+
+        simple and advanced mode
+
+    RNA-Seq analysis submission
+
+    DNA-Seq anlaysis submission
+
+    Job queue monitoring
+
+        email notification
+
+    Report and result access
+
+    RNA-Seq analysis result
+
+        QC
+
+        Alignment - STAR
+
+        Alignment - HISAT2
+
+        Cufflinks
+
+        Cuffdiff
+
+        featureCounts
+
+        DESeq2
+
+
+    DNA-Seq analysis result
+
+        QC
+
+        Alignment - BWA MEM
+
+        Variant calling - Varscan
+
+        Variant calling - GATK
+
+
+Discussion                                              5-10 pages
+
+    Pipeline extension
+
+        Website-side
+
+        Report-side
+
+    Collaboration with other frameworks
+
+        Too many to do
+
+
+Conclusion                                              2-3 pages
+
+
+
+# vim: set textwidth=79:
