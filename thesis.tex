@@ -1,7 +1,8 @@
 \documentclass[oneside]{ntuthesis}
 
 \usepackage{times}
-\usepackage{lmodern}  % monofont
+%\usepackage{inconsolata}
+\usepackage{lmodern}
 \usepackage{verbatim}
 \usepackage{color}
 \usepackage{url}
@@ -11,7 +12,7 @@
 \usepackage{wallpaper} % watermark
 
 % Format the refs
-\usepackage[sort,comma]{natbib}
+\usepackage[numbers,sort&compress]{natbib}
 \usepackage[hidelinks]{hyperref}
 
 % For captions and legends
@@ -110,7 +111,7 @@
 \clearpages
 \phantomsection
 \addcontentsline{toc}{chapter}{\bibname}
-\bibliographystyle{apa}
+\bibliographystyle{unsrtnat}
 
 % Your bibliography goes here
 \bibliography{thesis}
