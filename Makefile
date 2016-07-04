@@ -1,7 +1,7 @@
 MAIN=thesis
 LIBVERSION=thesis-lib
 LATEX=xelatex
-BIBTEX=bibtex
+BIBTEX=biber  # bibtex
 RM=rm -f
 
 # use your own password

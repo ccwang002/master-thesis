@@ -12,7 +12,12 @@
 \usepackage{wallpaper} % watermark
 
 % Format the refs
-\usepackage[numbers,sort&compress]{natbib}
+\usepackage[
+    backend=biber,
+    style=nature,
+    sorting=none
+]{biblatex}
+\bibliography{thesis.bib}
 \usepackage[hidelinks]{hyperref}
 
 % For captions and legends
@@ -111,9 +116,8 @@
 \clearpages
 \phantomsection
 \addcontentsline{toc}{chapter}{\bibname}
-\bibliographystyle{unsrtnat}
 
 % Your bibliography goes here
-\bibliography{thesis}
+\printbibliography
 
 \end{document}

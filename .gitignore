@@ -8,6 +8,9 @@
 /*.blg
 /*.pdf
 /*.out
+/*.run.xml
+/*.bcf
+/*-blx.bib
 *~
 *.swp
 /pdfs/watermark.pdf
