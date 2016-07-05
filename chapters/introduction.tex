@@ -11,12 +11,12 @@
 As more and more genome-wide studies rely on next-generation sequencing (NGS)
 analysis, there is an increasing demand from both researchers and clinicians to
 develop systems to orchestrate and interpret NGS data analysis pipelines. NGS
-provides high read throughput which can generate total a few giga base pairs of
-read sequences in a typical experiment run. However, before the read sequences
-yielding biologically meaningful results, they have to undergo many non-trivial
-steps including genome alignment, sequence piling up, variant calling, and
-transcript expression quantification which requires hours of computation by
-high-end processors.
+provides high read throughput which can generate total a few gigabases of read
+sequences in a typical experiment run. However, before the read sequences yield
+biologically meaningful results, they have to undergo many non-trivial steps
+including genome alignment, sequence piling up, variant calling, and transcript
+expression quantification which requires hours of computation by high-end
+processors.
 
 Combining the demand for fast computation speed and large data storage, NGS
 analyses are mostly performed on powerful servers remotely using command line
@@ -57,42 +57,94 @@ study.
 % Propose the analysis platform and report generator
 %
 
+In this thesis study, an online platform, BioCloud, and a report generator,
+BCReport, have been developed to help researchers automate their NGS analyses
+and interpret the result based on the generated summary report. The online
+platform builds on an account system to let individuals manage their sequencing
+data sources and then design the experiment and sample settings to group their
+data sources like their biological experiment set up. The designed experiment
+can be used in different analysis pipelines that match the sequencing type of
+the data sources, e.g., DNA or RNA sequencing. Each analysis pipeline combines
+different tool chains and comes with their corresponding tool parameters for
+user to adjust. After an analysis pipeline has been configured, it is submitted
+to the job queue of online platform and will execute the underlying tool chains
+when the computation resources are available.
+
+As soon as the analysis execution has been completed, the report generator,
+BCReport, is called and generates a summary report by parsing the results of
+the execution. Report are given in HTML format so BCReport can be seamlessly
+integrated into BioCloud and user can view their report via the BioCloud
+website. In the report, the output of each tool is collected and parsed as
+interactive charts and tables for user to explore the result. One of the
+convenient features about the summary report is that results are grouped by
+their samples and condition settings so user can compare the result between
+different conditions naturally. They can also download the raw result output by
+links provided in the report. Reports and results can be easily shared by
+providing their URL link. Though the links are publicly accessible via
+internet, they can be well protected if user apply different permission rules
+for each analysis.
+
+
+
 \section{Next-generation sequencing}
 \label{s:ngs}
 
-Next-generation sequencing is a group of sequencing technologies that succeeds
-automated Sanger sequencing by providing much higher read throughput while
-shorter read length that reduces the cost and time to complete genome-wide
-sequencing study \cite{metzker2010:sequencing}. In the last decade,
-next-generation sequencing has become the \textit{de facto} way to understand
-genome \cite{vandijk2014:ten} including quantification of transcriptome
-expression \cite{wang2009:rnaseq}, variant calling and genotype inference
-\cite{nielsen2011:genotype}.
+Next-generation sequencing (NGS) is a group of sequencing technologies that
+succeeds automated Sanger sequencing which is considered as the first-generation
+sequencing, by providing much higher read throughput while shorter read length
+that reduces the cost and time to complete genome-wide sequencing study
+\cite{metzker2010:sequencing}. Generally speaking, a NGS experiment undergoes
+steps of template preparation, sequencing, imaging and data analysis. During
+template preparation, DNA samples are broken into fragments of shorter length,
+which the desired length varies across different NGS technologies but generally
+in the range of few tens to few thousands of nucleotides. Proper adapters and
+barcode will be added to these DNA fragments for further manipulation, fixation
+on the sequencing chip, and mixed multiple samples in one experiment run. Each
+template will then be positioned separately on the sequencing chip by for
+example, ligation with adapter in illumina NGS technology. Sequencing is done
+by multiple cycles which read out one base at a time using deoxyribonucleotide
+triphosphates (dNTPs) with four or two fluorescent chemical labels and
+reversible terminator. Reading base detection in a sequencing cycle is done by
+image capturing the fluorescent emission of all templates on chip. Sequencing
+and imaging steps enables NGS determine the sequencing millions of DNA
+fragments in parallel.
+
+Next-generation sequencing has been playing an important role in current
+genomic researches. In the last decade, next-generation sequencing has become
+the \textit{de facto} way to understand genome \cite{vandijk2014:ten} including
+quantification of transcriptome expression \cite{wang2009:rnaseq}, variant
+calling and genotype inference \cite{nielsen2011:genotype}. The ability to
+determine novel sequence reads opens the door for \textit{de novo}
+transcriptome and genome assembly. Comparing to the renowned Human Genome
+Project \cite{lander2001:initial}, finishing a new organism assembly now
+requires significantly shorter time and lower budget and makes study of
+non-model organisms becoming feasible. As the sequencing cost for a whole human
+genome passing below USD 1,000, we can expect a wider application of NGS and
+more and more fields adopt this technology.
 
 
-Next-generation sequencing has been playing an important role in current genomic
-researches in the last decade.
-
-% Sanger - 1st gen
-% next-generation - 2nd gen
 
 \section{RNA sequencing application}
 \label{s:rna-seq-app}
 
+TODO: Fill this section.
+
+Though the generated sequence reads are shorter, they are long enough to
+determine their genomic location via genome
+
+
 \section{DNA sequencing application}
 \label{s:dna-seq-app}
+
+
+TODO: Fill this section.
+
+
 
 \section{Genome reference}
 \label{s:genome-ref}
 
 
-
-% Recently a cat appears in NTU as shown in Figure~\ref{i:cat}.
-% This is English line spacing test. You should see double spacing text.
-% This is English line spacing test. You should see double spacing text.
-% This is English line spacing test. You should see double spacing text.
-
-%i:cat
-\input{figures/cat}
+TODO: Fill this section.
 
 % vim: set tw=79:
