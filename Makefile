@@ -43,7 +43,7 @@ pdfs/watermark.pdf: | pdfs
 	curl "http://etds.lib.ntu.edu.tw/files/watermark.pdf" -o "pdfs/watermark.pdf"
 
 clean:
-	$(RM) *.log *.aux *.dvi *.lof *.lot *.toc *.bbl *.blg *.out
+	$(RM) *.log *.aux *.dvi *.lof *.lot *.toc *.bbl *.blg *.out *.bcf *-blx.bib *.run.xml
 
 clean-pdf:
 	$(RM) *.pdf
