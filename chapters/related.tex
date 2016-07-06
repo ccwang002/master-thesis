@@ -201,9 +201,38 @@ leverage these pipeline execution tools in future and such integrations are
 discussed in Chapter \ref{c:discussion}.
 
 
-\section{Report generation}
+\section{Analysis report generation}
 
-MultiQC \cite{ewels2016:multiqc}
+An analysis report helps summarize the result of a sequencing analysis pipeline
+across different samples or even different conditions in the experiment design.
+Without getting into details, summary report collects the most important
+statistics and results of each tools, which is suitable to provide researchers
+with little sequencing experience a basic understanding the condition of one's
+sequencing results.
+
+Aside from commercial products which more or less provide a summary report,
+some open sourced works also focus on the summarization of the sequencing
+analysis. MultiQC \cite{ewels2016:multiqc} is a quality assessment tool for
+sequencing data. After its first release in Nov 2015 it has been gaining
+popularity. At the time of writing, both bcbio-nextgen and Galaxy can integrate
+with MultiQC report. An example of the MultiQC report is shown in
+Figure~\ref{fig:multiqc-report}, which is a single page HTML report. The first
+general information table collects important statistics of each sample produced
+by each tools, which user can select which of them should be displayed by
+tweaking the column visibility. Following the general information, the report
+shows interactive figures which user can zoom in and out, filter unwanted
+samples, and export current figure state as static JPEG or PNG picture format.
+
+However, since MultiQC focuses on quality assessment, it cannot parse the end
+results of typical sequencing analysis. MultiQC treats samples independently,
+so user cannot group samples of same conditions or compare samples grouped by
+their conditions. For example, it cannot display the differentially expressed
+genes and genomic variants called in all samples of the same condition. Also,
+Due to its single page web structure, showing figures of too many stages will
+impact the viewing experience due to low rendering frame rate. Though MultiQC
+does provide innovative ways to display sequencing results, BioCloud cannot
+directly integrate MultiQC and need to develop its own way displaying figures
+considering sample grouping.
 
 \input{figures/multiqc_report}
 
