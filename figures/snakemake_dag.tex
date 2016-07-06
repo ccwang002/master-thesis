@@ -1,0 +1,17 @@
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{images/snakemake_dag}
+\caption[Example of DAG job dependencies of a Snakemake workflow]{
+    Example of DAG job dependencies of a Snakemake workflow that first aligns
+    sequence reads to genome using BWA MEM, sorts and indexes the aligned BAM
+    file, and finally calls variants using bcftools. Two samples A and B are
+    used, and Snakemake can correctly understand the input and output
+    dependencies for each job through file expansion and collection rule. The
+    workflow is obtained from
+    \href{http://snakemake.bitbucket.org/snakemake-tutorial.html}
+    {the official tutorial of Snakemake}.
+}
+\label{fig:snakemake-dag}
+\end{figure}
+
+

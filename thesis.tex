@@ -21,7 +21,8 @@
 \usepackage[hidelinks]{hyperref}
 
 % For captions and legends
-\usepackage{caption}
+\usepackage{caption}\usepackage{caption}
+\usepackage{setspace}
 
 % For table
 \usepackage{booktabs}
@@ -66,7 +67,11 @@
     frame=single,
     basicstyle=\ttfamily,
     lineskip={-0.35em},
+    showstringspaces=false,
+    aboveskip=\bigskipamount,
+    belowskip=\bigskipamount,
 }
+\captionsetup[lstlisting]{font={stretch=1}}
 
 \frontmatter
 \pagenumbering{gobble}

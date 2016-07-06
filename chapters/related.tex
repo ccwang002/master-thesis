@@ -25,7 +25,7 @@ published tools or update the tool version in use. On top of that, the usage of
 clinical data may be subjected to different law restrictions in different
 countries. Using service and cloud sever hosted and managed by a United States
 company may not meet the law restrictions in Taiwan and raises extra concern
-and private issues for hosting data with patient and clicinal information.
+and private issues for hosting data with patient and clinical information.
 
 \input{figures/dnanexus_workflow}
 
@@ -38,7 +38,7 @@ which is very flexible for researchers to explore different combinations of
 tools. For different function blocks they can append with different type of
 reports or quality assessment. The whole system can be hosted on one's own
 server. Due to its flexibility of pipeline design, however, Partek Flow user
-should be familiar with all analysis tools invovled before conducting new
+should be familiar with all analysis tools involved before conducting new
 analysis. Though viewed convenient by bioinformatic researchers, it has a
 relatively complex interface to design and execute analysis pipelines.
 
@@ -72,14 +72,133 @@ Django have been audited and publicly tested by worldwide companies for years.
 
 \input{figures/galaxy_workflow}
 
-Genome Modeling System \cite{griffith2015:genome}
+Another sequencing analysis platform, Genome Modeling System
+\cite{griffith2015:genome}, is used in The Genome Institute of Washington
+University and has process hundreds of terabytes of sequencing data with
+predefined hundreds of bioinformatic tool profiles. It resembles Galaxy in the
+flexibility of developing custom workflow, while focusing solely on processing
+sequencing data. Using the terminology of Genome Modeling System, sequencing
+sources are subjects, and user can define multiple genome model on the same set
+of subject. Genome model is defined by connections of tool profiles. Tool of
+different versions have different profiles to ensure the result of genome model
+can be strictly reproducible using pinned version of tools. However, like
+Galaxy, it has a relatively complex design of pipeline design and does not suit
+for biological researchers and clinicians.
 
 
-\section{Pipeline execution}
+\section{Pipeline execution tools}
 
-bcbio-nextgen \cite{:bcbionextgen,guimera2012:bcbionextgen}
+Though some of the works are not a full-fledged online analysis platform, they
+focus on the automated analysis pipeline design, including bcbio-nextgen
+\cite{:bcbionextgen,guimera2012:bcbionextgen} and Snakemake
+\cite{koster2012:snakemakea}, whose architecture designs either share common
+traits with BioCloud or inspire some features of BioCloud.
 
-Snakemake \cite{koster2012:snakemakea}
+In bcbio-nextgen \cite{:bcbionextgen,guimera2012:bcbionextgen}, user can adopt
+existed or design custom analysis type, and then specify the input samples,
+genome reference, and other necessary parameters through a pipeline
+configuration file in YAML format, which is human readable and simple to write
+from scratch in plain text. An configuration example of RNA-Seq analysis is
+shown in Listing~\ref{lst:bcbio-nextgen-config}, whose structure and syntax
+share plenty of common with BioCloud's analysis configuration file.
+Bcbio-nextgen by default ships with predefined of DNA-Seq, RNA-Seq, small
+RNA-Seq, and CHIP-Seq pipelines so real analysis can be performed with little
+effort. The pipeline execution can utilize multi-core processors and even scale
+across multiple machines through IPython Parallel framework
+\cite{:ipython-parallel}. Scripts to deploy on Amazon Web Service (AWS) are
+available so user can scale up the number of AWS computing instances
+dynamically when needed. Bcbio-nextgen is also gradually adding support of
+Common Workflow Language \cite{amstutz2016:common}, which is a on-going
+workflow specification standard proposed by multiple analysis platform vendors.
+The integration of IPython Parallel framework and AWS cloud infrastructure
+makes bcbio-nextgen a competitive tools to perform large scale and parallel
+pipeline analysis.
+
+\begin{lstlisting}[
+    caption={
+        Example of bcbio-nextgen pipeline configuration to run Tophat2 genome
+        alignment. The configuration is obtained from the
+        \href{https://bcbio-nextgen.readthedocs.io/}
+        {official tutorial of bcbio-nextgen}.
+    },
+    label={lst:bcbio-nextgen-config},
+    language={},
+]
+fc_date: '070113'
+fc_name: control_experiment
+upload:
+  dir: final
+details:
+  - files: [
+        /full/path/to/control_1.fastq,
+        /full/path/to/control_2.fastq
+    ]
+    description: 'Control_rep1'
+    genome_build: GRCh37
+    analysis: RNA-seq
+    algorithm:
+         aligner: tophat2
+         quality_format: Standard
+         trim_reads: read_through
+         adapters: [truseq, polya]
+         strandedness: unstranded
+\end{lstlisting}
+
+Snakemake \cite{koster2012:snakemakea} is a low-level pipeline execution tool
+which is inspired by source code build automation tool Make \cite{:gnu-make}
+and its rule file format Makefile. User constructs a Snakemake pipeline by
+writing a series of rules which each rule corresponds to commands of a tool.
+Each rule also defines its input and output file patterns, which Snakemake will
+use them to construct the execution dependencies between rules as a directed
+acyclic graph (DAG). Listing~\ref{lst:snakemake-rule} shows an example of
+writing Snakemake rule to run BWA MEM genome alignment. Like Makefile, the
+variable \texttt{\{sample\}} specified in the input FASTQ files will be auto
+expanded to all files matching the given pattern, that is, all files with
+suffix \texttt{.fastq} under the folder \texttt{data/samples/}.  Before
+execution, these rules are first evaluated and expanded to all matched files to
+build the DAG dependencies, shown in Figure~\ref{fig:snakemake-dag}.  Snakemake
+will detect outdated output files by comparing creation timestamp with input
+files. Only outdated outputs will be re-executed, which reduces the total
+execution time. Other parameters of the Snakemake rule can further control the
+resources a job can use, e.g., number of threads and read-only files to prevent
+output files from being rewritten.
+
+\begin{lstlisting}[
+    caption={
+        Example of Snakemake rule to run BWA MEM genome alignment. The rule is
+        obtained from the
+        \href{http://snakemake.bitbucket.org/snakemake-tutorial.html}
+            {official tutorial of Snakemake}.
+    },
+    label={lst:snakemake-rule},
+    language={},
+]
+rule bwa_map:
+    input:
+        "data/genome.fa",
+        "data/samples/{sample}.fastq"
+    output:
+        "mapped_reads/{sample}.bam"
+    shell:
+        "bwa mem {input} | samtools view -Sb - > {output}"
+\end{lstlisting}
+
+\input{figures/snakemake_dag}
+
+Though Snakemake may not be directly used by biological researchers and
+clinicians, integrating it into a cloud platform may not be as trivial as
+it seems. Monitoring the Snakemake execution process can be complicated since
+it treats individual inputs as separate jobs. One could either showed the
+detailed execution progress or trying to deep integrate with Snakemake to
+collect all the job details and organize them externally. The latter deep
+integration can be easily broken if Snakemake changes its internal structure.
+
+Two pipeline execution tools mentioned above can be used as the way Biocloud
+run analysis pipelines. However, due to time constraint and development
+complexity a developer can manage, BioCloud rolls out its only basic pipeline
+execution method with stage monitoring. There are possibilities for BioCloud to
+leverage these pipeline execution tools in future and such integrations are
+discussed in Chapter \ref{c:discussion}.
 
 
 \section{Report generation}
