@@ -1,14 +1,49 @@
 \chapter{Methods}
 \label{c:method}
 
+In the following sections, first a number of typical RNA-Seq and DNA-Seq
+pipelines that BioCloud supports are defined and explained. Then the design of
+BioCloud is explained by breaking down into two main parts: the website and the
+report generator. For the website, the components including account
+registration, data sources management, experiment design, and pipeline
+execution are described and their roles are illustracted in the website
+overview workflow. For the report generator, the workflow demonstrates how
+outputs are extracted, parsed, and rendered into pre-defined web-based report
+templates.
+
 
 
 \section{RNA-Seq pipelines}
 
 The RNA-Seq analysis pipelines that BioCloud supports are summarized in
 Figure~\ref{fig:dnaseq-pipeline}.
+
 \input{figures/rnaseq_pipelines}
 
+
+FastQC \cite{:fastqc}
+
+Tophat2 \cite{kim2013:tophat2}
+
+HISAT2 \cite{kim2015:hisat}
+
+STAR \cite{dobin2013:star}
+
+Picard \cite{:picard}
+
+Cufflinks \cite{trapnell2010:transcript}
+
+Cuffdiff \cite{trapnell2013:differential}
+
+cummeRbund \cite{:cummerbund}
+
+featureCounts \cite{liao2014:featurecounts}
+
+DESeq2 \cite{love2014:moderated}
+
+kallisto \cite{bray2016:nearoptimal}
+
+sleuth \cite{pimentel2016:differential}
 
 
 \section{DNA-Seq pipelines}
@@ -20,13 +55,15 @@ Figure~\ref{fig:dnaseq-pipeline}.
 
 
 
-\section{Hash-based message authentication code}
+\section{Website workflow}
+
+\input{figures/biocloud_erd}
+
+\subsection{Overall design}
+
+\subsection{Message authentication and checksum}
 
 Hash-based message authentication code (HMAC)
-
-
-
-\section{Website workflow}
 
 \subsection{HMAC-based account registration}
 
@@ -40,9 +77,13 @@ Hash-based message authentication code (HMAC)
 
 \subsection{Report and result access control}
 
+
+
 \section{Report generation}
 
 \subsection{BCReport: result processing framework}
+
+
 
 \section{Implementation}
 

@@ -17,6 +17,26 @@
   eprint = {27013646}
 }
 
+@article{kim2015:hisat,
+  title = {{{HISAT}}: a fast spliced aligner with low memory requirements},
+  volume = {12},
+  rights = {© 2015 Nature Publishing Group, a division of Macmillan Publishers Limited. All Rights Reserved.},
+  url = {http://www.nature.com/nmeth/journal/v12/n4/full/nmeth.3317.html},
+  shorttitle = {{{HISAT}}},
+  abstract = {HISAT (hierarchical indexing for spliced alignment of transcripts) is a highly efficient system for aligning reads from RNA sequencing experiments. HISAT uses an indexing scheme based on the Burrows-Wheeler transform and the Ferragina-Manzini (FM) index, employing two types of indexes for alignment: a whole-genome FM index to anchor each alignment and numerous local FM indexes for very rapid extensions of these alignments. HISAT's hierarchical index for the human genome contains 48,000 local FM indexes, each representing a genomic region of \textasciitilde{}64,000 bp. Tests on real and simulated data sets showed that HISAT is the fastest system currently available, with equal or better accuracy than any other method. Despite its large number of indexes, HISAT requires only 4.3 gigabytes of memory. HISAT supports genomes of any size, including those larger than 4 billion bases.},
+  timestamp = {2016-07-04T10:58:25Z},
+  langid = {english},
+  number = {4},
+  journaltitle = {Nature Methods},
+  shortjournal = {Nat Meth},
+  author = {Kim, Daehwan and Langmead, Ben and Salzberg, Steven L.},
+  urldate = {2016-05-05},
+  date = {2015-04},
+  pages = {357--360},
+  keywords = {Genome informatics,RNA sequencing,Software},
+  file = {Kim et al_2015_HISAT.pdf:/Users/liang/Dropbox/Lab_Chuang/ref/Nature Methods/2015/Kim et al_2015_HISAT.pdf:application/pdf}
+}
+
 @article{vandijk2014:ten,
   title = {Ten years of next-generation sequencing technology},
   volume = {30},
@@ -33,6 +53,25 @@
   keywords = {ChIP-seq,DNA-seq,Genomics,Next-generation sequencing (NGS),NGS library preparation,RNA-seq},
   options = {useprefix=true},
   file = {van Dijk et al_2014_Ten years of next-generation sequencing technology.pdf:/Users/liang/Dropbox/Lab_Chuang/ref/Trends in Genetics/2014/van Dijk et al_2014_Ten years of next-generation sequencing technology.pdf:application/pdf}
+}
+
+@article{trapnell2012:differential,
+  title = {Differential gene and transcript expression analysis of {{RNA}}-seq experiments with {{TopHat}} and {{Cufflinks}}},
+  volume = {7},
+  rights = {© 2012 Nature Publishing Group, a division of Macmillan Publishers Limited. All Rights Reserved.},
+  url = {http://www.nature.com/nprot/journal/v7/n3/full/nprot.2012.016.html},
+  abstract = {Recent advances in high-throughput cDNA sequencing (RNA-seq) can reveal new genes and splice variants and quantify expression genome-wide in a single assay. The volume and complexity of data from RNA-seq experiments necessitate scalable, fast and mathematically principled analysis software. TopHat and Cufflinks are free, open-source software tools for gene discovery and comprehensive expression analysis of high-throughput mRNA sequencing (RNA-seq) data. Together, they allow biologists to identify new genes and new splice variants of known ones, as well as compare gene and transcript expression under two or more conditions. This protocol describes in detail how to use TopHat and Cufflinks to perform such analyses. It also covers several accessory tools and utilities that aid in managing data, including CummeRbund, a tool for visualizing RNA-seq analysis results. Although the procedure assumes basic informatics skills, these tools assume little to no background with RNA-seq analysis and are meant for novices and experts alike. The protocol begins with raw sequencing reads and produces a transcriptome assembly, lists of differentially expressed and regulated genes and transcripts, and publication-quality visualizations of analysis results. The protocol's execution time depends on the volume of transcriptome sequencing data and available computing resources but takes less than 1 d of computer time for typical experiments and \textasciitilde{}1 h of hands-on time.},
+  timestamp = {2016-01-11T08:37:24Z},
+  langid = {english},
+  number = {3},
+  journaltitle = {Nature Protocols},
+  shortjournal = {Nat. Protocols},
+  author = {Trapnell, Cole and Roberts, Adam and Goff, Loyal and Pertea, Geo and Kim, Daehwan and Kelley, David R. and Pimentel, Harold and Salzberg, Steven L. and Rinn, John L. and Pachter, Lior},
+  urldate = {2016-01-11},
+  date = {2012-03},
+  pages = {562--578},
+  keywords = {Gene expression analysis,Next-generation sequencing,RNA sequencing,Software},
+  file = {Trapnell et al_2012_Differential gene and transcript expression analysis of RNA-seq experiments.pdf:/Users/liang/Dropbox/Lab_Chuang/ref/Nature Protocols/2012/Trapnell et al_2012_Differential gene and transcript expression analysis of RNA-seq experiments.pdf:application/pdf}
 }
 
 @article{griffith2015:genome,
@@ -68,6 +107,25 @@ Contact: phil.ewels\{at\}scilifelab.se},
   file = {Ewels et al_2016_MultiQC.pdf:/Users/liang/Dropbox/Lab_Chuang/ref/Bioinformatics/2016/Ewels et al_2016_MultiQC.pdf:application/pdf},
   eprinttype = {pmid},
   eprint = {27312411}
+}
+
+@article{bray2016:nearoptimal,
+  title = {Near-optimal probabilistic {{RNA}}-seq quantification},
+  volume = {34},
+  rights = {© 2016 Nature Publishing Group, a division of Macmillan Publishers Limited. All Rights Reserved.},
+  url = {http://www.nature.com/nbt/journal/v34/n5/full/nbt.3519.html},
+  abstract = {We present kallisto, an RNA-seq quantification program that is two orders of magnitude faster than previous approaches and achieves similar accuracy. Kallisto pseudoaligns reads to a reference, producing a list of transcripts that are compatible with each read while avoiding alignment of individual bases. We use kallisto to analyze 30 million unaligned paired-end RNA-seq reads in \ensuremath{<}10 min on a standard laptop computer. This removes a major computational bottleneck in RNA-seq analysis.},
+  timestamp = {2016-06-28T15:13:49Z},
+  langid = {english},
+  number = {5},
+  journaltitle = {Nature Biotechnology},
+  shortjournal = {Nat Biotech},
+  author = {Bray, Nicolas L. and Pimentel, Harold and Melsted, Páll and Pachter, Lior},
+  urldate = {2016-06-28},
+  date = {2016-05},
+  pages = {525--527},
+  keywords = {Genome informatics,Software,Transcriptomics},
+  file = {Bray et al_2016_Near-optimal probabilistic RNA-seq quantification.pdf:/Users/liang/Dropbox/Lab_Chuang/ref/Nature Biotechnology/2016/Bray et al_2016_Near-optimal probabilistic RNA-seq quantification.pdf:application/pdf}
 }
 
 @article{metzker2010:sequencing,
@@ -246,6 +304,151 @@ CWL is designed to express workflows for data-intensive science, such as Bioinfo
   url = {http://ipyparallel.readthedocs.io/},
   timestamp = {2016-07-06T05:49:30Z},
   urldate = {2016-07-06}
+}
+
+@online{:fastqc,
+  title = {{{FastQC}}},
+  url = {http://www.bioinformatics.babraham.ac.uk/projects/fastqc/},
+  timestamp = {2016-07-06T15:43:11Z}
+}
+
+@article{kim2013:tophat2,
+  title = {{{TopHat2}}: accurate alignment of transcriptomes in the presence of insertions, deletions and gene fusions},
+  volume = {14},
+  url = {http://dx.doi.org/10.1186/gb-2013-14-4-r36},
+  shorttitle = {{{TopHat2}}},
+  abstract = {TopHat is a popular spliced aligner for RNA-sequence (RNA-seq) experiments. In this paper, we describe TopHat2, which incorporates many significant enhancements to TopHat. TopHat2 can align reads of various lengths produced by the latest sequencing technologies, while allowing for variable-length indels with respect to the reference genome. In addition to de novo spliced alignment, TopHat2 can align reads across fusion breaks, which can occur after genomic translocations. TopHat2 combines the ability to identify novel splice sites with direct mapping to known transcripts, producing sensitive and accurate alignments, even for highly repetitive genomes or in the presence of pseudogenes. TopHat2 is available at                   http://ccb.jhu.edu/software/tophat                                  .},
+  timestamp = {2016-07-06T15:44:15Z},
+  journaltitle = {Genome Biology},
+  shortjournal = {Genome Biology},
+  author = {Kim, Daehwan and Pertea, Geo and Trapnell, Cole and Pimentel, Harold and Kelley, Ryan and Salzberg, Steven L.},
+  urldate = {2016-07-06},
+  date = {2013},
+  pages = {R36}
+}
+
+@article{dobin2013:star,
+  title = {{{STAR}}: ultrafast universal {{RNA}}-seq aligner},
+  volume = {29},
+  url = {http://bioinformatics.oxfordjournals.org/content/29/1/15},
+  shorttitle = {{{STAR}}},
+  abstract = {Motivation: Accurate alignment of high-throughput RNA-seq data is a challenging and yet unsolved problem because of the non-contiguous transcript structure, relatively short read lengths and constantly increasing throughput of the sequencing technologies. Currently available RNA-seq aligners suffer from high mapping error rates, low mapping speed, read length limitation and mapping biases.
+Results: To align our large (\ensuremath{>}80 billon reads) ENCODE Transcriptome RNA-seq dataset, we developed the Spliced Transcripts Alignment to a Reference (STAR) software based on a previously undescribed RNA-seq alignment algorithm that uses sequential maximum mappable seed search in uncompressed suffix arrays followed by seed clustering and stitching procedure. STAR outperforms other aligners by a factor of \ensuremath{>}50 in mapping speed, aligning to the human genome 550 million 2 × 76 bp paired-end reads per hour on a modest 12-core server, while at the same time improving alignment sensitivity and precision. In addition to unbiased de novo detection of canonical junctions, STAR can discover non-canonical splices and chimeric (fusion) transcripts, and is also capable of mapping full-length RNA sequences. Using Roche 454 sequencing of reverse transcription polymerase chain reaction amplicons, we experimentally validated 1960 novel intergenic splice junctions with an 80–90\% success rate, corroborating the high precision of the STAR mapping strategy.
+Availability and implementation: STAR is implemented as a standalone C++ code. STAR is free open source software distributed under GPLv3 license and can be downloaded from http://code.google.com/p/rna-star/.
+Contact: dobin\{at\}cshl.edu.},
+  timestamp = {2016-07-06T15:46:42Z},
+  langid = {english},
+  number = {1},
+  journaltitle = {Bioinformatics},
+  shortjournal = {Bioinformatics},
+  author = {Dobin, Alexander and Davis, Carrie A. and Schlesinger, Felix and Drenkow, Jorg and Zaleski, Chris and Jha, Sonali and Batut, Philippe and Chaisson, Mark and Gingeras, Thomas R.},
+  urldate = {2016-07-06},
+  date = {2013-01-01},
+  pages = {15--21},
+  file = {Dobin et al_2013_STAR.pdf:/Users/liang/Dropbox/Lab_Chuang/ref/Bioinformatics/2013/Dobin et al_2013_STAR.pdf:application/pdf},
+  eprinttype = {pmid},
+  eprint = {23104886}
+}
+
+@online{:picard,
+  title = {Picard},
+  url = {https://broadinstitute.github.io/picard/},
+  timestamp = {2016-07-06T15:48:08Z},
+  urldate = {2016-07-06}
+}
+
+@article{trapnell2010:transcript,
+  title = {Transcript assembly and quantification by {{RNA-Seq}} reveals unannotated transcripts and isoform switching during cell differentiation},
+  volume = {28},
+  rights = {© 2010 Nature Publishing Group},
+  url = {http://www.nature.com/nbt/journal/v28/n5/full/nbt.1621.html},
+  abstract = {High-throughput mRNA sequencing (RNA-Seq) promises simultaneous transcript discovery and abundance estimation. However, this would require algorithms that are not restricted by prior gene annotations and that account for alternative transcription and splicing. Here we introduce such algorithms in an open-source software program called Cufflinks. To test Cufflinks, we sequenced and analyzed \ensuremath{>}430 million paired 75-bp RNA-Seq reads from a mouse myoblast cell line over a differentiation time series. We detected 13,692 known transcripts and 3,724 previously unannotated ones, 62\% of which are supported by independent expression data or by homologous genes in other species. Over the time series, 330 genes showed complete switches in the dominant transcription start site (TSS) or splice isoform, and we observed more subtle shifts in 1,304 other genes. These results suggest that Cufflinks can illuminate the substantial regulatory flexibility and complexity in even this well-studied model of muscle development and that it can improve transcriptome-based genome annotation.},
+  timestamp = {2016-07-06T15:50:07Z},
+  langid = {english},
+  number = {5},
+  journaltitle = {Nature Biotechnology},
+  shortjournal = {Nat Biotech},
+  author = {Trapnell, Cole and Williams, Brian A. and Pertea, Geo and Mortazavi, Ali and Kwan, Gordon and van Baren, Marijke J. and Salzberg, Steven L. and Wold, Barbara J. and Pachter, Lior},
+  urldate = {2016-07-06},
+  date = {2010-05},
+  pages = {511--515},
+  keywords = {Differentiation,Next-generation sequencing,Software,Transcriptomics},
+  options = {useprefix=true},
+  file = {Trapnell et al_2010_Transcript assembly and quantification by RNA-Seq reveals unannotated.pdf:/Users/liang/Dropbox/Lab_Chuang/ref/Nature Biotechnology/2010/Trapnell et al_2010_Transcript assembly and quantification by RNA-Seq reveals unannotated.pdf:application/pdf}
+}
+
+@article{trapnell2013:differential,
+  title = {Differential analysis of gene regulation at transcript resolution with {{RNA}}-seq},
+  volume = {31},
+  rights = {© 2012 Nature Publishing Group, a division of Macmillan Publishers Limited. All Rights Reserved.},
+  url = {http://www.nature.com/nbt/journal/v31/n1/full/nbt.2450.html},
+  abstract = {Differential analysis of gene and transcript expression using high-throughput RNA sequencing (RNA-seq) is complicated by several sources of measurement variability and poses numerous statistical challenges. We present Cuffdiff 2, an algorithm that estimates expression at transcript-level resolution and controls for variability evident across replicate libraries. Cuffdiff 2 robustly identifies differentially expressed transcripts and genes and reveals differential splicing and promoter-preference changes. We demonstrate the accuracy of our approach through differential analysis of lung fibroblasts in response to loss of the developmental transcription factor HOXA1, which we show is required for lung fibroblast and HeLa cell cycle progression. Loss of HOXA1 results in significant expression level changes in thousands of individual transcripts, along with isoform switching events in key regulators of the cell cycle. Cuffdiff 2 performs robust differential analysis in RNA-seq experiments at transcript resolution, revealing a layer of regulation not readily observable with other high-throughput technologies.},
+  timestamp = {2016-07-06T15:50:09Z},
+  langid = {english},
+  number = {1},
+  journaltitle = {Nature Biotechnology},
+  shortjournal = {Nat Biotech},
+  author = {Trapnell, Cole and Hendrickson, David G. and Sauvageau, Martin and Goff, Loyal and Rinn, John L. and Pachter, Lior},
+  urldate = {2016-07-06},
+  date = {2013-01},
+  pages = {46--53},
+  keywords = {High-throughput screening,RNA sequencing}
+}
+
+@online{:cummerbund,
+  title = {{{cummeRbund}}},
+  url = {http://bioconductor.org/packages/cummeRbund/},
+  abstract = {Allows for persistent storage, access, exploration, and manipulation of Cufflinks high-throughput sequencing data.  In addition, provides numerous plotting functions for commonly used visualizations.},
+  timestamp = {2016-07-06T15:54:50Z},
+  journaltitle = {Bioconductor},
+  urldate = {2016-07-06}
+}
+
+@article{liao2014:featurecounts,
+  title = {{{featureCounts}}: an efficient general purpose program for assigning sequence reads to genomic features},
+  volume = {30},
+  shorttitle = {{{featureCounts}}},
+  abstract = {MOTIVATION: Next-generation sequencing technologies generate millions of short sequence reads, which are usually aligned to a reference genome. In many applications, the key information required for downstream analysis is the number of reads mapping to each genomic feature, for example to each exon or each gene. The process of counting reads is called read summarization. Read summarization is required for a great variety of genomic analyses but has so far received relatively little attention in the literature.
+RESULTS: We present featureCounts, a read summarization program suitable for counting reads generated from either RNA or genomic DNA sequencing experiments. featureCounts implements highly efficient chromosome hashing and feature blocking techniques. It is considerably faster than existing methods (by an order of magnitude for gene-level summarization) and requires far less computer memory. It works with either single or paired-end reads and provides a wide range of options appropriate for different sequencing applications.
+AVAILABILITY AND IMPLEMENTATION: featureCounts is available under GNU General Public License as part of the Subread (http://subread.sourceforge.net) or Rsubread (http://www.bioconductor.org) software packages.},
+  timestamp = {2016-07-06T15:56:01Z},
+  number = {7},
+  journaltitle = {Bioinformatics (Oxford, England)},
+  shortjournal = {Bioinformatics},
+  author = {Liao, Yang and Smyth, Gordon K. and Shi, Wei},
+  date = {2014-04-01},
+  pages = {923--930},
+  keywords = {Algorithms,Genome,Genomics,High-Throughput Nucleotide Sequencing,Histones,Sequence Analysis; RNA,Software},
+  eprinttype = {pmid},
+  eprint = {24227677}
+}
+
+@article{love2014:moderated,
+  title = {Moderated estimation of fold change and dispersion for {{RNA}}-seq data with {{DESeq2}}},
+  volume = {15},
+  abstract = {In comparative high-throughput sequencing assays, a fundamental task is the analysis of count data, such as read counts per gene in RNA-seq, for evidence of systematic changes across experimental conditions. Small replicate numbers, discreteness, large dynamic range and the presence of outliers require a suitable statistical approach. We present DESeq2, a method for differential analysis of count data, using shrinkage estimation for dispersions and fold changes to improve stability and interpretability of estimates. This enables a more quantitative analysis focused on the strength rather than the mere presence of differential expression. The DESeq2 package is available at http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html webcite.},
+  timestamp = {2016-07-06T15:56:46Z},
+  number = {12},
+  journaltitle = {Genome Biology},
+  shortjournal = {Genome Biol.},
+  author = {Love, Michael I. and Huber, Wolfgang and Anders, Simon},
+  date = {2014},
+  pages = {550},
+  keywords = {Algorithms,Computational Biology,High-Throughput Nucleotide Sequencing,Models; Genetic,RNA,Sequence Analysis; RNA,Software},
+  eprinttype = {pmid},
+  eprint = {25516281},
+  pmcid = {PMC4302049}
+}
+
+@report{pimentel2016:differential,
+  title = {Differential analysis of {{RNA-Seq}} incorporating quantification uncertainty},
+  url = {http://biorxiv.org/lookup/doi/10.1101/058164},
+  timestamp = {2016-07-06T16:08:34Z},
+  langid = {english},
+  number = {biorxiv;058164v1},
+  author = {Pimentel, Harold J and Bray, Nicolas and Puente, Suzette and Melsted, Páll and Pachter, Lior},
+  urldate = {2016-07-06},
+  date = {2016-06-10}
 }
 
 
