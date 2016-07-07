@@ -477,4 +477,167 @@ Contact: sanders\{at\}fs.tum.de},
   eprint = {25260700}
 }
 
+@article{li2009:sequence,
+  title = {The {{Sequence Alignment}}/{{Map}} format and {{SAMtools}}},
+  volume = {25},
+  abstract = {SUMMARY: The Sequence Alignment/Map (SAM) format is a generic alignment format for storing read alignments against reference sequences, supporting short and long reads (up to 128 Mbp) produced by different sequencing platforms. It is flexible in style, compact in size, efficient in random access and is the format in which alignments from the 1000 Genomes Project are released. SAMtools implements various utilities for post-processing alignments in the SAM format, such as indexing, variant caller and alignment viewer, and thus provides universal tools for processing read alignments.
+AVAILABILITY: http://samtools.sourceforge.net.},
+  timestamp = {2016-07-07T12:34:01Z},
+  number = {16},
+  journaltitle = {Bioinformatics (Oxford, England)},
+  shortjournal = {Bioinformatics},
+  author = {Li, Heng and Handsaker, Bob and Wysoker, Alec and Fennell, Tim and Ruan, Jue and Homer, Nils and Marth, Gabor and Abecasis, Goncalo and Durbin, Richard and {1000 Genome Project Data Processing Subgroup}},
+  date = {2009-08-15},
+  pages = {2078--2079},
+  keywords = {Algorithms,Base Sequence,Computational Biology,Genome,Genomics,Molecular Sequence Data,Sequence Alignment,Sequence Analysis; DNA,Software},
+  eprinttype = {pmid},
+  eprint = {19505943},
+  pmcid = {PMC2723002}
+}
+
+@article{patro2015:accurate,
+  title = {Accurate, fast, and model-aware transcript expression quantification with {{Salmon}}},
+  rights = {© 2015, Published by Cold Spring Harbor Laboratory Press. This pre-print is available under a Creative Commons License (Attribution-NonCommercial-NoDerivs 4.0 International), CC BY-NC-ND 4.0, as described at http://creativecommons.org/licenses/by-nc-nd/4.0/},
+  url = {http://biorxiv.org/content/early/2015/10/03/021592},
+  abstract = {Existing methods for quantifying transcript abundance require a fundamental compromise: either use high quality read alignments and experiment-specific models or sacrifice them for speed. We introduce Salmon, a quantification method that overcomes this restriction by combining a novel "lightweight" alignment procedure with a streaming parallel inference algorithm and a feature-rich model. These innovations yield both exceptional accuracy and order-of-magnitude speed benefits over traditional alignment-based methods.},
+  timestamp = {2016-07-07T13:00:04Z},
+  langid = {english},
+  journaltitle = {bioRxiv},
+  author = {Patro, Rob and Duggal, Geet and Kingsford, Carl},
+  urldate = {2016-07-07},
+  date = {2015-10-03},
+  pages = {021592}
+}
+
+@article{patro2014:sailfish,
+  title = {Sailfish enables alignment-free isoform quantification from {{RNA}}-seq reads using lightweight algorithms},
+  volume = {32},
+  rights = {© 2014 Nature Publishing Group, a division of Macmillan Publishers Limited. All Rights Reserved.},
+  url = {http://www.nature.com/nbt/journal/v32/n5/full/nbt.2862.html},
+  abstract = {We introduce Sailfish, a computational method for quantifying the abundance of previously annotated RNA isoforms from RNA-seq data. Because Sailfish entirely avoids mapping reads, a time-consuming step in all current methods, it provides quantification estimates much faster than do existing approaches (typically 20 times faster) without loss of accuracy. By facilitating frequent reanalysis of data and reducing the need to optimize parameters, Sailfish exemplifies the potential of lightweight algorithms for efficiently processing sequencing reads.},
+  timestamp = {2016-07-07T13:15:51Z},
+  langid = {english},
+  number = {5},
+  journaltitle = {Nature Biotechnology},
+  shortjournal = {Nat Biotech},
+  author = {Patro, Rob and Mount, Stephen M. and Kingsford, Carl},
+  urldate = {2016-07-07},
+  date = {2014-05},
+  pages = {462--464},
+  keywords = {Genome informatics,RNA sequencing,Software,Transcriptomics}
+}
+
+@article{alamancos2015:leveraging,
+  title = {Leveraging transcript quantification for fast computation of alternative splicing profiles},
+  volume = {21},
+  abstract = {Alternative splicing plays an essential role in many cellular processes and bears major relevance in the understanding of multiple diseases, including cancer. High-throughput RNA sequencing allows genome-wide analyses of splicing across multiple conditions. However, the increasing number of available data sets represents a major challenge in terms of computation time and storage requirements. We describe SUPPA, a computational tool to calculate relative inclusion values of alternative splicing events, exploiting fast transcript quantification. SUPPA accuracy is comparable and sometimes superior to standard methods using simulated as well as real RNA-sequencing data compared with experimentally validated events. We assess the variability in terms of the choice of annotation and provide evidence that using complete transcripts rather than more transcripts per gene provides better estimates. Moreover, SUPPA coupled with de novo transcript reconstruction methods does not achieve accuracies as high as using quantification of known transcripts, but remains comparable to existing methods. Finally, we show that SUPPA is more than 1000 times faster than standard methods. Coupled with fast transcript quantification, SUPPA provides inclusion values at a much higher speed than existing methods without compromising accuracy, thereby facilitating the systematic splicing analysis of large data sets with limited computational resources. The software is implemented in Python 2.7 and is available under the MIT license at https://bitbucket.org/regulatorygenomicsupf/suppa.},
+  timestamp = {2016-07-07T15:21:46Z},
+  number = {9},
+  journaltitle = {RNA (New York, N.Y.)},
+  shortjournal = {RNA},
+  author = {Alamancos, Gael P. and Pagès, Amadís and Trincado, Juan L. and Bellora, Nicolás and Eyras, Eduardo},
+  date = {2015-09},
+  pages = {1521--1531},
+  keywords = {Alternative Splicing,Animals,Computational Biology,Computer Simulation,Gene Expression Profiling,Humans,RNA,RNA-seq,Sequence Analysis; RNA,Software,splicing,splicing event},
+  eprinttype = {pmid},
+  eprint = {26179515},
+  pmcid = {PMC4536314}
+}
+
+@article{li2009:fast,
+  title = {Fast and accurate short read alignment with {{Burrows-Wheeler}} transform},
+  volume = {25},
+  abstract = {MOTIVATION: The enormous amount of short reads generated by the new DNA sequencing technologies call for the development of fast and accurate read alignment programs. A first generation of hash table-based methods has been developed, including MAQ, which is accurate, feature rich and fast enough to align short reads from a single individual. However, MAQ does not support gapped alignment for single-end reads, which makes it unsuitable for alignment of longer reads where indels may occur frequently. The speed of MAQ is also a concern when the alignment is scaled up to the resequencing of hundreds of individuals.
+RESULTS: We implemented Burrows-Wheeler Alignment tool (BWA), a new read alignment package that is based on backward search with Burrows-Wheeler Transform (BWT), to efficiently align short sequencing reads against a large reference sequence such as the human genome, allowing mismatches and gaps. BWA supports both base space reads, e.g. from Illumina sequencing machines, and color space reads from AB SOLiD machines. Evaluations on both simulated and real data suggest that BWA is approximately 10-20x faster than MAQ, while achieving similar accuracy. In addition, BWA outputs alignment in the new standard SAM (Sequence Alignment/Map) format. Variant calling and other downstream analyses after the alignment can be achieved with the open source SAMtools software package.
+AVAILABILITY: http://maq.sourceforge.net.},
+  timestamp = {2016-07-07T15:32:28Z},
+  number = {14},
+  journaltitle = {Bioinformatics (Oxford, England)},
+  shortjournal = {Bioinformatics},
+  author = {Li, Heng and Durbin, Richard},
+  date = {2009-07-15},
+  pages = {1754--1760},
+  keywords = {Algorithms,Genomics,Sequence Alignment,Sequence Analysis; DNA,Software},
+  eprinttype = {pmid},
+  eprint = {19451168},
+  pmcid = {PMC2705234}
+}
+
+@article{mckenna2010:genome,
+  title = {The {{Genome Analysis Toolkit}}: a {{MapReduce}} framework for analyzing next-generation {{DNA}} sequencing data},
+  volume = {20},
+  shorttitle = {The {{Genome Analysis Toolkit}}},
+  abstract = {Next-generation DNA sequencing (NGS) projects, such as the 1000 Genomes Project, are already revolutionizing our understanding of genetic variation among individuals. However, the massive data sets generated by NGS--the 1000 Genome pilot alone includes nearly five terabases--make writing feature-rich, efficient, and robust analysis tools difficult for even computationally sophisticated individuals. Indeed, many professionals are limited in the scope and the ease with which they can answer scientific questions by the complexity of accessing and manipulating the data produced by these machines. Here, we discuss our Genome Analysis Toolkit (GATK), a structured programming framework designed to ease the development of efficient and robust analysis tools for next-generation DNA sequencers using the functional programming philosophy of MapReduce. The GATK provides a small but rich set of data access patterns that encompass the majority of analysis tool needs. Separating specific analysis calculations from common data management infrastructure enables us to optimize the GATK framework for correctness, stability, and CPU and memory efficiency and to enable distributed and shared memory parallelization. We highlight the capabilities of the GATK by describing the implementation and application of robust, scale-tolerant tools like coverage calculators and single nucleotide polymorphism (SNP) calling. We conclude that the GATK programming framework enables developers and analysts to quickly and easily write efficient and robust NGS tools, many of which have already been incorporated into large-scale sequencing projects like the 1000 Genomes Project and The Cancer Genome Atlas.},
+  timestamp = {2016-07-07T15:35:35Z},
+  number = {9},
+  journaltitle = {Genome Research},
+  shortjournal = {Genome Res.},
+  author = {McKenna, Aaron and Hanna, Matthew and Banks, Eric and Sivachenko, Andrey and Cibulskis, Kristian and Kernytsky, Andrew and Garimella, Kiran and Altshuler, David and Gabriel, Stacey and Daly, Mark and DePristo, Mark A.},
+  date = {2010-09},
+  pages = {1297--1303},
+  keywords = {Base Sequence,Genome,Genomics,Sequence Analysis; DNA,Software},
+  file = {McKenna et al_2010_The Genome Analysis Toolkit.pdf:/Users/liang/Dropbox/Lab_Chuang/ref/Genome Research/2010/McKenna et al_2010_The Genome Analysis Toolkit.pdf:application/pdf},
+  eprinttype = {pmid},
+  eprint = {20644199},
+  pmcid = {PMC2928508}
+}
+
+@article{wang2010:annovar,
+  title = {{{ANNOVAR}}: functional annotation of genetic variants from high-throughput sequencing data},
+  volume = {38},
+  url = {http://nar.oxfordjournals.org/content/38/16/e164},
+  shorttitle = {{{ANNOVAR}}},
+  abstract = {High-throughput sequencing platforms are generating massive amounts of genetic variation data for diverse genomes, but it remains a challenge to pinpoint a small subset of functionally important variants. To fill these unmet needs, we developed the ANNOVAR tool to annotate single nucleotide variants (SNVs) and insertions/deletions, such as examining their functional consequence on genes, inferring cytogenetic bands, reporting functional importance scores, finding variants in conserved regions, or identifying variants reported in the 1000 Genomes Project and dbSNP. ANNOVAR can utilize annotation databases from the UCSC Genome Browser or any annotation data set conforming to Generic Feature Format version 3 (GFF3). We also illustrate a ‘variants reduction’ protocol on 4.7 million SNVs and indels from a human genome, including two causal mutations for Miller syndrome, a rare recessive disease. Through a stepwise procedure, we excluded variants that are unlikely to be causal, and identified 20 candidate genes including the causal gene. Using a desktop computer, ANNOVAR requires ∼4 min to perform gene-based annotation and ∼15 min to perform variants reduction on 4.7 million variants, making it practical to handle hundreds of human genomes in a day. ANNOVAR is freely available at http://www.openbioinformatics.org/annovar/.},
+  timestamp = {2016-07-07T15:35:38Z},
+  langid = {english},
+  number = {16},
+  journaltitle = {Nucleic Acids Research},
+  shortjournal = {Nucl. Acids Res.},
+  author = {Wang, Kai and Li, Mingyao and Hakonarson, Hakon},
+  urldate = {2016-07-07},
+  date = {2010-01-09},
+  pages = {e164--e164},
+  eprinttype = {pmid},
+  eprint = {20601685}
+}
+
+@article{koboldt2012:varscan,
+  title = {{{VarScan}} 2: {{Somatic}} mutation and copy number alteration discovery in cancer by exome sequencing},
+  volume = {22},
+  url = {http://genome.cshlp.org/content/22/3/568},
+  shorttitle = {{{VarScan}} 2},
+  abstract = {Cancer is a disease driven by genetic variation and mutation. Exome sequencing can be utilized for discovering these variants and mutations across hundreds of tumors. Here we present an analysis tool, VarScan 2, for the detection of somatic mutations and copy number alterations (CNAs) in exome data from tumor–normal pairs. Unlike most current approaches, our algorithm reads data from both samples simultaneously; a heuristic and statistical algorithm detects sequence variants and classifies them by somatic status (germline, somatic, or LOH); while a comparison of normalized read depth delineates relative copy number changes. We apply these methods to the analysis of exome sequence data from 151 high-grade ovarian tumors characterized as part of the Cancer Genome Atlas (TCGA). We validated some 7790 somatic coding mutations, achieving 93\% sensitivity and 85\% precision for single nucleotide variant (SNV) detection. Exome-based CNA analysis identified 29 large-scale alterations and 619 focal events per tumor on average. As in our previous analysis of these data, we observed frequent amplification of oncogenes (e.g., CCNE1, MYC) and deletion of tumor suppressors (NF1, PTEN, and CDKN2A). We searched for additional recurrent focal CNAs using the correlation matrix diagonal segmentation (CMDS) algorithm, which identified 424 significant events affecting 582 genes. Taken together, our results demonstrate the robust performance of VarScan 2 for somatic mutation and CNA detection and shed new light on the landscape of genetic alterations in ovarian cancer.},
+  timestamp = {2016-07-07T16:40:59Z},
+  langid = {english},
+  number = {3},
+  journaltitle = {Genome Research},
+  shortjournal = {Genome Res.},
+  author = {Koboldt, Daniel C. and Zhang, Qunyuan and Larson, David E. and Shen, Dong and McLellan, Michael D. and Lin, Ling and Miller, Christopher A. and Mardis, Elaine R. and Ding, Li and Wilson, Richard K.},
+  urldate = {2016-07-07},
+  date = {2012-01-03},
+  pages = {568--576},
+  file = {Koboldt et al_2012_VarScan 2.pdf:/Users/liang/Dropbox/Lab_Chuang/ref/Genome Research/2012/Koboldt et al_2012_VarScan 2.pdf:application/pdf},
+  eprinttype = {pmid},
+  eprint = {22300766}
+}
+
+@incollection{vanderauwera2013:fastq,
+  title = {From {{FastQ Data}} to {{High-Confidence Variant Calls}}: {{The Genome Analysis Toolkit Best Practices Pipeline}}},
+  rights = {Copyright © 2013 John Wiley \& Sons, Inc. All rights reserved.},
+  isbn = {978-0-471-25095-1},
+  url = {http://onlinelibrary.wiley.com/doi/10.1002/0471250953.bi1110s43/abstract},
+  shorttitle = {From {{FastQ Data}} to {{High-Confidence Variant Calls}}},
+  abstract = {This unit describes how to use BWA and the Genome Analysis Toolkit (GATK) to map genome sequencing data to a reference and produce high-quality variant calls that can be used in downstream analyses. The complete workflow includes the core NGS data-processing steps that are necessary to make the raw data suitable for analysis by the GATK, as well as the key methods involved in variant discovery using the GATK. Curr. Protoc. Bioinform. 43:11.10.1-11.10.33. © 2013 by John Wiley \& Sons, Inc.},
+  timestamp = {2016-07-07T17:12:15Z},
+  langid = {english},
+  booktitle = {Current {{Protocols}} in {{Bioinformatics}}},
+  publisher = {{John Wiley \& Sons, Inc.}},
+  author = {Van der Auwera, Geraldine A. and Carneiro, Mauricio O. and Hartl, Christopher and Poplin, Ryan and del Angel, Guillermo and Levy-Moonshine, Ami and Jordan, Tadeusz and Shakir, Khalid and Roazen, David and Thibault, Joel and Banks, Eric and Garimella, Kiran V. and Altshuler, David and Gabriel, Stacey and DePristo, Mark A.},
+  urldate = {2016-07-07},
+  date = {2013-10},
+  keywords = {Exome,genotyping,NGS,variant detection,WGS},
+  options = {useprefix=true},
+  file = {Van der Auwera et al_2002_From FastQ Data to High-Confidence Variant Calls.pdf:/Users/liang/Dropbox/Lab_Chuang/ref/John Wiley & Sons, Inc./2002/Van der Auwera et al_2002_From FastQ Data to High-Confidence Variant Calls.pdf:application/pdf}
+}
+
 

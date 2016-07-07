@@ -14,6 +14,7 @@ web-based report templates.
 
 
 \section{RNA-Seq pipelines}
+\label{s:rnaseq-pipeline}
 
 The RNA-Seq analysis pipelines that BioCloud supports are summarized in
 Figure~\ref{fig:rnaseq-pipeline}, where some of the tools are shared for
@@ -43,13 +44,13 @@ BioCloud.
 Both Cufflinks and DESeq2 require genomic location of reads so their analysis
 is prepended by the genome alignment step. Three aligners are supported:
 Tophat2 \cite{kim2013:tophat2}, HISAT2 \cite{kim2015:hisat}, and STAR
-\cite{dobin2013:star}. Though the underlying alignment algorithms are
-different, their alignment output in BAM file format can be used by the
-following expression inference tools interchangeably. The most discernible
-difference is computation time. Given the same execution environment on a same
-sequencing sample, Tophat2 takes a hundred times the computation time of STAR
-to complete the alignment. HISAT2 uses even slighter shorter time and
-significantly less memory than STAR.
+\cite{dobin2013:star}. Though the underlying alignment algorithms of these
+tools are different, all of their alignment output in BAM file format can be
+used interchangeably by the following expression inference tools. The most
+discernible difference is computation time. Given the same execution
+environment on a same sequencing sample, Tophat2 takes a hundred times the
+computation time of STAR to complete the alignment. HISAT2 uses even slighter
+shorter time and significantly less memory than STAR.
 
 Between the genome alignment and expression inference step, an optional step of
 removing PCR duplicated reads can be added, which can be done by Picard
@@ -75,28 +76,56 @@ of spliced genome alignment, transcript quantification can be fast and maintain
 roughly as accurate as the actual alignment. The idea of pseudoalignment is
 first proposed by Salifish \cite{patro2014:sailfish}, formalized and continued
 by kallisto \cite{bray2016:nearoptimal} and Salmon \cite{patro2015:accurate}.
+Though the differential expression analysis can utilize the existed count-based
+analysis tools by rounding the estimated abundance of all transcripts and
+summing them to gene level expression, their statistical models on read count
+distribution are different. Thus additional tools are developed to provide
+better integration with pesudoalignment results, including sleuth
+\cite{pimentel2016:differential} and SUPPA \cite{alamancos2015:leveraging}.
+Since pseudoalignment is a relatively new concept, only one pipeline is
+implemented on BioCloud. User can use kaillisto and sleuth, tools developed by
+the same lab, to do pseudoalignment differential expression analysis.
 
-% mention sleuth
-sleuth \cite{pimentel2016:differential}
-
-
-
-The analysis accepts raw sequence reads in
-FASTQ format.
-
-
-
-FastQC \cite{:fastqc}
+Raw sequence reads are first quality checked using FastQC \cite{:fastqc}.
+FastQC provide comprehensive visualization of the quality of sequencing
+experiment including per base quality plot, sequencing duplication rate plot,
+and adapter sequencing check. FastQC does not affect the content of sequences
+thus this step is optional.
 
 
 
 \section{DNA-Seq pipelines}
 
 The DNA-Seq analysis pipelines that BioCloud supports are summarized in
-Figure~\ref{fig:dnaseq-pipeline}.
+Figure~\ref{fig:dnaseq-pipeline}. Some of the tools overlap with RNA-Seq
+pipelines which have been already mentioned and described in
+Section~\ref{s:rnaseq-pipeline}. To find germline variants, sequence reads are
+first aligned to genome by the tool Burrows-Wheeler Alignment (BWA)
+\cite{li2009:fast} using its MEM local alignment algorithm.
 
 \input{figures/dnaseq_pipelines}
 
+For variant calling, BioCloud supports two callers: VarScan
+\cite{koboldt2012:varscan} and GATK
+\cite{vanderauwera2013:fastq,mckenna2010:genome}. To use with VarScan, the
+output alignment BAM file is processed by samtools' mpileup subcommand to
+compare the aligned reads with genome reference sequence. VarScan take the
+mpileup output and determine if it is a significant variant that beyond the
+given threshold for each base. To use with GATK, the best practice
+\cite{vanderauwera2013:fastq} made by \citeauthor{vanderauwera2013:fastq} is
+adopted. However, since our lab does not use GATK for variant calling as
+frequently as VarScan, the development to support GATK has been postponed.
+Currently existed GATK protocols in our lab are for GATK 1.x, which are
+outdated and are not compatible with the newer GATK 2.x.
+
+After variant calling, these variants are further annotated with gene
+information, SNP database records, animo acid and protein structure change
+predictions by ANNOVAR \cite{wang2010:annovar}. ANNOVAR collects widely used
+genome references such as refSeq and Ensembl, annotation databases such as 1000
+Genome, dbSNP, ClinVar and COSMIC, and prediction algorithms such as SIFT and
+PolyPhen-2. By relying on ANNOVAR, BioCloud don't need to look up each database
+and reference on its own, which also reduces the maintaining burden for keeping
+all database in use updated.
 
 
 \section{Website workflow}
