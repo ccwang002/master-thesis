@@ -6,40 +6,67 @@ pipelines that BioCloud supports are defined and explained. Then the design of
 BioCloud is explained by breaking down into two main parts: the website and the
 report generator. For the website, the components including account
 registration, data sources management, experiment design, and pipeline
-execution are described and their roles are illustracted in the website
-overview workflow. For the report generator, the workflow demonstrates how
-outputs are extracted, parsed, and rendered into pre-defined web-based report
-templates.
+execution are described and their roles are illustrated in the website overview
+workflow. For the report generator, the workflow is shown to demonstrate how
+outputs of each tool is extracted, parsed, and rendered into pre-defined
+web-based report templates.
 
 
 
 \section{RNA-Seq pipelines}
 
 The RNA-Seq analysis pipelines that BioCloud supports are summarized in
-Figure~\ref{fig:dnaseq-pipeline}.
+Figure~\ref{fig:rnaseq-pipeline}, where some of the tools are shared for
+different pipelines. The goal of RNA-Seq analysis is to infer differential
+expression of gene or transcripts across different conditions. Based on
+different assumptions of the distribution of gene and transcript expression,
+three different methods are used: Cufflinks, DESeq2, and kallisto, which yield
+FPKM based, count-based, and abundance-based expression value.
 
 \input{figures/rnaseq_pipelines}
+
+Cufflinks \cite{trapnell2010:transcript} and its differential analysis method
+Cuffdiff \cite{trapnell2013:differential} are best used for gene expression
+considering its isoforms, e.g., differential expression on transcript-level.
+The output of Cuffdiff can be further visualized using R package cummeRbund
+\cite{:cummerbund} from the same development team of Cufflinks. The unit of
+expression Cufflinks uses is reads per kilobase of exon per million reads
+mapped (FPKM). For DESeq2 \cite{love2014:moderated}, its model analyzes
+expression change on gene level using read counts, which cannot be applied to
+transcript level analysis. The unit of expression DESeq2 uses is normalized
+read counts. The read counts are computed by featureCounts
+\cite{liao2014:featurecounts}.  Another popular alternative for computing read
+counts is HTSeq \cite{anders2015:htseqa}. HTSeq generally acts the same as
+featureCoutns while having slower processing speed so it is not used in
+BioCloud.
+
+Both Cufflinks and DESeq2 require genomic location of reads so their analysis
+is prepended by the genome alignment step. Three aligners are supported:
+Tophat2 \cite{kim2013:tophat2}, HISAT2 \cite{kim2015:hisat}, and STAR
+\cite{dobin2013:star}. Though the underlying alignment algorithms are
+different, their alignment output in BAM file format can be used by the
+following expression inference tools interchangeably. The most discernible
+difference is computation time. Given the same execution environment on a same
+sequencing sample, Tophat2 takes a hundred times the computation time of STAR
+to complete the alignment. HISAT2 uses even slighter shorter time and
+significantly less memory than STAR.
+
+
+
+The analysis accepts raw sequence reads in
+FASTQ format.
+
 
 
 FastQC \cite{:fastqc}
 
-Tophat2 \cite{kim2013:tophat2}
 
-HISAT2 \cite{kim2015:hisat}
 
-STAR \cite{dobin2013:star}
+
+
 
 Picard \cite{:picard}
 
-Cufflinks \cite{trapnell2010:transcript}
-
-Cuffdiff \cite{trapnell2013:differential}
-
-cummeRbund \cite{:cummerbund}
-
-featureCounts \cite{liao2014:featurecounts}
-
-DESeq2 \cite{love2014:moderated}
 
 kallisto \cite{bray2016:nearoptimal}
 
