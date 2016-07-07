@@ -21,7 +21,7 @@ different pipelines. The goal of RNA-Seq analysis is to infer differential
 expression of gene or transcripts across different conditions. Based on
 different assumptions of the distribution of gene and transcript expression,
 three different methods are used: Cufflinks, DESeq2, and kallisto, which yield
-FPKM based, count-based, and abundance-based expression value.
+FPKM based, count-based, and abundance-based expression value respectively.
 
 \input{figures/rnaseq_pipelines}
 
@@ -51,6 +51,34 @@ sequencing sample, Tophat2 takes a hundred times the computation time of STAR
 to complete the alignment. HISAT2 uses even slighter shorter time and
 significantly less memory than STAR.
 
+Between the genome alignment and expression inference step, an optional step of
+removing PCR duplicated reads can be added, which can be done by Picard
+\cite{:picard} or Samtools \cite{li2009:sequence}. PCR duplication can occur in
+some NGS technology that requires PCR amplification when the given biological
+sample has low cDNA template diversity. Filtering out PCR duplication can rule
+out the expression bias made by PCR and reduce the computation time due to
+fewer reads. However, PCR duplication removal can introduce extra artifact
+since no information about PCR duplication can be obtained from the sequencing
+data.  That is, the data cannot tell whether a sequence read is PCR duplicated
+or not from the sequencing result. Currently the tools label a sequence read as
+PCR duplicated if its 5' and 3' genomic position is exactly identical to
+another read. Since this empirical rule clamps the dynamic range of gene and
+transcript expression, user can choose to skip the step if their NGS technology
+does not involve PCR or the PCR duplication effect is negligible.
+
+Contrary to aligning RNA-Seq reads to genome, the concept of pseudoalignment
+which does not require actual genome alignment has been brought up in the last
+two years. For each sequence read, pseudoalignment finds the most compatible
+transcript by sharing the most number of k-mers and use the abundance of k-mers
+to infer the estimated the expression of the transcript. By skipping the step
+of spliced genome alignment, transcript quantification can be fast and maintain
+roughly as accurate as the actual alignment. The idea of pseudoalignment is
+first proposed by Salifish \cite{patro2014:sailfish}, formalized and continued
+by kallisto \cite{bray2016:nearoptimal} and Salmon \cite{patro2015:accurate}.
+
+% mention sleuth
+sleuth \cite{pimentel2016:differential}
+
 
 
 The analysis accepts raw sequence reads in
@@ -60,17 +88,6 @@ FASTQ format.
 
 FastQC \cite{:fastqc}
 
-
-
-
-
-
-Picard \cite{:picard}
-
-
-kallisto \cite{bray2016:nearoptimal}
-
-sleuth \cite{pimentel2016:differential}
 
 
 \section{DNA-Seq pipelines}
