@@ -39,7 +39,7 @@ Material and Methods                                    25-35 pages
 
     BioCloud Website
 
-        Overall workflow
+        Overall workflow                                    5
 
         HMAC-based Email account registration
 
