@@ -216,9 +216,49 @@ explained in detail in the following subsections. The corresponding database
 design is shown in Figure~\ref{fig:biocloud-erd}.
 
 
-\subsection{Message authentication and checksum}
+\subsection{Data integrity check and authentication}
 
-Hash-based message authentication code (HMAC)
+Data integrity check and authentication are important topics in BioCloud
+website. Data sources need to be checked if the content of uploaded file is
+identical to that of user's local copy. During account activation, an unique
+activation link for this account is generated and sent to the email registered
+by the account. When the user clicks the link, BioCloud knows which account is
+activated and is certain that user actually posses this email address. For
+sharing report or result through given link, BioCloud verify the link is valid
+and retrieve the corresponding analysis report or result. Except for data
+integrity check, we have to make sure all the links mentioned above cannot be
+forged in a reasonable time given the current computing power. Therefore, in
+BioCloud several methods are used to make sure the data integrity and to
+validate authentication link and code.
+
+To check data integrity of upload data sources, a checksum per file using
+SHA2-256 hash algorithm can be passed during the data source discovery can be
+provided. Checksum summarizes the file into a fixed length of bits no matter of
+the file size. The checksum algorithm is sensitive to minor changes, so if a
+file have a few bytes corrupted during the network transmission, its checksum
+will be drastically different to the correct counterpart. Checksum is not file
+compression so it can only be used for data integrity check. The checksum of
+two different files can be identical, the incident being referred to as
+collision. The checksum algorithm in use, SHA2-256, generates 256bits long
+checksum.
+
+For authentication, hash-based message authentication code (HMAC) is used to
+create the authentication key. A HMAC string consists of two parts: the
+original message and a signature for the original message, which is generated
+with a secret key and a salt string in the current BioCloud implementation. The
+signature is a hash is generated based on the given secret key concatenating to
+salt string and the original message. Since the secret key is not disclosed to
+user, knowing the original message and the salt string cannot re-create the
+signature. The only way to forge the signature is through hash collision.
+However, by choosing cryptographic hash function such as SHA-1\footnote{
+    SHA-1 has not been considered collision resistant anymore, though it is
+    still suitable to be used in HMAC.
+} and SHA-2, they are collision resistant so it is hard to find a collision
+in feasible time. The salt key, public or private, extends the computation
+effort to crack the underlying secret key. By passing JSON as the original
+message, one can store complex data structure in one HMAC string.
+
+
 
 \subsection{HMAC-based account registration}
 
@@ -244,6 +284,13 @@ Hash-based message authentication code (HMAC)
 \section{Implementation}
 
 \subsection{Website}
+
+
+% database
+BioCloud code base communicates with the database via Object-relational Mapping
+(ORM), which continually checks with consistency between the database scheme
+and the mapped object representation in source code.
+
 
 \subsection{Deployment}
 
