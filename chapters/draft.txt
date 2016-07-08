@@ -3,15 +3,15 @@ The structure of the thesis:
 
 Introduction                                            10-15 pages
 
-    Motivation
+    Motivation                                              1
 
         Why we need an online analysis platform
 
-    Specific aims
+    Specific aims                                           1
 
         Propose the analysis platform and report generator
 
-    Next-generation sequencing
+    Next-generation sequencing                              2
 
     RNA sequencing application
 
@@ -22,47 +22,32 @@ Introduction                                            10-15 pages
 
 Literacture Review                                          9 pages
 
-    DNA Nexus
-        https://www.dnanexus.com/
+    Commercial online analysis platforms                    1
 
-    Partek Flow
-        http://www.partek.com/partekflow
+    Open sourced online analysis platform                   2
 
-    Galaxy
-        https://galaxyproject.org/
+    Pipeline execution tools                                3
 
-    WashU - Genome Modeling System
-        http://gmt.genome.wustl.edu/index.html
-
-    bcbio-nextgen
-        http://bcb.io/
-
-    Snakemake
-        https://bitbucket.org/snakemake/snakemake/wiki/Home
-
-    MultiQC
-        http://multiqc.info/
+    Analysis report generation                              2
 
 
 Material and Methods                                    25-35 pages
 
-    RNA-Seq pipelines
+    RNA-Seq pipelines                                       3
 
-    DNA-Seq pipelines
+    DNA-Seq pipelines                                       1
 
-    HMAC encryption
+    BioCloud Website
 
-        secure hash
-
-        hash and salt
-
-        HMAC
-
-    Website workflow
+        Overall workflow
 
         HMAC-based Email account registration
 
-        Experiment Design
+            secure hash
+            hash and salt
+            HMAC
+
+        Experiment design
 
             Reactive programming
 
