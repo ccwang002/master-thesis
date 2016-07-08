@@ -130,14 +130,91 @@ all database in use updated.
 
 
 \section{BioCloud Website}
+\label{s:biocloud-website}
+
+In this section, the architecture of BioCloud website is introduced and an
+overall picture is given. The workflow for generating summary report is
+explained in Section~\ref{s:report-generation}. Except for summary report
+generation, the mechanism of each component is explained per subsection,
+including a message authentication method for access control and account
+validation; experiment design for grouping samples in conditions and is reused
+for multiple analyses; analysis submission with parameter settings; job queue;
+and finally access control for report and results of an analysis.
+
+
 
 \subsection{Overview}
 
+Shown in Figure~\ref{fig:overview-arch}, BioCloud website can be viewed as
+three main parts: data storage, computing cluster, and web frontend. For normal
+user, they only interact with the web frontend and the architecture of BioCloud
+will remain unknown for them. However, in the BioCloud internal structures,
+these main parts can exist on different machines. So when large computing
+resource is needed, more machines can be added to the computer cluster without
+modifying the settings and source code of BioCloud. Data storage includes the
+database and local file system to store data sources, genome references and
+analysis results and reports. File systems like NFS can be used to allow access
+from multiple machines if BioCloud operates across one and more servers.
+
 \input{figures/overview_arch}
+
+We further breakdown this general BioCloud architecture into independently
+operating components and demonstrate how these components interact in a
+workflow of a user completing one analysis in
+Figure~\ref{fig:overview-workflow}. Before going down the workflow explanation,
+some terminologies BioCloud use should be clarified at first. A data source
+represent an file on file system. A sample can be a collection of multiple data
+sources. For example, a pair-end sequencing sample contains two data sources
+corresponding to the R1 (or forward strand) and the R2 (or reversed strand) of
+the sequencing result.
 
 \input{figures/overview_workflow}
 
+The journey of the analysis starts by adding new sequencing samples. These new
+samples are added under the user's data source directory. During the auto
+discovery, sample name, file type and other information of a source are guessed
+by BioCloud but allowed for user to override them. An additional checksum can
+be supplied for each source to confirm the data integrity. Data sources or
+samples come in group of biological experiments. For example, a experiment can
+have control group and test group with 4 samples each. In BioCloud we define
+experiment as well, which is a collection of samples. In an experiment, each
+selected sample is assigned a condition which can be used for grouping later-on
+stages such as differential expression analysis. An experiment can be used in
+one and more analyses such as trying different analysis parameters or using
+different analysis pipeline. Therefore, an experiment contains which samples to
+use and how they are grouped in terms of sample conditions.
+
+Finally, user can now submit an analysis by specifying a pre-defined experiment
+and tuning the parameters available for the chosen analysis. User is also
+required to select the genome reference used for the analysis, whose possible
+options include hg19 (UCSC), hg19 (Ensembl), and hg38 (NCBI). After configuring
+and submitting the analysis, the analysis creates its corresponding job and
+wait in the job queue for computing cluster to execute. Each analysis pipeline
+defines its own unique sequence of execution stages. During the job execution,
+the status of these stage reflect either a stage is successfully completed,
+failed, running, skipped by user configuration, or waiting for the previous
+stage to end. User can obtain the stage status through by monitoring jobs and
+the queue. The summary report generation is automatically appended at the end
+of each analysis, which is explained in Section~\ref{s:report-generation}. Once
+the analysis completes, user will be notified by email with link to the
+information page of the analysis.
+
+User can view the summary report by the given link online. Also, outputs of all
+executed tools are organized under the folder allocated for this analysis. User
+can find the link to download these outputs as well. The report can be shared
+to others without a BioCloud account by simply sharing the link. The link to
+results and report can be set as private access or have a new URL if user does
+not want to disclose their report and result anymore. By pasting the link to
+results on genome browser like Ensembl and UCSC, user can immediately view
+their results with other genome annotations without uploading full output file
+to the genome browser.
+
 \input{figures/biocloud_erd}
+
+So far all major components of BioCloud have been covered and they will be
+explained in detail in the following subsections. The corresponding database
+design is shown in Figure~\ref{fig:biocloud-erd}.
+
 
 \subsection{Message authentication and checksum}
 
@@ -145,7 +222,7 @@ Hash-based message authentication code (HMAC)
 
 \subsection{HMAC-based account registration}
 
-\subsection{Experiement design}
+\subsection{Experiment design}
 
 \subsection{Genome reference}
 
@@ -158,6 +235,7 @@ Hash-based message authentication code (HMAC)
 
 
 \section{Report generation}
+\label{s:report-generation}
 
 \subsection{BCReport: result processing framework}
 

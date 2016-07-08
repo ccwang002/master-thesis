@@ -1,6 +1,29 @@
 \chapter{Discussions}
 \label{c:discussion}
 
+\section{Data source upload}
+
+Surprisingly, BioCloud does no offer the ability to upload data sources from
+local to BioCloud's data storage since the uploading is extremely hard to
+implement correctly and few people use uploading function anyway. Uploading a
+pair-end sample of 22M 63 base pair long reads takes about 3.5 hours for normal
+ADSL connection or 20 minutes for education network to complete\footnote{The
+upload speed is given 1MB/s for normal ADSL connection and 10MB/s for education
+environment; The pair-end sample of 22M reads with 63 base pair consumes total
+12 GiB disk space}. Upload a dataset having 10 samples may take days for users
+of low connection speed. Though a lot of HTTP-based uploading frameworks exist,
+they are only suitable for uploading few hundreds of MBs at a time. Moreover,
+most users may not upload any data sources in their lifetime since their raw
+sequencing data exist on the server in the very first place. BioCloud supports
+reading soft-linked data sources so putting data sources under BioCloud data
+storage structure does not necessarily increase the total disk usage. When data
+source transferring is needed, one can use tools such as rsync, sftp and ftp to
+help transfer large files rather than using HTTP-based solutions. After data
+sources appear in the user's data source directory, they can be discovered and
+managed by BioCloud.
+
+
+
 \section{Pipeline extension}
 
 \begin{lstlisting}
