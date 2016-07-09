@@ -127,21 +127,21 @@ pipeline analysis.
 fc_date: '070113'
 fc_name: control_experiment
 upload:
-  dir: final
+    dir: final
 details:
-  - files: [
-        /full/path/to/control_1.fastq,
-        /full/path/to/control_2.fastq
-    ]
-    description: 'Control_rep1'
-    genome_build: GRCh37
-    analysis: RNA-seq
-    algorithm:
-         aligner: tophat2
-         quality_format: Standard
-         trim_reads: read_through
-         adapters: [truseq, polya]
-         strandedness: unstranded
+    - files: [
+          /full/path/to/control_1.fastq,
+          /full/path/to/control_2.fastq
+      ]
+      description: 'Control_rep1'
+      genome_build: GRCh37
+      analysis: RNA-seq
+      algorithm:
+           aligner: tophat2
+           quality_format: Standard
+           trim_reads: read_through
+           adapters: [truseq, polya]
+           strandedness: unstranded
 \end{lstlisting}
 
 Snakemake \cite{koster2012:snakemakea} is a low-level pipeline execution tool

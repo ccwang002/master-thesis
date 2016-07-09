@@ -447,19 +447,52 @@ completion via email.
 
 % what is in the report HMAC token
 % - email, auth number, report ID
-% set the report link as public or private
-% change the report HMAC token
+% no login for this link
+% set the report link as public or private change the report HMAC token
 % canonical link to the report
-To enable report and result sharing, HMAC token is
+To enable report and result sharing, HMAC token is used to control the access.
+The access URL pattern for a report and the result file of the same analysis is
+shown in the following, which share the same authentication key \texttt{<auth
+key>}. Access to the report and result file via this URL does not require the
+view to be logged in on BioCloud or possess.
 
-\begin{verbatim}
-https://<biocloud domain>/access/<report auth key>/report/
-https://<biocloud domain>/access/<report auth key>/result/path/to/file
-\end{verbatim}
+\begin{CVerbatim}[fontsize=\small]
+https://<biocloud domain>/access/<auth key>/report/
+https://<biocloud domain>/access/<auth key>/result/path/to/file
+\end{CVerbatim}
 
-\begin{verbatim}
+In the key, it contains the user's email, a customizable authentication number,
+and the report ID. The user's email is used to prevent user on BioCloud from
+forging access to other user's report easily. Authentication number is decided
+per user which can be modified in the user profile setting. If the number is
+changed, all authentication keys of this user will be updated and invalidate the
+previous ones. The number is useful when user accidentally disclose one's
+report or result link in public or user finishes connecting the data with
+external genome browser. Finally, the report ID is stored in the authentication
+key so BioCloud understands which report to retrieve. Aside from the key, user
+can control to let individual report to be public or private.
+
+When the BioCloud server receives a request for a report or a result file, it
+first validates the authentication key and extract the report ID. If the key is
+invalid, a HTTP 404 error of invalid access is raised. Upon any check below
+fails, the same HTTP 404 error is raised. If the key is valid, it further
+checks if the current authentication number of user match the one extracted
+from the key. Then, it checks if the requested report is public or private. For
+private report, viewer must be already logged in and must be the owner of the
+report. After all above checks are passed, BioCloud serves the report content
+or the result file specified by the rest of the URL.
+
+Since the report and result link can be changed frequently, BioCloud also
+provide a canonical access link for report, which redirect user to the
+currently valid report URL, shown in the following. Only the logged in owner of
+the report can use the canonical link, so it cannot be shared with others.
+
+\begin{CVerbatim}[fontsize=\small]
 https://<biocloud domain>/access/report/<report ID>/
-\end{verbatim}
+\end{CVerbatim}
+
+
+
 
 \section{Report generation}
 \label{s:report-generation}

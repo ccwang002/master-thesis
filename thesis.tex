@@ -37,6 +37,10 @@
 
 % For sourcecode
 \usepackage{listings}
+\usepackage{fancyvrb}
+\newenvironment{CVerbatim}
+    {\singlespacing\center\BVerbatim}
+    {\endBVerbatim\endcenter}
 
 % Using the tex-text mapping for ligatures etc.
 \defaultfontfeatures{Mapping=tex-text}
@@ -65,7 +69,7 @@
 \lstset{
     language=Python,
     frame=single,
-    basicstyle=\ttfamily,
+    basicstyle=\ttfamily\small,
     lineskip={-0.35em},
     showstringspaces=false,
     aboveskip=2em, %\bigskipamount,
