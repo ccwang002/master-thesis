@@ -404,22 +404,62 @@ display rendering is also handled by reactive programming in web frontend.
 
 \subsection{Job queue management}
 
-As a new analysis is submitted by user, it first initiates extra settings to
-describe the job execution detail, e.g., stage status, and allocate folders to
-store the result and report of the analysis.
-
 % describe what happens when a new analysis is submitted
 % - analysis detail created (stage)
 % - report and result directory created
 % - mark the analysis as queueing
 
+As a new analysis is submitted by user, it first initiates extra settings to
+describe the job execution detail, e.g., stage status, and allocate folders to
+store the result and report of the analysis. A job execution detail group an
+analysis pipeline into execution stages, whose status can be waiting, running,
+successful, failed, or skipped. Take the example RNA-Seq analysis pipeline
+shown in Figure~\ref{fig:biocloud-erd}. Its job execution detail is stored in
+table \texttt{rna\_seq\_rnaseqexedetail} and defines four stages: qc,
+alignment, cufflinks, and cuffdiff. If user opts out quality
+check upon setting the analysis, it won't execute FastQC and the qc stage will
+be marked as skipped. Stage status will be shown when user query about the
+current analysis execution status. Additionally, new analysis will create a new
+report record with an unique ID. This ID may differ with the analysis ID since
+same analysis ID may appear in different types of analysis pipelines. Folder
+for result and report of the analysis will be created based on the report ID.
+Finally, the analysis execution status is marked as queueing and wait for a
+work of the computer cluster to pick up.
+
 % computer cluster job queue and worker
 % - get the analysis ID
+% - one machine only have one worker
+
+Computer cluster runs its job queue and job workers in separate processes. The
+queue monitor continuously watches if a new job, e.g. a new analysis, is added
+to the job queue. When a new job is added, it pass down to one of its available
+worker to execute. The job queue BioCloud uses guarantees at least once
+delivery. The job worker receives a new job with the analysis ID and obtains
+all related information by querying the database with this analysis ID. Here
+the analysis ID is used for analysis of different pipelines won't share the
+task they run so no ID collision issue. During the execution, work updates the
+stage status in the way previously mentioned. When the analysis is completed
+and the summary report is generated, the worker will notify the user about the
+completion via email.
 
 
 \subsection{Report and result access control}
 
+% what is in the report HMAC token
+% - email, auth number, report ID
+% set the report link as public or private
+% change the report HMAC token
+% canonical link to the report
+To enable report and result sharing, HMAC token is
 
+\begin{verbatim}
+https://<biocloud domain>/access/<report auth key>/report/
+https://<biocloud domain>/access/<report auth key>/result/path/to/file
+\end{verbatim}
+
+\begin{verbatim}
+https://<biocloud domain>/access/report/<report ID>/
+\end{verbatim}
 
 \section{Report generation}
 \label{s:report-generation}
@@ -438,6 +478,8 @@ BioCloud code base communicates with the database via Object-relational Mapping
 (ORM), which continually checks with consistency between the database scheme
 and the mapped object representation in source code.
 
+% vue.js
+\input{figures/vuejs_mvvm}
 
 \subsection{Deployment}
 
