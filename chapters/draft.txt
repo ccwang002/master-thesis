@@ -41,11 +41,7 @@ Material and Methods                                    25-35 pages
 
         Overall workflow                                    5
 
-        HMAC-based Email account registration
-
-            secure hash
-            hash and salt
-            HMAC
+        Account registration
 
         Experiment design
 
@@ -117,6 +113,8 @@ Results                                                 10-15 pages
         email notification
 
     Report and result access
+
+    Admin interface
 
     RNA-Seq analysis result
 

@@ -251,18 +251,102 @@ salt string and the original message. Since the secret key is not disclosed to
 user, knowing the original message and the salt string cannot re-create the
 signature. The only way to forge the signature is through hash collision.
 However, by choosing cryptographic hash function such as SHA-1\footnote{
-    SHA-1 has not been considered collision resistant anymore, though it is
-    still suitable to be used in HMAC.
+    SHA-1 is not considered collision resistant anymore, though it is still
+    suitable to be used as the hash function of HMAC.
 } and SHA-2, they are collision resistant so it is hard to find a collision
 in feasible time. The salt key, public or private, extends the computation
 effort to crack the underlying secret key. By passing JSON as the original
 message, one can store complex data structure in one HMAC string.
 
 
+\subsection{User account management}
 
-\subsection{HMAC-based account registration}
+To let individuals manage their own data sources, analyses and results,
+BioCloud builds its user account management based on Django's implementation.
+Security is one of the top concern for BioCloud, we rely on the password
+management made by Django which is secure and long tested in the public.
+BioCloud requires email and password for registration.
+
+Since it sends out email notification to users, the email address is first
+verified by sending an activation link upon registration. The link contains a
+HMAC token consisting of user's email address and registration timestamp. The
+timestamp can verify if the activation link has been expired. The activation
+link is generated on-the-go when a user requests. Compared to alternative
+solution to store activation links in the database, our approach does little
+performance impact on database system. A user is marked as verified once the
+account activation is complete.
+
+To better maintain the BioCloud, special account types, staff and superuser
+account, can access to the BioCloud admin interface and view and modify all
+users' data and activities. Superuser doesn't need to permission to do all
+operations in the admin interface, whereas staff can only performance a subset
+of granted operations. The account type can be adjusted by
+\texttt{is\_superuser} and \texttt{is\_staff} columns of
+\texttt{users\_emailuser} table, as shown in Figure~\ref{fig:biocloud-erd}.
+User's data sources and experiments, and analyses are referred back to its user
+record via \texttt{owner\_id} column on their respective table.
+
+
+\subsection{Data source management}
+
+Once the account is initiated, BioCloud create a folder for user to store
+data sources based on the user ID. User ID is auto generated and unique. User
+can either move or link their data sources under this folder.
+
+User then add these data sources using ``data source discovery'' function of
+BioCloud. It scans user's data source folder and filter newly added sources
+with the user's database records. Sample name and type of the data source is
+guessed by BioCloud. After the discovery, user can override the guessed values
+and add checksum for each discovered files. User can later change these
+property after the data sources are added as well.
+
+The representation of data source in the database is a straight-forward
+mapping, as table \texttt{data\_sources\_datasource} shown in
+Figure~\ref{fig:biocloud-erd}. However, there are some metadata that are only
+required for certain file types. For example, only FASTA and FASTQ files can be
+pair-end, e.g., R1 and R2. Metadata is stored as a column of JSON type.
+Metadata can be a hierarchical data structure in one column and database won't
+complain if some substructure of a metadata record cannot be found in another.
+
 
 \subsection{Experiment design}
+
+Experiment collects a group of data sources and labels them with conditions. An
+example of experiment design is shown in Table~\ref{tab:experiment-example}. In
+this experiment, four samples, A, B, C and D, from user ID 1 with pair-end
+FASTQ files, are selected. The former two samples are of condition control,
+while rest of the samples are of condition testing.
+
+\input{tables/experiment_example}
+
+BioCloud creates an interactive frontend for user to filter and select the data
+sources they want to include in this experiment. Since a simple may have
+multiple data sources, by default BioCloud guesses using the sample information
+during discovery. However, user can override the sample name during experiment
+design. For example, user can create a new sample called AC and include all
+four data sources originally of sample A and C. After finalizing the samples,
+user defines the available conditions for this experiment and assign sample to
+them.
+
+To sum up, there are three steps to design an experiment: select data sources,
+label sample name on data sources, label condition on samples. However, user
+can freely go back and modify result of the previous stage. BioCloud will try
+to re-use all user given information maximally as possible so user don't need
+to re-fill all the information again. For example, if the condition ``Control''
+is misspelled as ``Contorl'', when updating the condition name, all samples of
+the condition will remain and their condition names will be updated
+simultaneously. BioCloud achieves this feature by binding condition and sample
+name only on data sources' metadata, and user updates directly to the metadata.
+When a metadata is changed, BioCloud decides which part of the experiment
+design is changed and re-renders all the affected output. This is the notion of
+web frontend development called reactive programming.
+
+User can give experiment name and description to help manage all defined
+experiments. Description is written in Markdown syntax \cite{:commonmark},
+which is a lightweight markup language that convert plain texts into styled
+document. Users are encouraged to put relevant links and references regarding
+to the experiment in its description.
+
 
 \subsection{Genome reference}
 
