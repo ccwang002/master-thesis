@@ -95,6 +95,7 @@ thus this step is optional.
 
 
 \section{DNA-Seq pipelines}
+\label{s:dnaseq-pipeline}
 
 The DNA-Seq analysis pipelines that BioCloud supports are summarized in
 Figure~\ref{fig:dnaseq-pipeline}. Some of the tools overlap with RNA-Seq
@@ -345,14 +346,76 @@ User can give experiment name and description to help manage all defined
 experiments. Description is written in Markdown syntax \cite{:commonmark},
 which is a lightweight markup language that convert plain texts into styled
 document. Users are encouraged to put relevant links and references regarding
-to the experiment in its description.
+to the experiment in its description. Once an experiment is created, user will
+no be able to modify the condition and sample design. The fixation of
+experiment design ensures all analyses depending on it will have the same
+setting of conditions and samples.
 
 
 \subsection{Genome reference}
 
+Genome reference store all related references and annotations for a given
+version of genome reference. For human, there are hg38 (UCSC), hg38 (Ensembl
+Release v84), and hg19 (UCSC); for mouse, there are mm10 (UCSC) and mm10
+(Ensembl v84). All tools required index files and the annotations should be
+available for every supported genome reference. For example, if one decides to
+support hg38 (UCSC) genome reference, all aligners' genome index including
+HISAT2, STAR, Bowtie and BWA needs to be generated; dbSNP needs to be version
+141 and latter to support hg38 genome reference. It should be noted that
+primary assembly of genome won't change across patch releases. So primary
+assembly sequence of GRCh38 and GRCh38.p5 remain the same.
+
+Genome reference are managed via the table
+\texttt{analyses\_genomereference} using BioCloud admin interface. By providing
+the release data of the genome reference, BioCloud can sort the reference in
+chronological order. If a newer genome reference comes out, one can specify the
+upgrade path in the column \texttt{newer\_reference\_id} so downstream analysis
+tools can provide a better hint to user about the new genome reference release.
+Genome references are all stored under a same folder specified through the
+BioCloud's setting file. Its internal folder structure resembles that of
+iGenome \cite{:igenomes}.
+
+
 \subsection{Analysis submission}
 
+A new submission analysis requires selection of analysis pipeline type and
+experiment design. First user selects one of the analysis pipelines described
+in Section~\ref{s:rnaseq-pipeline} and \ref{s:dnaseq-pipeline}. After an
+analysis is chosen, the webpage is directed to the corresponding form page to
+adjust the analysis parameters. There are some common parameters for all
+analyses pipelines, including name, description, genome reference and
+experiment in use. Like the description of experiment, description of analysis
+is written in Markdown to provide basic markups like hyperlinks and bullet
+lists. When choosing the experiment, its condition and sample design is shown
+dynamically.
+
+Parameters of an analysis pipeline include the choose of tools of equivalent
+function and parameters passing to the chosen tools. As shown in the
+Figure~\ref{fig:biocloud-erd}, a RNA-Seq pipeline analysis that uses Cufflinks
+for differential expression analysis. All of the possible parameters are
+stored as separate columns. However, only a subset of the parameters will be
+used, mainly depending on the genome aligner user chooses (user's choice is stored
+at \texttt{genome\_aligner} column). To avoid user confusion, the form that
+renders the analysis parameters will dynamically display the corresponding
+parameter set given user's choices. For example, if user chooses HISAT2 as the
+genome aligner, all options for Tophat2 and STAR will be hidden. The dynamic
+display rendering is also handled by reactive programming in web frontend.
+
+
 \subsection{Job queue management}
+
+As a new analysis is submitted by user, it first initiates extra settings to
+describe the job execution detail, e.g., stage status, and allocate folders to
+store the result and report of the analysis.
+
+% describe what happens when a new analysis is submitted
+% - analysis detail created (stage)
+% - report and result directory created
+% - mark the analysis as queueing
+
+% computer cluster job queue and worker
+% - get the analysis ID
+
 
 \subsection{Report and result access control}
 
