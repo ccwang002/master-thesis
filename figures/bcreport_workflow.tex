@@ -1,8 +1,14 @@
 \begin{figure}[!p]
 \centering
 \includegraphics[width=1\textwidth]{images/bcreport_workflow}
-\caption[BioCloud report generation workflow]{
-    BioCloud report generation workflow.
+\caption[BioCloud report (BCReport) generation workflow]{
+    BioCloud report generation workflow. A standalone program, BCReport,
+    hanldes the report generation process. BCReport reads the analysis info in
+    YAML format and the result folders to understande how the analysis was
+    executed. Then it parse the result folders using the parser for the
+    corresponding analysis pipeline to extract the important information used
+    in summary report. Finally, summary report is rendered based on the
+    pre-defined ptemplates.
 }
 \label{fig:bcreport-workflow}
 \end{figure}

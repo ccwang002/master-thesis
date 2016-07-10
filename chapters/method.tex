@@ -447,30 +447,32 @@ completion via email.
 
 % what is in the report HMAC token
 % - email, auth number, report ID
-% no login for this link
-% set the report link as public or private change the report HMAC token
-% canonical link to the report
+% no login for this link set the report link as public or private change the
+% report HMAC token canonical link to the report
 To enable report and result sharing, HMAC token is used to control the access.
-The access URL pattern for a report and the result file of the same analysis is
-shown in the following, which share the same authentication key \texttt{<auth
-key>}. Access to the report and result file via this URL does not require the
-view to be logged in on BioCloud or possess.
+The access URL patterns for a report and the result file of the same analysis
+are shown in the following, which share the same authentication key
+\texttt{<auth key>}:
 
 \begin{CVerbatim}[fontsize=\small]
 https://<biocloud domain>/access/<auth key>/report/
 https://<biocloud domain>/access/<auth key>/result/path/to/file
 \end{CVerbatim}
 
-In the key, it contains the user's email, a customizable authentication number,
-and the report ID. The user's email is used to prevent user on BioCloud from
-forging access to other user's report easily. Authentication number is decided
-per user which can be modified in the user profile setting. If the number is
-changed, all authentication keys of this user will be updated and invalidate the
-previous ones. The number is useful when user accidentally disclose one's
-report or result link in public or user finishes connecting the data with
-external genome browser. Finally, the report ID is stored in the authentication
-key so BioCloud understands which report to retrieve. Aside from the key, user
-can control to let individual report to be public or private.
+\vspace{-1em}\noindent
+Access to the report and result files via these URLs does not require the
+viewer to be logged in on BioCloud or to be the owner of the analysis.
+
+Authentication key contains the user's email, a customizable authentication
+number, and the report ID. The user's email is used to prevent user on BioCloud
+from forging access to other user's report easily. Authentication number is
+decided per user which can be modified in the user profile setting. If the
+number is changed, all authentication keys of this user will be updated and
+invalidate the previous ones. The number is useful when user accidentally
+disclose one's report or result link in public or user finishes connecting the
+data with external genome browser. Finally, the report ID is stored in the
+authentication key so BioCloud understands which report to retrieve. Aside from
+the key, user can control to let individual report to be public or private.
 
 When the BioCloud server receives a request for a report or a result file, it
 first validates the authentication key and extract the report ID. If the key is
@@ -483,32 +485,63 @@ report. After all above checks are passed, BioCloud serves the report content
 or the result file specified by the rest of the URL.
 
 Since the report and result link can be changed frequently, BioCloud also
-provide a canonical access link for report, which redirect user to the
-currently valid report URL, shown in the following. Only the logged in owner of
-the report can use the canonical link, so it cannot be shared with others.
+provide a canonical access link for report, which redirects user to the
+currently valid report URL, shown in the following:
 
 \begin{CVerbatim}[fontsize=\small]
 https://<biocloud domain>/access/report/<report ID>/
 \end{CVerbatim}
 
+\vspace{-1em}\noindent
+Only the logged in owner of the report can use the canonical link, so it cannot
+be shared with others.
 
 
 
 \section{Report generation}
 \label{s:report-generation}
 
-\subsection{Overview}
+Summary report shown in Figure~\ref{fig:overview-workflow} is generated after
+an anlysis job finishes. A more detailed report generation workflow is shown in
+Figure~\ref{fig:bcreport-workflow}. A standalone program, BCReport, that parses
+a set of results of NGS analysis tools and generates the summary report. By
+specifying the structure of data sources, samples and conditions, BCReport can
+provide summary report for any results which need not to be generated on
+BioCloud. The standalone mode of BCReport extends the ability to parse a more
+general set of NGS results. Moreover, for tools that BCReport does not support,
+developers can extend the currently available report templates and result
+parsers to build their own analysis pipelines.
 
 \input{figures/bcreport_workflow}
 
+
+\subsection{Analysis result strucntion and information}
+
+A result folder structure readable for BCReport is shown in
+Figure~\ref{fig:bcreport-workflow}, where each tool allocates its own result
+folder. The folder name for the result of a tool can be flexible. For example,
+for folder that contains result of STAR, its name can be \texttt{STAR} or
+\texttt{2\_STAR}. Numerical prefix can help file system sort the result folders
+to reflect their execution order. Inside the result folder of a tool, there are
+four main types of grouping structure: by data sources, by samples, by
+conditions and no grouping structure at all. The grouping structure depends on
+the execution type of tool. For example, FASTQ runs quality check per data
+source, thus its results are grouped by data sources; STAR runs alignment per
+sample; Cuffdiff runs differential expression analysis and outputs the result
+per condition; Cuffmerge combines transcript annotations of all samples and
+produces one output for an analysis. BCReport's tool parser understands how
+each tool is executed and will parse its result based on the corresponding type
+of grouping structure.
+
+% result folder strucutre
+% analysis inform in YAML
+%   data source, sample, conditions, parameters
+YAML \cite{:yaml}
+
+
 \subsection{BCReport: result processing framework}
 
-
-BCReport: result processing framework
-
-    job info YAML
-
-HTML template rendering
+% HTML template rendering
 
 
 
