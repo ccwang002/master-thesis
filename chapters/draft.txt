@@ -5,11 +5,7 @@ Introduction                                            10-15 pages
 
     Motivation                                              1
 
-        Why we need an online analysis platform
-
     Specific aims                                           1
-
-        Propose the analysis platform and report generator
 
     Next-generation sequencing                              2
 
@@ -37,29 +33,15 @@ Material and Methods                                    25-35 pages
 
     DNA-Seq pipelines                                       1
 
-    BioCloud Website
+    BioCloud Website                                        12
 
-        Overall workflow                                    5
-
+        Overall workflow
         Account registration
-
         Experiment design
-
-            Reactive programming
-
         Genome reference
-
         Analysis submission
-
         Job queue management
-
-            Email notification
-
         Report and result access control
-
-            HMAC-based token
-
-            public access
 
     Report generation
 
