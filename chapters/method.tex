@@ -36,7 +36,7 @@ mapped (FPKM). For DESeq2 \cite{love2014:moderated}, its model analyzes
 expression change on gene level using read counts, which cannot be applied to
 transcript level analysis. The unit of expression DESeq2 uses is normalized
 read counts. The read counts are computed by featureCounts
-\cite{liao2014:featurecounts}.  Another popular alternative for computing read
+\cite{liao2014:featurecounts}. Another popular alternative for computing read
 counts is HTSeq \cite{anders2015:htseqa}. HTSeq generally acts the same as
 featureCoutns while having slower processing speed so it is not used in
 BioCloud.
@@ -502,11 +502,11 @@ be shared with others.
 \label{s:report-generation}
 
 Summary report shown in Figure~\ref{fig:overview-workflow} is generated after
-an anlysis job finishes. A more detailed report generation workflow is shown in
-Figure~\ref{fig:bcreport-workflow}. A standalone program, BCReport, that parses
-a set of results of NGS analysis tools and generates the summary report. By
-specifying the structure of data sources, samples and conditions, BCReport can
-provide summary report for any results which need not to be generated on
+an analysis job finishes. A more detailed report generation workflow is shown
+in Figure~\ref{fig:bcreport-workflow}. A standalone program, BCReport, that
+parses a set of results of NGS analysis tools and generates the summary report.
+By specifying the structure of data sources, samples and conditions, BCReport
+can provide summary report for any results which need not to be generated on
 BioCloud. The standalone mode of BCReport extends the ability to parse a more
 general set of NGS results. Moreover, for tools that BCReport does not support,
 developers can extend the currently available report templates and result
@@ -533,16 +533,52 @@ produces one output for an analysis. BCReport's tool parser understands how
 each tool is executed and will parse its result based on the corresponding type
 of grouping structure.
 
-% result folder strucutre
+% result folder structure
 % analysis inform in YAML
 %   data source, sample, conditions, parameters
-YAML \cite{:yaml}
+
+To let BCReport understand how the analysis was executed, analysis information
+including data sources, samples, conditions, and tool parameters are stored in
+an analysis information file \texttt{analysis\_info.yaml} in YAML \cite{:yaml}
+format. As shown in the Figure~\ref{fig:bcreport-workflow}, there are three
+sections of the analysis information: conditions, data sources, and parameters.
+In conditions section, grouping of samples and conditions are specified. In
+data sources section, the detail of all data sources in use is given. In
+parameters section, tool parameters specified during analysis submission are
+recorded. Additional analysis information will be places in this section as
+well.
+
+As long as the analysis results are organized in the folder structure stated
+above and an analysis information YAML file is provides, BCReport can recognize
+the analysis and provide the summary report. However, when BCReport is used
+with BioCloud, it can also retrieve the raw data access links from BioCloud and
+display them in the summary report.
+
 
 
 \subsection{BCReport: result processing framework}
 
 % HTML template rendering
+When the BCReport is called, it first parses the analysis results based on the
+analysis information. An additional parameter is passed to instruct BCReport
+which analysis pipeline parser is used to extract the given analysis result. An
+analysis pipeline parser contains the logics to extract the result and the
+corresponding templates to display. Since an analysis pipeline may have
+different tool execution branches, the template rendering contains conditional
+blocks so only chosen tools will be processed. For example, for a analysis
+based on Cufflinks RNA-Seq pipeline described in
+Figure~\ref{fig:rnaseq-pipeline}, there are three possible genome aligners.
+Based on the analysis result shown in Figure~\ref{fig:bcreport-workflow}, STAR
+is used for genome alignment. Therefore, result sections about Tophat2 and
+HISAT2 will be skipped and not shown in the summary report. However, to prevent
+unnecessary complexity in the analysis pipeline design, users are not
+encouraged to create too many execution branches in a pipeline. When used with
+BioCloud, BioCloud set a special flag of BCReport to display the URLs to
+original data files. These URLs will contain the valid access token.
 
+All tools defined in current BioCloud analysis pipelines can be re-used by
+users to design new custom analysis pipeline. The extension on existed pipeline
+is discussed in Section~\ref{s:pipeline-extension}.
 
 
 \section{Implementation}
