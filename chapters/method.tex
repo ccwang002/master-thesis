@@ -555,7 +555,6 @@ with BioCloud, it can also retrieve the raw data access links from BioCloud and
 display them in the summary report.
 
 
-
 \subsection{BCReport: result processing framework}
 
 % HTML template rendering
@@ -577,39 +576,103 @@ BioCloud, BioCloud set a special flag of BCReport to display the URLs to
 original data files. These URLs will contain the valid access token.
 
 All tools defined in current BioCloud analysis pipelines can be re-used by
-users to design new custom analysis pipeline. The extension on existed pipeline
-is discussed in Section~\ref{s:pipeline-extension}.
+users to design new custom analysis pipeline. Pipelines of BCReport are
+designed to be inheritable and reusable. The extension on existed pipeline is
+discussed in Section~\ref{s:pipeline-extension}.
+
 
 
 \section{Implementation}
 
+\input{figures/overview_arch_tool}
+
+An overview of BioCloud implementation and its tool dependencies is shown in
+Figure~\ref{fig:overview-arch-tool}. BioCloud implementation is described by
+breaking down into website, deployment and report three main parts in the
+following sections.
+
+
 \subsection{Website}
 
+% Standard website:
+%   Django
+%   PostgreSQL
+% Frontend:
+%   Django-Q
+%   Vue.js
+%   Bootstrap
+% Computation cluster
+%   Django-Q
+BioCloud website runs on Python 3.5 with web framework Django 1.9. For database
+system, BioCloud requires PostgreSQL 9.4 or 9.5. BioCloud code base
+communicates with the database via Django Object-relational Mapping (ORM),
+which continually checks with consistency between the database scheme and the
+mapped object representation in source code. All data in the database can be
+correctly migrated to match the representation of the new version of BioCloud
+using Django ORM.
 
-% Django
-% Django-Q
-% Vue.js
+For website frontend, Boostrap 3 and jQuery 2 are used for basic HTML
+rendering and user interaction. Markdown fields such as description of
+experiment and analysis are implemented by Javascript-based editor, SimpleMDE.
+In database these fields are recorded as-is and treated as normal text
+data type. For more complicated user interaction, notion of reactive
+programming is adopted and implemented based on Vue.js. In Vue, the html
+elements (DOM) are reactive based on its MVVM structure, as shown in
+Figure~\ref{fig:vuejs-mvvm}. DOMs are bounded to data in mutual way. When data
+are updated, Vue finds the DOMs that render the affected data and render
+them. Some DOMs can be defined to modify its underlying data, which are shared
+and sync in the same Vue app.
 
-
-% database
-BioCloud code base communicates with the database via Object-relational Mapping
-(ORM), which continually checks with consistency between the database scheme
-and the mapped object representation in source code.
-
-% vue.js
 \input{figures/vuejs_mvvm}
+
+For computing cluster, the job queue is implemented by Django-Q. Compared to
+the more popular alternative, celery, it can depend only on database and Django
+ORM as its job queue and message broker. It can be re-configured to rely on
+more efficient brokers and queues including Redis, IronMQ, and Amazon SQS.
+Using database is sufficient for the current workload of BioCloud. BioCloud
+does not rely on information stored in the Django-Q's job queue. However, those
+information can be found at the BioCloud backend so administrator can manually
+control the execution of job queue.
+
 
 \subsection{Deployment}
 
+% Ubuntu 16 OSX
+% Let's Encrypt
 % nginx systemd
 % nginx x-Accel and Django auth integration
 
+BioCloud public server is running at \url{https://biocloud.cgm.ntu.edu.tw/} on
+operating system Ubuntu 16.04 LTS and web server nginx 1.10. BioCloud's Django
+application, e.g. accepting web requests and connections, are managed by uWSGI
+server and then reversely proxied to nginx. Static files are hosted directly by
+nginx for efficiency. For static files that require Django authentication,
+nginx's X-accel HTTP request header is added to allow the internal routing.
+Thus those files will be first checked by the web application. If the viewer
+has valid access permission, Django set the header and redirect the request to
+nginx, who serves the actual content of the request file. Processes of uWSGI
+and Django-Q are managed by systemd. BioCloud can also run in the development
+mode on OSX, where all functionalities of BioCloud can be tested and executed.
+Mail sending server is rallied by FastMail's SMTP server. SSL certificate that
+enables HTTPS connection is verified via ACME protocol and issued by Let's
+Encrypt. Each newly issued SSL certificate is valid for 90 days and the renewal
+is automated by systemd.
+
+
 \subsection{Report}
 
-% YAML
 % Jinja2
 % skbio
 % Vue.js
 % plotting libraries
+% Bootstrap
+% highcharts.js
+
+BCReport runs on Python 3.5 and uses the Anaconda Python distribution. Jinja2
+template language as the HTML template of summary report. For parsing the
+analysis result, pandas is used for spreadsheet-like data structure and
+scikit-bio is used for NGS oriented file formats. For user interaction in the
+report, jQuery 2 and Vue.js are used in the same way as BioCloud website. For
+interactive figures, highcharts.js plotting library is used.
 
 % vim: set textwidth=79:
