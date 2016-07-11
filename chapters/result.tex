@@ -10,18 +10,35 @@
 
 Two RNA-Seq datasets and one DNA-Seq datasets from Gene Expression Omnibus
 (GEO) were used for the demonstration of BioCloud. GSE52194
-\cite{eswaran2012:transcriptomic} is a breast cancer transcriptome
-
-Table~\ref{tab:dataset-breast}
+\cite{eswaran2012:transcriptomic} was a transcriptome profiling dataset of
+human breast cancer. mRNA profiles of 17 breast tumor samples of three
+different subtypes (TNBC, non-TNBC and HER2-positive) and normal human breast
+organoids (epithelium) samples (NBS) were sequenced using Illumina HiSeq 2000
+sequencer. Full sample list can be found in Table~\ref{tab:dataset-breast}.
+Raw sequence reads were obtained from NCBI Sequence Read Archive (SRA), thus
+their FASTQ file names were based on their SRA accession ID. In GSE52194 breast
+cancer dataset, condition was defined to be the cancer subtype of the sample.
 
 \input{tables/dataset-breast}
 
-
-
-GSE52778 \cite{himes2014:rnaseq}
-Table~\ref{tab:dataset-airway}
+Another RNA-Seq dataset, GSE52778 \cite{himes2014:rnaseq}, is a transcriptome
+profiling dataset of human airway smooth muscle (HASM). mRNA profiles of 4 male
+white donors' HASM cells treated with four treatment conditions were sequenced
+using Illumina HiSeq 2000 sequencer with Illumina TruSeq assay, four treatment
+conditions being: no treatment (Untreated); treatment with Albuterol (Alb);
+treatment with Dexamethasone (Dex); treatment with simultaneous Albuterol and
+Dexamethasone (Alb\_Dex). Full sample list can be found in
+Table~\ref{tab:dataset-airway}. Raw sequence reads were obtained from SRA thus
+sample raw FASTQ files are renamed using their SRA accession ID.
 
 \input{tables/dataset-airway}
+
+% TODO: how deep is the sequencing depth of these WES samples?
+
+The DNA-Seq dataset used in the demonstration was a human whole exome
+sequencing done in our lab. Exome sequencing of 5 members from the same family
+using Illumina HiSeq 2000 sequencer. The study aimed to find the common
+variants shared in this family.
 
 
 \section{Account registration}
