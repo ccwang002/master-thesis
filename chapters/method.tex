@@ -608,7 +608,8 @@ communicates with the database via Django Object-relational Mapping (ORM),
 which continually checks with consistency between the database scheme and the
 mapped object representation in source code. All data in the database can be
 correctly migrated to match the representation of the new version of BioCloud
-using Django ORM.
+using Django ORM. Source code of BioCloud is hosted on the GitHub repository
+\url{https://github.com/ccwang002/biocloud-server-kai} under MIT license.
 
 For website frontend, Boostrap 3 and jQuery 2 are used for basic HTML
 rendering and user interaction. Markdown fields such as description of
@@ -646,16 +647,16 @@ operating system Ubuntu 16.04 LTS and web server nginx 1.10. BioCloud's Django
 application, e.g. accepting web requests and connections, are managed by uWSGI
 server and then reversely proxied to nginx. Static files are hosted directly by
 nginx for efficiency. For static files that require Django authentication,
-nginx's X-accel HTTP request header is added to allow the internal routing.
+nginx's X-Accel HTTP request header is added to allow the internal routing.
 Thus those files will be first checked by the web application. If the viewer
 has valid access permission, Django set the header and redirect the request to
 nginx, who serves the actual content of the request file. Processes of uWSGI
 and Django-Q are managed by systemd. BioCloud can also run in the development
 mode on OSX, where all functionalities of BioCloud can be tested and executed.
-Mail sending server is rallied by FastMail's SMTP server. SSL certificate that
-enables HTTPS connection is verified via ACME protocol and issued by Let's
-Encrypt. Each newly issued SSL certificate is valid for 90 days and the renewal
-is automated by systemd.
+Mail sending is rallied by FastMail's SMTP server. SSL certificate that enables
+HTTPS connection is verified via ACME protocol and issued by Let's Encrypt.
+Each newly issued SSL certificate is valid for 90 days and the renewal is
+automated by systemd.
 
 
 \subsection{Report}
@@ -672,6 +673,8 @@ template language as the HTML template of summary report. For parsing the
 analysis result, pandas is used for spreadsheet-like data structure and
 scikit-bio is used for NGS oriented file formats. For user interaction in the
 report, jQuery 2 and Vue.js are used in the same way as BioCloud website. For
-interactive figures, highcharts.js plotting library is used.
+interactive figures, highcharts.js plotting library is used. Source code of
+BCReport is hosted on the GitHub repository
+\url{https://github.com/ccwang002/bc_report} under MIT license.
 
 % vim: set textwidth=79 spell:
