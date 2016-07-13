@@ -123,31 +123,87 @@ genome passing below USD 1,000, we can expect a wider application of NGS and
 more and more fields adopt this technology.
 
 
+
+\section{Genome reference}
+\label{s:genome-ref}
+
+Once a NGS experiment is complete, the sequence reads are merely sequences of
+DNA fragments and lack biological meaning. However, since fragments are often
+overlap with each other, one can concatenate fragments into longer sequences
+called scaffolds. Multiple scaffolds can later construct chromosomes and hence
+complete a whole genome sequencing. The whole process of joining reads into
+scaffolds and chromosomes is referred to as genome assembly. The counterpart
+for RNA sequencing and cDNA fragments is referred to as transcriptome assembly.
+If such sequence assembly is done on a novel organism, the assembly is called
+a \textit{de novo} assembly.
+
+However, \textit{de novo} assembly requires high sequencing coverage and takes
+substantial computing resources, which is not feasible for normal applications.
+Also, it is hard to comparing the results based on genome from different
+studies if people rely on their own distinct genome assembly. Many genomic
+studies requires integration of multiple annotations including gene, transcript,
+and variant formation, thus having sufficient number of sequencing runs, a
+consensus of genome assembly forms the genome reference. A genome reference
+needs not to be the exact sequence of a specimen but represents the most common
+sequence of the given genomic region.
+
+Once a genome reference is released, different types of annotations, e.g.,
+different gene databases, are aligned to the new genome reference. These
+annotations can be browsed by the given chromosomal location via genome
+browser. Normal applications now only needs to align to the genome reference,
+which not only save both time and cost, but also are able to access to many
+other annotations. Thus for model organisms like human and mouse, analyses
+generally relies on certain version of genome reference.
+
+% time and cost
+% hard to compare other result
+% annotations
+
+NGS currently still has its limitations to cover full genome in a sequence run.
+There are still regions and special sequencing patterns which are hard to
+sequence, including reads with short repeat and high GC\% content; regions in
+centromeres and telomeres. Even if they can be sequenced correctly, their
+repetitive sequences make it hard to figure out the right assembly. Therefore,
+even for the mature genome projects like human genome project, the gnome
+sequence is continually updated. The latest human genome reference GRCh38.p7
+was released in March 2016, and it still contains 805 scaffolds with 349 gaps
+\cite{:grch38p7}, whereas the first version released in 2001 contains around
+150,000 gaps \cite{2010:e-pluribus-unum}.
+
+% allelic diversity -- alternative loci
+% patch
+
+It should be noted that there are two types of genome reference updates: major
+and minor updates. Major updates, e.g. from hg19 to hg38, breaks the
+chromosomal location compatibility, whose genomic coordinates of primary
+assemblies, e.g., major chromosomes and plasmids, will change. On the contrary,
+minor updates don't introduce backward breakage on primary assemblies, but
+release the updates as patches and alternative loci. Patches fix the sequencing
+errors or fill in the gap between scaffolds of primary assembly, which will be
+displayed along their corresponding genomic regions and overwrites the primary
+assembly in the next major release. Alternative loci appear in when some
+regions have high allelic diversity so one common sequence cannot well
+represent the specified gnomic region. For example, major histocompatibility
+complex (MHC) region on chromosome 6 has 7 alternative representations.
+
+
 %
 % Explain about the general NGS analysis workflow
 %
 
-\section{RNA sequencing application}
-\label{s:rna-seq-app}
+\section{General NGS analysis workflow}
 
-TODO: Fill this section.
+
 
 Though the generated sequence reads are shorter, they are long enough to
 determine their genomic location via genome
 
 
-\section{DNA sequencing application}
-\label{s:dna-seq-app}
+\section{RNA and DNA sequencing application}
+\label{s:rna-dna-seq-app}
 
 
 TODO: Fill this section.
 
 
-
-\section{Genome reference}
-\label{s:genome-ref}
-
-
-TODO: Fill this section.
-
-% vim: set tw=79:
+% vim: set textwidth=79 spell:
