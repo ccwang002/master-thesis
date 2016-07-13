@@ -41,20 +41,62 @@ using Illumina HiSeq 2000 sequencer. The study aimed to find the common
 variants shared in this family.
 
 
-\section{Account registration}
 
-Figure~\ref{fig:biocloud-signup}.
+\section{Account registration and user dashboard}
+
+A new user account was registered on BioCloud using email
+\texttt{demo@biocloud.liang2.io}. Screenshots of the registration process are
+shown in Figure~\ref{fig:biocloud-signup}, which resemble the process on common
+websites. Most of the user inputs were sanity checked and validated, as shown
+in Figure~\ref{fig:biocloud-signup}(b). After user completed the form, a
+verification email was sent to the registered email address so as to make sure
+all future email notifications can reach the user. A fixed message is displayed
+on all pages of BioCloud if the user does not complete the email verification,
+as shown in Figure~\ref{fig:biocloud-signup}(c).
+Figure~\ref{fig:biocloud-signup}(d) shows the content of the verification
+email, where an uniquely HMAC-based verification link was given. After clicking
+on the link, user completed the verification and the fixed message for
+verification was gone, as shown in Figure~\ref{fig:biocloud-signup}(e).
 
 \input{figures/biocloud_signup}
 
-Figure~\ref{fig:biocloud-dashboard}.
+A user dashboard is available for user-related settings as shown in
+Figure~\ref{fig:biocloud-dashboard}(b). User profile including user name and
+authentication number (more on Section~\ref{s:report-result-access}) can be
+updated here. Password can be changed via the link in the password section in
+profile update, as shown in Figure~\ref{fig:biocloud-dashboard}(b). For staff
+and superuser with special permission, they can access to the admin interface
+of BioCloud in user dashboard via an extra tab ``Admin'', as shown in
+Figure~\ref{fig:biocloud-dashboard}(d). Admin interface will be introduced in
+Section~\ref{s:biocloud-admin}.
 
 \input{figures/biocloud_dashboard}
 
 
+
 \section{Data source discovery}
 
-Figure~\ref{fig:biocloud-data-source}.
+As a newly registered user, a message was always shown to hint user to attach
+their data sources to BioCloud. User can find their specific data source folder
+from menu Data Source \textrightarrow List, as shown in
+Figure~\ref{fig:biocloud-data-source}(b). For the demo user, location of the
+data source folder on BioCloud server was:
+
+\begin{CVerbatim}[fontsize=\small]
+/biocloud/data_sources/2/
+\end{CVerbatim}
+
+\vspace{-1em}\noindent
+After new data sources were added, BioCloud updated its database by comparing
+the data sources in record with that in current folder.  All new discovered
+data sources will be listed with guess of sample name and file type, as shown
+in Figure~\ref{fig:biocloud-data-source}(a). User can pass the SHA2-256
+checksum value for each file computed locally. BioCloud computed the checksum
+of these files and compared the value with that supplied by the user. User can
+check and update the detail of their recorded data sources, as shown in
+Figure~\ref{fig:biocloud-data-source}(b). BioCloud also guessed the strand for
+pair-end FASTA/Q files. The information was recorded at the metadata column in
+JSON format.
 
 \input{figures/biocloud_data_source}
 
@@ -73,11 +115,13 @@ Figure~\ref{fig:biocloud-data-source}.
 % email notification
 
 \section{Report and result access}
+\label{s:report-result-access}
 
 \subsection{Integration with public genome browser}
 
 
 \section{Admin}
+\label{s:biocloud-admin}
 
 
 \section{RNA-Seq analysis result}
