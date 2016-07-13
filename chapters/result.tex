@@ -2,6 +2,7 @@
 \label{c:result}
 
 \section{Datasets}
+\label{s:dataset}
 
 %
 % GSE52194 Breast cancer
@@ -87,13 +88,13 @@ data source folder on BioCloud server was:
 \end{CVerbatim}
 
 \vspace{-1em}\noindent
-After new data sources were added, BioCloud updated its database by comparing
-the data sources in record with that in current folder.  All new discovered
-data sources will be listed with guess of sample name and file type, as shown
-in Figure~\ref{fig:biocloud-data-source}(a). User can pass the SHA2-256
-checksum value for each file computed locally. BioCloud computed the checksum
-of these files and compared the value with that supplied by the user. User can
-check and update the detail of their recorded data sources, as shown in
+Upon new data sources being added, BioCloud updated its database by comparing
+the data sources in record with that in current folder. All new discovered data
+sources will be listed with guess of sample name and file type, as shown in
+Figure~\ref{fig:biocloud-data-source}(a). User can pass the SHA2-256 checksum
+value for each file computed locally. BioCloud computed the checksum of these
+files and compared the value with that supplied by the user. User can check and
+update the detail of their recorded data sources, as shown in
 Figure~\ref{fig:biocloud-data-source}(b). BioCloud also guessed the strand for
 pair-end FASTA/Q files. The information was recorded at the metadata column in
 JSON format.
@@ -104,15 +105,74 @@ JSON format.
 
 \section{Experiment design}
 
-Figure~\ref{fig:biocloud-experiment-design}.
-
-% condition
 \input{figures/biocloud_experiment_design}
+\input{figures/biocloud_experiment_sample_condition}
+
+% general description
+Experiment design groups selected samples into user defined conditions to
+represent the biological experiment design. BioCloud will warn the user if one
+try to create experiment without adding any data source. All experiment related
+functions are under the menu item ``Experiment''. Here the demo user added all
+datasets mentioned in Section~\ref{s:dataset}. When the user created a new
+experiment, one was guided to fill in experiment description, select data
+sources, create conditions, assign conditions step by step, as shown in
+Figure~\ref{fig:biocloud-experiment-design}. User first filled in the
+experiment name and description. Experiment description was written using the
+Markdown syntax and an editor based on SimpleMDE was provided, as shown in
+Figure~\ref{fig:biocloud-experiment-design}(a). Headings, enumerated lists, and
+hyperlinks can be created to help user collect all the related information. The
+rendered description can be live previewed in full screen side-by-side mode.
+
+% sample selection
+To actually construct the experiment design, user first started with sample
+selection, as shown in Figure~\ref{fig:biocloud-experiment-design}(b). By
+default the simple mode of selection sample was shown, where data sources of
+same sample names were selected together and the default sample name was used.
+Selected samples were simultaneously shown in the condition design section
+below (Figure~\ref{fig:biocloud-experiment-design}(c)) with the help of
+reactive programming. All the elements in the experiment design form shares the
+same underlying data structure. Therefore, as a sample was selected, all its
+data sources are marked as selected and Vue.js updated all the DOMs that
+depended on the selected data sources.
 
 % simple and advanced mode
-Figure~\ref{fig:biocloud-experiment-sample-condition}.
+An advanced mode of selection mode was provided so user can have detail control
+on the inclusion of samples, as shown in
+Figure~\ref{fig:biocloud-experiment-sample-condition}(b). When it is enabled
+data sources were listed one by one and their sample names become modifiable.
+User can select one strand of a pair-end sample, or override the existed sample
+name of data sources. Data sources can be filtered based on file name, file
+type, and sample name.
 
-\input{figures/biocloud_experiment_sample_condition}
+% condition
+By default samples are of condition ``(All)'', a special condition implying the
+sample does not belong to any given condition. Currently no pipeline requires
+the special condition but it is implemented so custom pipeline can let user
+specify experiment-wise input. By default there were two conditions: Control
+and Testing. User can remove, edit, and add conditions, as shown in
+Figure~\ref{fig:biocloud-experiment-design}(d). They were dynamically rendered
+as available options of selected sample's conditions, as shown in
+Figure~\ref{fig:biocloud-experiment-design}(e). Note that it is considered safe
+and there will be no data loss if user later modifies the condition name.
+Order of conditions was kept in the database. In analysis, condition specified
+later was compared with those specified earlier for each condition pair.
+Generally, one should put control or normal condition as the first condition.
+In the figure, breast cancer dataset defined conditions: NBS, TNBC, Non-TNBC,
+HER2 in order, where NBS was the normal condition of the dataset. As user was
+designing the conditions, a preview of the current experiment was displayed in
+the last section, as shown in
+Figure~\ref{fig:biocloud-experiment-sample-condition}(c).
+
+%experiment list
+User can view one's submitted experiments at the experiment list view, as shown
+in Figure~\ref{fig:biocloud-experiment-sample-condition}(e). Detail of the
+experiment can be found by clicking the link of each experiment in the
+experiment list view, as shown in
+Figure~\ref{fig:biocloud-experiment-sample-condition}(d). User were not allowed
+to modified the experiment conditions, otherwise analyses depended on the
+experiment design would be unknown. However, one can build a new experiment
+based on a existed experiment design.
+
 
 
 \section{Analysis submission}
@@ -122,69 +182,25 @@ Figure~\ref{fig:biocloud-experiment-sample-condition}.
 
 % email notification
 
+
+\section{Admin}
+\label{s:biocloud-admin}
+
+
 \section{Report and result access}
 \label{s:report-result-access}
 
 \subsection{Integration with public genome browser}
 
 
-\section{Admin}
-\label{s:biocloud-admin}
-
-
-\section{RNA-Seq analysis result}
+\section{Result summary report}
 
 \subsection{QC}
 
 \subsection{Alignment - STAR}
 
-\subsection{Alignment - HISAT2}
-
-TODO: finish the dataset execution
-
 \subsection{Cufflinks}
-
-\subsection{featureCounts}
 
 \subsection{DESeq2}
 
-TODO: finish the dataset execution
-
-
-\section{DNA-Seq analysis result}
-
-\subsection{QC}
-
-\subsection{Alignment - BWA MEM}
-
-\subsection{Variant calling - Varscan}
-
-\subsection{Variant calling - GATK}
-
-TODO: finish the data execution
-
-% There is a tree in Figure~%\ref{i:tree}.
-% This is English line spacing test. You should see double spacing text.
-% This is English line spacing test. You should see double spacing text.
-% This is English line spacing test. You should see double spacing text.
-
-%i:tree
-%\input{figures/tree}
-
-% There is a barchart in Figure~%\ref{i:barchart}.
-% This is English line spacing test. You should see double spacing text.
-% This is English line spacing test. You should see double spacing text.
-% This is English line spacing test. You should see double spacing text.
-
-%i:barchart
-%\input{figures/barchart}
-
-% Our method outperforms state-of-art systems as shown in Table~\ref{t:results}.
-% This is English line spacing test. You should see double spacing text.
-% This is English line spacing test. You should see double spacing text.
-% This is English line spacing test. You should see double spacing text.
-
-%t:results
-% \input{tables/results}
-% \input{tables/threeparttable}
 % vim: set textwidth=79 spell:
