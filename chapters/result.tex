@@ -177,14 +177,27 @@ based on a existed experiment design.
 
 \section{Analysis submission}
 
+Figure~\ref{fig:biocloud-analysis-design}.
+
+\input{figures/biocloud_analysis_design}
+
+
 
 \section{Job queue monitoring}
 
 % email notification
+Figure~\ref{fig:biocloud-job-monitor}.
+
+\input{figures/biocloud_job_monitor}
 
 
 \section{Admin}
 \label{s:biocloud-admin}
+
+Figure~\ref{fig:biocloud-admin}.
+
+\input{figures/biocloud_admin}
+
 
 
 \section{Report and result access}
@@ -192,15 +205,28 @@ based on a existed experiment design.
 
 \subsection{Integration with public genome browser}
 
+\begin{CVerbatim}[fontsize=\small]
+track type=bam name="NBS1"
+bigDataUrl=https://biocloud.cgm.ntu.edu.tw/access/<auth key>/result/
+STAR/NBS1/Aligned.sortedByCoord.out.bam
+\end{CVerbatim}
+
+
 
 \section{Result summary report}
 
+Figure~\ref{fig:report}.
+
+\input{figures/report_home}
+
 \subsection{QC}
 
-\subsection{Alignment - STAR}
+Figure~\ref{fig:report-qc}.
 
-\subsection{Cufflinks}
+\input{figures/report_qc}
 
-\subsection{DESeq2}
+% \subsection{Alignment - STAR}
+% \subsection{Cufflinks}
+% \subsection{DESeq2}
 
 % vim: set textwidth=79 spell:
