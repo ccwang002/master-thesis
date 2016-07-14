@@ -220,6 +220,7 @@ fluorescent intensity on Illumina platforms. Quality of all sequence reads will
 be first checked to determine if the experiment run performed as expected.
 Reads with low quality can be filtered or partially trimmed during this stage.
 
+% genome alignment
 Then sequence reads are aligned to the genome using certain version of genome
 reference. Though the generated sequence reads are shorter, they are long
 enough to determine their genomic location. Aligned reads may have mismatched
@@ -231,13 +232,13 @@ exon regions during alignment. After sequences have been aligned to the genome,
 user can annotate the reads about the gene information it locates, whether the
 variant is a common SNP. The annotation in use will depend on the type of
 sequencing and intended application, as long as annotation and the sample
-alignment share the same version of genome reference.
+alignment share the same version of genome reference. With proper annotation,
+statistical inference and modeling help researcher answer questions like how a
+gene or transcript is expressed, whether a genomic location has mutation, or a
+genomic region has copy number gain or loss.
 
 
-\section{RNA and DNA sequencing application}
-\label{s:rna-dna-seq-app}
-
-
+% \section{RNA and DNA sequencing application}
 % RNA-Seq
 % - differential expression
 % - novel isoform/transcript discovery
