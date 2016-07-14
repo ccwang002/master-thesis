@@ -122,6 +122,19 @@ non-model organisms becoming feasible. As the sequencing cost for a whole human
 genome passing below USD 1,000, we can expect a wider application of NGS and
 more and more fields adopt this technology.
 
+% single-cell sequencing
+New single-cell sequencing technology, often viewed as the third generation
+sequencing, has enabled the genomic research down to the cellular level in the
+past few years \cite{gawad2016:singlecell}. New insights may be found by
+applying single-cell sequencing to heterogeneous samples, for example, studying
+somatic mutations in tumor samples and analyzing individual genomes in
+metagenomics. Although the sequencing data from single-cell sequencing may have
+different properties with that from NGS, including statistical distribution and
+sequencing error model, the overall workflow and file format for data storage
+shares a lot in common. Therefore the currently developed analysis platform can
+still analyze data from future sequencing technologies without large
+modification.
+
 
 
 \section{Genome reference}
@@ -176,7 +189,8 @@ was released in March 2016, and it still contains 805 scaffolds with 349 gaps
 It should be noted that there are two types of genome reference updates: major
 and minor updates. Major updates, e.g., from hg19 to GRCh38, breaks the
 chromosomal location compatibility, whose genomic coordinates of primary
-assemblies, e.g., major chromosomes and plasmids, will change. On the contrary,
+assemblies, e.g., major chromosomes and plasmids, will change. One could use
+tools such as liftOver to handle the coordination conversion. On the contrary,
 minor updates, e.g., from GRCh38 to GRCh38.p1, don't introduce backward
 breakage on primary assemblies, but release the updates as patches and
 alternative loci. Patches fix the sequencing errors or fill in the gap between
@@ -194,17 +208,47 @@ chromosome 6 has 7 alternative representations.
 
 \section{General NGS analysis workflow}
 
+Except for \textit{de novo} assembly, general NGS analysis involves the
+following analysis steps: sequencing quality check, genome alignment,
+annotation, and statistical inference. During sequencing, the sequencer records
+each read base with a Phred quality score $q$, where the probability of the
+base being erroneously sequenced $P_q$ is $P_q = 10^{\frac{-q}{10}}$. A read
+base with quality lower than 30 implies the probability of sequencing error at
+this base is higher than 0.1\%. How quality is measured depends on the
+sequencing technology. For example, the quality score is computed based on the
+fluorescent intensity on Illumina platforms. Quality of all sequence reads will
+be first checked to determine if the experiment run performed as expected.
+Reads with low quality can be filtered or partially trimmed during this stage.
 
-
-Though the generated sequence reads are shorter, they are long enough to
-determine their genomic location via genome
+Then sequence reads are aligned to the genome using certain version of genome
+reference. Though the generated sequence reads are shorter, they are long
+enough to determine their genomic location. Aligned reads may have mismatched
+sequences with genome reference and the all alignment information will be
+stored in the alignment result file, usually in the format of BAM or SAM files.
+Alignment methods of RNA and DNA sequencing are different, since RNA-Seq the
+sequences are the product of splicing event and will map to multiple distinct
+exon regions during alignment. After sequences have been aligned to the genome,
+user can annotate the reads about the gene information it locates, whether the
+variant is a common SNP. The annotation in use will depend on the type of
+sequencing and intended application, as long as annotation and the sample
+alignment share the same version of genome reference.
 
 
 \section{RNA and DNA sequencing application}
 \label{s:rna-dna-seq-app}
 
 
-TODO: Fill this section.
+% RNA-Seq
+% - differential expression
+% - novel isoform/transcript discovery
+% - de novo transcriptome assembly
+%
+% DNA-Seq
+% - SNV variant calling
+% - germline mutation
+% - somatic mutation
+% - CNV
+% - de novo assembly
 
 
 % vim: set textwidth=79 spell:
