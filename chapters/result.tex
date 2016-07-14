@@ -168,18 +168,47 @@ User can view one's submitted experiments at the experiment list view, as shown
 in Figure~\ref{fig:biocloud-experiment-sample-condition}(e). Detail of the
 experiment can be found by clicking the link of each experiment in the
 experiment list view, as shown in
-Figure~\ref{fig:biocloud-experiment-sample-condition}(d). User were not allowed
-to modified the experiment conditions, otherwise analyses depended on the
-experiment design would be unknown. However, one can build a new experiment
-based on a existed experiment design.
+Figure~\ref{fig:biocloud-experiment-sample-condition}(d). Users are not allowed
+to modify the experiment conditions, otherwise existed analyses would have
+uncertain experiment design. However, one can build a new experiment based on a
+existed experiment design.
 
 
 
-\section{Analysis submission}
-
-Figure~\ref{fig:biocloud-analysis-design}.
+\section{Analysis design}
 
 \input{figures/biocloud_analysis_design}
+
+Analysis binds an experiment design and executes one of the available pipelines
+with given genome reference and parameters. First user chose the pipeline to
+execute, as shown in Figure~\ref{fig:biocloud-analysis-design}(a). It was a
+portal which gathered all currently available pipelines defined in the BioCloud
+source code. In Figure~\ref{fig:biocloud-analysis-design}, the demo user
+selected the Cufflink-based RNA-Seq pipeline. User was then guided to a new
+dedicated page for the selected analysis design form. Similar to experiment
+design, user can specify name and description in Markdown syntax for the
+new analysis.
+
+Some parts of the analysis design form were the same for all analysis
+pipelines. All analysis pipelines requires genome reference and experiment
+design as input. Available genome references were defined by staff or superuser
+via the BioCloud admin interface, whose name and provider combined as the
+option name as shown in Figure~\ref{fig:biocloud-analysis-design}(b). Here the
+human genome reference hg38 provided by UCSC was chosen. User continued to
+select the experiment design in use. User can select by the name of one's own
+experiment designs, whose conditions and samples will be dynamically rendered
+once user made a choice, as shown in
+Figure~\ref{fig:biocloud-analysis-design}(c). A link to the experiment detail
+view was also provided for more information. Here the human airway smooth
+muscle dataset was used.
+
+Finally, rest of the analysis design form was specially defined for
+Cufflink-based RNA-Seq pipeline. As described in
+Section~\ref{s:rnaseq-pipeline}, there are three available genome aligners in
+this pipeline. Each of the aligner has different option sets. Therefore, as
+user selected one aligner, only the corresponding options were shown. In
+Figure~\ref{fig:biocloud-analysis-design}(d), as user changed the aligner from
+STAR to Tophat2, different options were displayed.
 
 
 
@@ -200,8 +229,15 @@ Figure~\ref{fig:biocloud-admin}.
 
 
 
-\section{Report and result access}
+\section{Result summary report}
+
+
+\subsection{Report and result access}
 \label{s:report-result-access}
+
+Figure~\ref{fig:report}.
+\input{figures/report_home}
+
 
 \subsection{Integration with public genome browser}
 
@@ -212,19 +248,12 @@ STAR/NBS1/Aligned.sortedByCoord.out.bam
 \end{CVerbatim}
 
 Figure~\ref{fig:result-genome-browser}.
-
 \input{figures/result_genome_browser}
 
-\section{Result summary report}
-
-Figure~\ref{fig:report}.
-
-\input{figures/report_home}
 
 \subsection{QC}
 
 Figure~\ref{fig:report-qc}.
-
 \input{figures/report_qc}
 
 % \subsection{Alignment - STAR}
