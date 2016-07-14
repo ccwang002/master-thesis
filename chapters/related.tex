@@ -87,6 +87,7 @@ for biological researchers and clinicians.
 
 
 \section{Pipeline execution tools}
+\label{s:pipeline-execution-tool}
 
 Though some of the works are not a full-fledged online analysis platform, they
 focus on the automated analysis pipeline design, including bcbio-nextgen
@@ -154,9 +155,9 @@ acyclic graph (DAG). Listing~\ref{lst:snakemake-rule} shows an example of
 writing Snakemake rule to run BWA MEM genome alignment. Like Makefile, the
 variable \texttt{\{sample\}} specified in the input FASTQ files will be auto
 expanded to all files matching the given pattern, that is, all files with
-suffix \texttt{.fastq} under the folder \texttt{data/samples/}.  Before
+suffix \texttt{.fastq} under the folder \texttt{data/samples/}. Before
 execution, these rules are first evaluated and expanded to all matched files to
-build the DAG dependencies, shown in Figure~\ref{fig:snakemake-dag}.  Snakemake
+build the DAG dependencies, shown in Figure~\ref{fig:snakemake-dag}. Snakemake
 will detect outdated output files by comparing creation timestamp with input
 files. Only outdated outputs will be re-executed, which reduces the total
 execution time. Other parameters of the Snakemake rule can further control the
@@ -202,6 +203,7 @@ discussed in Chapter \ref{c:discussion}.
 
 
 \section{Analysis report generation}
+\label{analysis-report-generation}
 
 An analysis report helps summarize the result of a sequencing analysis pipeline
 across different samples or even different conditions in the experiment design.

@@ -2,45 +2,104 @@
 \label{c:discussion}
 
 
-\section{Data source upload}
+\section{Data source uploading}
 
 BioCloud does not offer the ability to upload data sources from local to
 BioCloud's data storage since the uploading is extremely hard to implement
-correctly and few people use uploading function anyway. Uploading a pair-end
+correctly and few people store their data in local anyway. Uploading a pair-end
 sample of 22M 63 base pair long reads takes about 3.5 hours for normal ADSL
-connection or 20 minutes for education network to complete\footnote{The upload
-speed is given 1MB/s for normal ADSL connection and 10MB/s for education
-environment; The pair-end sample of 22M reads with 63 base pair consumes total
-12 GiB disk space}. Upload a dataset having 10 samples may take days for users
-of low connection speed. Though a lot of HTTP-based uploading frameworks exist,
-they are only suitable for uploading few hundreds of MBs at a time. Moreover,
-most users may not upload any data sources in their lifetime since their raw
-sequencing data exist on the server in the very first place. BioCloud supports
-reading soft-linked data sources so putting data sources under BioCloud data
-storage structure does not necessarily increase the total disk usage. When data
-source transferring is needed, one can use tools such as \texttt{rsync},
-\texttt{sftp} and \texttt{ftp} to help transfer large files rather than using
-HTTP-based solutions. After data sources appear in the user's data source
-directory, they can be discovered and managed by BioCloud.
+connection or 20 minutes for education network to complete\footnote{
+    The upload speed is given 1MB/s for normal ADSL connection and 10MB/s for
+    education environment; The pair-end sample of 22M reads with 63 base pair
+    consumes total 12 GiB disk space.
+}. Upload a dataset having 10 samples may take days for users of low connection
+speed. Though a lot of HTTP-based uploading frameworks exist, they are only
+suitable for uploading few hundreds of MBs at a time. Moreover, most users may
+not upload any data sources in their lifetime since their raw sequencing data
+exist on the server in the very first place. BioCloud supports reading
+soft-linked data sources so putting data under BioCloud does not necessarily
+move the data nor increase the total disk usage. When data source transferring
+is needed, one can resort to traditional while robust tools  such as
+\texttt{rsync}, \texttt{sftp} and \texttt{ftp} to help transfer large files.
 
 
 
 \section{Pipeline extension}
 \label{s:pipeline-extension}
 
-% \begin{lstlisting}
-% class Hello:
-%
-%     def __init__(self, a, b):
-%         self.x = a
-%         self.y = b
-%
-%     @classmethod
-%     def from_str(cls, raw_str):
-%         return cls(*raw_str.split('\t', 1))
-% \end{lstlisting}
+Currently BioCloud defines DNA-Seq and RNA-Seq analysis pipelines that call
+germline variants shared in the same condition and infer differential
+expression across multiple conditions. However, NGS applications are much more
+diverse thus the ability to extend current pipelines or write new custom
+pipelines is important. BioCloud was built with extensibility in mind thus it
+is possible to add new pipelines by user. BioCloud heavily relies on the class
+inheritance to re-use code blocks. A new pipeline requires user to define a new
+analysis design, its underlying pipeline execution commands, and the code and
+report template to generate summary report.
+
+We start by defining the analysis design of a new analysis pipeline. An
+analysis design requires three major components: database model to store
+analysis parameters, design form that interacts with user's input, and the
+definition of execution stages. BioCloud defines an abstract analysis pipeline
+which takes only an experiment design and genome reference to execute. It has
+no execution stage and executes zero command to complete a analysis. In this
+manner, large proportion of code are re-used. However, defining the interactive
+design form, e.g., option sets for tools of same stage, still requires many
+customizations, since it requires combining code logics from backend database
+fields with logics from the reactive frontend. An architecture for specifying
+option sets may be proposed to hide the implementation detail. But the
+architecture can still be useless if user want nested option sets or
+interaction with given experiment design. On the other hand, if an analysis
+design does not contain any option sets, it will be straight forward to build
+by inheriting the abstract analysis.
+
+For defining the underlying pipeline execution commands, since different
+pipelines share few similarity in how they are executed, user have to control
+the execution flow oneself. Basically, an execution of analysis that passes
+to the job queue is one lengthy Python function call, and user can define any
+command they want in the function call. Tools already defined in builtin
+pipelines like FastQC can be re-used as subroutines. However, writing an
+analysis execution flow can be extremely trivial and error prone. Most tools
+are executed via command line and thus the developer will repeat the same
+pattern for each tool in use. Also, since the analysis is executed in one big
+pack of job, computing resources will be wasted if the underlying tool cannot
+utilize multiple threads but still block the entire queue. It also repeats the
+execution if a tool with same input and argument appears in multiple
+pipelines. The issue about customization of pipeline execution will be
+addressed in the following section.
+
+For report generation, the situation is similar to that of defining underlying
+pipeline execution. Even though an abstract summary report is defined and user
+can utilize the existed result parsers, it still requires substantial effort to
+customize a new interactive figure in summary report.
+
+% Raw result output downloading problem
+% Interactive plot design
 
 
-\section{Collaboration with other frameworks}
 
-% vim: set textwidth=79:
+\section{Integration with other frameworks}
+
+Some of the tools mentioned in
+Section~\ref{s:pipeline-execution-tool}~and~\ref{analysis-report-generation}
+can help improve the functionalities of BioCloud. Snakemake
+\cite{koster2012:snakemakea} defines a pipeline execution by set of rules. In
+each rule, it specifies the inputs and outputs pattern, combining with a set of
+command line command or Python functions which ideally provide the output files
+given the input files. By writing execution rules instead of the precise way of
+how the analysis should be executed, job queue can finer control the computing
+resources and parallelize the execution of independent subroutines. Updating
+the stage status will be harder to determine since now commands of a stage need
+not to execute together. Some sentinel commands can be designated for stage
+status update by specifying the input to be all outputs of the current stage.
+Similarly, one could also integrates bcbio-nextgen
+\cite{:bcbionextgen,guimera2012:bcbionextgen} and combines its abundant
+resources of analysis workflows with BioCloud's analysis design form.
+
+% TODO: MultiQC and other plotting libraries
+
+
+% TODO: Reproducible research
+
+
+% vim: set textwidth=79 spell:

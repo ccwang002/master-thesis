@@ -1,4 +1,46 @@
 \chapter{Conclusions}
 \label{c:conclusion}
 
-% vim: set textwidth=79:
+Next-generation sequencing has been playing an important role in current
+genome-wide study. However, an NGS analysis requires great computing resources
+to complete and the result is not easily interpretable for biological
+researchers and clinicians. In this study, an online NGS analysis platform,
+BioCloud, was developed to help user automated the analysis execution and
+provide summary report to understand the analysis result interactively.
+Additionally, user can manage their sequencing data sources and reproduce
+previous analysis easily with the help of BioCloud.
+
+BioCloud proposed a workflow for analysis execution by breaking the execution
+into experiment design, analysis design, job queuing and summary report
+generation. In experiment design, conditions are defined and group sequencing
+sample that map the biological experiment conditions. In analysis design, user
+specifies all parameters used in the analysis tool chain. Parameters are
+grouped and optionally rendered based on the branch of tool execution user
+chooses. Job queue handles the automatic execution of analyses, which user can
+monitor the current execution status for ongoing jobs and get notified once the
+execution completes. Summary report provides the overview of the analysis and
+enables user to explore the results and compare outcomes of different
+conditions in an interactive way. BioCloud introduces account system so
+individual user can manage their own data and results naturally.
+
+% account admin genome browser integration
+Moreover, analysis output including genome alignment results can be further
+integrated with the external genome browsers. User can compare their result
+with numerous annotations available on Ensembl or UCSC database. The report and
+results can be shared with others without BioCloud account easily, whose access
+can be controlled by user via blocking all public access or generating new
+access tokens. Some user with special privilege can access to the BioCloud's
+admin interface and manage data on the whole platform.
+
+% Extensibility
+BioCloud is an analysis platform developed fully in house. For analysis
+pipelines that BioCloud currently does not support, user can further develop
+new analysis pipeline on BioCloud by extending the current available pipelines
+In future, it can integrate with other platforms to provide better
+functionality and more features. With the adoption of BioCloud and reduce of
+effort in running routine analysis pipeline, it can be anticipated that
+researchers will focus more on biological insight from NGS analysis and
+development of novel analysis methods.
+
+
+% vim: set textwidth=79 spell:
