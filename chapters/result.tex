@@ -206,26 +206,67 @@ Finally, rest of the analysis design form was specially defined for
 Cufflink-based RNA-Seq pipeline. As described in
 Section~\ref{s:rnaseq-pipeline}, there are three available genome aligners in
 this pipeline. Each of the aligner has different option sets. Therefore, as
-user selected one aligner, only the corresponding options were shown. In
-Figure~\ref{fig:biocloud-analysis-design}(d), as user changed the aligner from
-STAR to Tophat2, different options were displayed.
+user selected one aligner, only the corresponding options were shown. For
+example, in Figure~\ref{fig:biocloud-analysis-design}(d), user changed the
+aligner from STAR to Tophat2 and different options were displayed.
 
 
 
 \section{Job queue monitoring}
 
-% email notification
-Figure~\ref{fig:biocloud-job-monitor}.
-
 \input{figures/biocloud_job_monitor}
 
+% analysis list
+% execution detail
+% report link and options
+% email notification
 
-\section{Admin}
+User could find all executed, queuing and currently running analyses at one's
+analysis list view, as shown in Figure~\ref{fig:biocloud-job-monitor}(a). By
+clicking on the name of the analysis, user was guided to its detail page. If
+the analysis is currently running, its detail will be live updated to reflect
+the current status of its execution stages. Some of the stages may be marked as
+skipped if user opted out their execution during analysis design. For example,
+Figure~\ref{fig:biocloud-job-monitor}(b) shows an analysis currently running
+the Cufflinks stage. QC stage was skipped thus this analysis did not perform
+the quality check. Stages behind the currently running stage, e.g. Cuffdiff
+stage in the figure, were marked as waiting.
+
+As the analysis execution ended, user was notified by mail with the link to the
+analysis detail page, as shown in Figure~\ref{fig:biocloud-job-monitor}(d). If
+the analysis execution was successful, the summary report was generated and its
+link would be shown in its analysis detail page.
+Figure~\ref{fig:biocloud-job-monitor}(c) showed the successful execution of the
+analysis described above. Summary report was generated and its canonical link
+was given below the execution detail. When user clicked on the link, one would
+be redirect to the report link with HMAC-based access token. During logged in,
+both links will maintain valid until user modifies one's authentication number
+at the user profile page, which invalidate the current HMAC-based access token
+while the canonical link will always be accessible. By default all reports and
+results were restricted to private access only. User can opt the current
+analysis to be public by changing the ``is public'' setting shown in
+Figure~\ref{fig:biocloud-job-monitor}(c).
+
+
+
+\section{Admin interface}
 \label{s:biocloud-admin}
 
-Figure~\ref{fig:biocloud-admin}.
-
 \input{figures/biocloud_admin}
+
+Before moving on to the summary report of the analysis, since most of the
+BioCloud's functions have been covered, we can now look at its admin interface.
+As shown in Figure~\ref{fig:biocloud-dashboard}(d), staff and superuser will
+have the special permission to access the admin interface of BioCloud. The
+homepage of the BioCloud admin is shown in Figure~\ref{fig:biocloud-admin}(a).
+In admin interface, user is allowed to add genome references, diagnose tasks in
+the analysis job queue, and modify all user's data.
+Figure~\ref{fig:biocloud-admin}(b) shows the section managing experiments where
+one can find BioCloud defines many hidden fields including owner and created
+date of a experiment. These fields can be further change by clicking into the
+desired experiment, as shown in Figure~\ref{fig:biocloud-admin}(c). Noted that
+some of input validations were disabled in admin interface so user should be
+responsible and careful for all the actions performed here.
 
 
 
