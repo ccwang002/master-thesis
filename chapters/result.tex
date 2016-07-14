@@ -272,15 +272,33 @@ responsible and careful for all the actions performed here.
 
 \section{Result summary report}
 
+Summary report was available for successfully executed analysis. It can be
+viewed on the BioCloud by accessing the report link. An example summary report
+is shown in Figure~\ref{fig:report}. The home page of the summary report
+provides the statistics and general information about the analysis, including
+time usage, owner, and parameters for the pipeline. Sidebar of the summary
+report collects outputs from different stages of the pipeline. An example output
+of quality check stage is shown in Figure~\ref{fig:report-qc}. FastQC outputs
+of all used data sources were collected as a summary table. In below an
+interactive plot of per base quality made was given. User can filter data
+sources to display and zoom in particular region of the reads. The figure can
+be exported as static PNG, JPEG, or SVG format.
 
-\subsection{Report and result access}
-\label{s:report-result-access}
-
-Figure~\ref{fig:report}.
 \input{figures/report_home}
+\input{figures/report_qc}
 
-
-\subsection{Integration with public genome browser}
+Raw output by each tools were provides via separate download links in the last
+section of each report page. These raw output links can be further integrated
+with popular genome browsers like Ensembl\footnote{
+    Current Ensembl v84 release does not support HTTPS connections to remote
+    BAM files due to an older version of samtools was used. However, in the
+    next release the HTTPS connection will be supported and all operations on
+    UCSC genome browser can be applied to Ensembl genome browser in a similar
+    fashion.
+} and UCSC genome browser. Here we take the alignment BAM files from breast cancer
+dataset and display the alignment on UCSC genome browser as example, shown in
+Figure~\ref{fig:result-genome-browser}. User specified custom data track by the
+following format:
 
 \begin{CVerbatim}[fontsize=\small]
 track type=bam name="NBS1"
@@ -288,14 +306,16 @@ bigDataUrl=https://biocloud.cgm.ntu.edu.tw/access/<auth key>/result/
 STAR/NBS1/Aligned.sortedByCoord.out.bam
 \end{CVerbatim}
 
-Figure~\ref{fig:result-genome-browser}.
+\vspace{-1em}\noindent
+Here the data track was specified for NBS1 sample from the breast cancer
+dataset. User can then view their alignment on UCSC genome browser in the same
+way as on desktop genome browser tools like IGV. Genome browser didn't download
+the whole BAM file before displaying the alignment. Instead, it utilized the
+BAM index to look up the alignment data of the current viewing genomic region.
+Many file formats other than BAM are supported, including GTF and VCF.
+
 \input{figures/result_genome_browser}
 
-
-\subsection{QC}
-
-Figure~\ref{fig:report-qc}.
-\input{figures/report_qc}
 
 % \subsection{Alignment - STAR}
 % \subsection{Cufflinks}
