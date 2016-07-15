@@ -54,9 +54,9 @@ design does not contain any option sets, it will be straight forward to build
 by inheriting the abstract analysis.
 
 For defining the underlying pipeline execution commands, since different
-pipelines share few similarity in how they are executed, user have to control
-the execution flow oneself. Basically, an execution of analysis that passes
-to the job queue is one lengthy Python function call, and user can define any
+pipelines share few similarities in how they are executed, user have to control
+the execution flow oneself. Basically, an execution of analysis that passes to
+the job queue is one lengthy Python function call, and user can define any
 command they want in the function call. Tools already defined in builtin
 pipelines like FastQC can be re-used as subroutines. However, writing an
 analysis execution flow can be extremely trivial and error prone. Most tools
@@ -64,9 +64,9 @@ are executed via command line and thus the developer will repeat the same
 pattern for each tool in use. Also, since the analysis is executed in one big
 pack of job, computing resources will be wasted if the underlying tool cannot
 utilize multiple threads but still block the entire queue. It also repeats the
-execution if a tool with same input and argument appears in multiple
-pipelines. The issue about customization of pipeline execution will be
-addressed in the following section.
+execution if a tool with same input and argument appears in multiple pipelines.
+The issue about customization of pipeline execution will be addressed in the
+following section.
 
 For report generation, the situation is similar to that of defining underlying
 pipeline execution. Even though an abstract summary report is defined and user

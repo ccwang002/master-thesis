@@ -235,7 +235,7 @@ To check data integrity of upload data sources, a checksum per file using
 SHA2-256 hash algorithm can be passed during the data source discovery can be
 provided. Checksum summarizes the file into a fixed length of bits no matter of
 the file size. The checksum algorithm is sensitive to minor changes, so if a
-file have a few bytes corrupted during the network transmission, its checksum
+file has a few bytes corrupted during the network transmission, its checksum
 will be drastically different to the correct counterpart. Checksum is not file
 compression so it can only be used for data integrity check. The checksum of
 two different files can be identical, the incident being referred to as
@@ -298,7 +298,7 @@ BioCloud. It scans user's data source folder and filter newly added sources
 with the user's database records. Sample name and type of the data source is
 guessed by BioCloud. After the discovery, user can override the guessed values
 and add checksum for each discovered files. User can later change these
-property after the data sources are added as well.
+properties after the data sources are added as well.
 
 The representation of data source in the database is a straight-forward
 mapping, as table \texttt{data\_sources\_datasource} shown in
@@ -431,15 +431,15 @@ work of the computer cluster to pick up.
 
 Computer cluster runs its job queue and job workers in separate processes. The
 queue monitor continuously watches if a new job, e.g. a new analysis, is added
-to the job queue. When a new job is added, it pass down to one of its available
-worker to execute. The job queue BioCloud uses guarantees at least once
-delivery. The job worker receives a new job with the analysis ID and obtains
-all related information by querying the database with this analysis ID. Here
-the analysis ID is used for analysis of different pipelines won't share the
-task they run so no ID collision issue. During the execution, work updates the
-stage status in the way previously mentioned. When the analysis is completed
-and the summary report is generated, the worker will notify the user about the
-completion via email.
+to the job queue. When a new job is added, it passes down to one of its
+available worker to execute. The job queue BioCloud uses guarantees at least
+once delivery. The job worker receives a new job with the analysis ID and
+obtains all related information by querying the database with this analysis ID.
+Here the analysis ID is used for analysis of different pipelines won't share
+the task they run so no ID collision issue. During the execution, work updates
+the stage status in the way previously mentioned. When the analysis is
+completed and the summary report is generated, the worker will notify the user
+about the completion via email.
 
 
 \subsection{Report and result access control}
@@ -630,7 +630,7 @@ the more popular alternative, celery, it can depend only on database and Django
 ORM as its job queue and message broker. It can be re-configured to rely on
 more efficient brokers and queues including Redis, IronMQ, and Amazon SQS.
 Using database is sufficient for the current workload of BioCloud. BioCloud
-does not rely on information stored in the Django-Q's job queue. However, those
+does not rely on information stored in the Django-Q's job queue. However, that
 information can be found at the BioCloud backend so administrator can manually
 control the execution of job queue.
 
