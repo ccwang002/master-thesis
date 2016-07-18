@@ -249,64 +249,111 @@ Figure~\ref{fig:biocloud-job-monitor}(c).
 
 
 
-\section{Admin interface}
-\label{s:biocloud-admin}
-
-\input{figures/biocloud_admin}
-
-Before moving on to the summary report of the analysis, since most of the
-BioCloud's functions have been covered, we can now look at its admin interface.
-As shown in Figure~\ref{fig:biocloud-dashboard}(d), staff and superuser will
-have the special permission to access the admin interface of BioCloud. The
-homepage of the BioCloud admin is shown in Figure~\ref{fig:biocloud-admin}(a).
-In admin interface, user is allowed to add genome references, diagnose tasks in
-the analysis job queue, and modify all user's data.
-Figure~\ref{fig:biocloud-admin}(b) shows the section managing experiments where
-one can find BioCloud defines many hidden fields including owner and created
-date of a experiment. These fields can be further change by clicking into the
-desired experiment, as shown in Figure~\ref{fig:biocloud-admin}(c). Noted that
-some of input validations were disabled in admin interface so user should be
-responsible and careful for all the actions performed here.
-
-
-
-\section{Result summary report}
+\section{Summary report}
 
 Summary report was available for successfully executed analysis. It can be
-viewed on the BioCloud by accessing the report link. An example summary report
-is shown in Figure~\ref{fig:report}. The home page of the summary report
-provides the statistics and general information about the analysis, including
-time usage, owner, and parameters for the pipeline. Sidebar of the summary
-report collects outputs from different stages of the pipeline. An example output
-of quality check stage is shown in Figure~\ref{fig:report-qc}. FastQC outputs
-of all used data sources were collected as a summary table. In below an
-interactive plot of per base quality made was given. User can filter data
-sources to display and zoom in particular region of the reads. The figure can
-be exported as static PNG, JPEG, or SVG format.
+viewed on the BioCloud by accessing the report link shown in
+Figure~\ref{fig:biocloud-job-monitor}(c). The summary report using human airway
+smooth muscle (HASM) dataset and STAR and Cufflinks RNA-Seq analysis pipeline
+was shown as the example in the following sections.
 
 \input{figures/report_home}
+
+Home page of the summary report, shown in Figure~\ref{fig:report}, provides the
+statistics and general information about the analysis, including time usage,
+owner, and parameters for the pipeline. Here 15 samples (30 data sources) were
+used and 4 conditions, Untreated, Dex, Alb, and Alb\_Dex were defined.
+Parameters of the analysis was shown in the same report section. For this
+analysis, UCSC hg38 genome reference was used. Sidebar of the summary report
+collected outputs from different stages of the pipeline. Main stages included
+quality check (FastQC), genome alignment (STAR), expression level inference
+(Cufflinks), and differential expression analysis (Cuffdiff).
 
 
 \subsection{Quality control}
 
 \input{figures/report_qc}
 
+Following the analysis order, first we checked the sequencing quality of the
+HASM dataset. Main output of FastQC during the quality check stage is shown in
+Figure~\ref{fig:report-qc}. Basic statistics showed the sequencing throughput
+for each sample was around 20M reads and 63 bp long. Some of the pair-end
+samples showed imbalanced number of reads for its forward and reversed reads,
+including N052611\_SRR1039513. This may indicate data corruption during file
+transferring via network. However, the data sources have been doubled
+downloaded and their checksum were verified. Since the sequencing data were
+obtained from the public SRA repository, some raw sequence reads with subpar
+quality may have been filtered before submission. Figure~\ref{fig:report-qc}(b)
+shows the plot of per base quality.  Only the median quality of all reads at
+the given position was displayed. Reads of many reversed end samples
+experienced quality drop around 10th and 39th bp, while most of the reads
+remained in the good quality zone. One can investigate the sequencing
+instrument if this quality drop pattern become more severe. The plot is
+interactive so user can mark only data sources of interest and zoom into
+particular region.  User can also export the current plot as a static file in
+PNG, JPEG, or SVG format.
 
-\subsection{Alignment -- STAR}
+
+\subsection{Genome Alignment -- STAR}
 
 \input{figures/report_align}
 
+The pair-end sequencing samples of HASM dataset were first aligned to human
+genome using STAR aligner. The alignment results are shown in
+Figure~\ref{fig:report-align}. One can view the alignment result in either
+number of reads or percentage. Reads of all samples were at least 90\% uniquely
+aligned. Samples of the same condition were grouped together with same
+underlying background color. Around 3\% of reads were mapped to multiple
+locations and around 2\% of reads failed to align to genome due to being too
+short. By toggling off the display of uniquely mapped reads, one can be able to
+view a clearer breakdown of read proportion of rest of the alignment types.
+All samples were well aligned to the human genome. One can find the exact read
+counts in the table shown in Figure~\ref{fig:report-align-table}.
+
 \input{figures/report_align_table}
 
-\input{figures/report_align_link.tex}
+During alignment, many files including alignment result, its index, and log
+files were generated,  whose access link were collected in the last section of
+the report page. As shown in Figure~\ref{fig:report-align-link}. The link not
+only enables user to download the output files but also helps user share their
+result with others. If the report is flagged as public, these links can be
+accessed by other users and external tools such as genome browser.
+
+\input{figures/report_align_link}
 
 
 \subsection{Cuffdiff}
 
 \input{figures/report_cuffdiff}
 
+After aligned to the genome reference, the gene expression of all samples were
+statistically inferred by Cufflinks and compared across conditions by Cuffdiff.
+Except for access links to the original outputs of these two tools. BioCloud
+generated an overview of expression across conditions, as shown in
+Figure~\ref{fig:report-cuffdiff}(a) and (b).
+Figure~\ref{fig:report-cuffdiff}(a) showed the gene expression distribution of
+samples per condition and the pairwise distribution matrix. Most distributions
+did not skew to one of the condition, implying the experiment throughput of
+different samples have been correctly by the Cufflinks statistical framework.
+Figure~\ref{fig:report-cuffdiff}(b) showed the volcano plot of asthma
+medication treated samples with untreated samples respectively. None of the
+gene expression after being treated has been significantly changed, where the
+$p$-value has been multiple test adjusted.
+
+User can further investigate the differential expression data by downloading
+the original output of Cuffdiff. Output at this stage takes much less disk
+space and computing resources in comparison to the early stages in NGS
+analysis. We extracted a subset of gene expression that were mentioned in the
+original study \cite{himes2014:rnaseq} and plot their expression level in
+different conditions using cummeRbund, as shown in
+Figure~\ref{fig:report-cuffdiff}(c). The trend of the gene expression were
+coherent to that of the original study.
+
+
 
 \subsection{Integration with external genome browsers}
+
+\input{figures/result_genome_browser}
 
 Raw output by each tools were provided via separate download links in the last
 section of each report page. These raw output links can be further integrated
@@ -335,11 +382,23 @@ the whole BAM file before displaying the alignment. Instead, it utilized the
 BAM index to look up the alignment data of the current viewing genomic region.
 Many file formats other than BAM are supported, including GTF and VCF.
 
-\input{figures/result_genome_browser}
 
 
-% \subsection{Alignment - STAR}
-% \subsection{Cufflinks}
-% \subsection{DESeq2}
+\section{Admin interface}
+\label{s:biocloud-admin}
+
+\input{figures/biocloud_admin}
+
+As shown in Figure~\ref{fig:biocloud-dashboard}(d), staff and superuser will
+have the special permission to access the admin interface of BioCloud. The
+homepage of the BioCloud admin is shown in Figure~\ref{fig:biocloud-admin}(a).
+In admin interface, user is allowed to add genome references, diagnose tasks in
+the analysis job queue, and modify all user's data.
+Figure~\ref{fig:biocloud-admin}(b) shows the section managing experiments where
+one can find BioCloud defines many hidden fields including owner and created
+date of a experiment. These fields can be further change by clicking into the
+desired experiment, as shown in Figure~\ref{fig:biocloud-admin}(c). Noted that
+some of input validations were disabled in admin interface so user should be
+responsible and careful for all the actions performed here.
 
 % vim: set textwidth=79 spell:
