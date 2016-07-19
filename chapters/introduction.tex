@@ -21,11 +21,11 @@ processors.
 Combining the demand for fast computation speed and large data storage, NGS
 analyses are mostly performed on powerful servers remotely using command line
 interface. Therefore, the tools involved are often developed without graphical
-interface due to maximum computation efficiency and lack of need. This kind of
-terminal-based environment imposes a high barrier for especially biologists and
-clinicians to enter. Furthermore, output of most analysis tools are shown as
-log files or as file formats that are friendly for computers to parse but
-cannot be easily interpreted by human without data cleaning and transformation.
+interface to maximize computation efficiency. This kind of terminal-based
+environment imposes a high barrier for especially biologists and clinicians to
+enter. Furthermore, output of most analysis tools are shown as log files or as
+file formats that are friendly for computers to parse but may not be easily
+interpreted by human without data cleaning and transformation.
 
 As a NGS service core lab, many lab members have identified the burden of
 routine NGS data processing and interpretation of results of commonly used
@@ -61,28 +61,27 @@ In this thesis study, an online platform, BioCloud, and a report generator,
 BCReport, have been developed to help researchers automate their NGS analyses
 and interpret the result based on the generated summary report. The online
 platform builds on an account system to let individuals manage their sequencing
-data sources and then design the experiment and sample settings to group their
-data sources like their biological experiment set up. The designed experiment
-can be used in different analysis pipelines that match the sequencing type of
-the data sources, e.g., DNA or RNA sequencing. Each analysis pipeline combines
-different tool chains and comes with their corresponding tool parameters for
-user to adjust. After an analysis pipeline has been configured, it is submitted
-to the job queue of online platform and will execute the underlying tool chains
-when the computation resources are available.
+data sources and design the experiment and sample settings to group their data
+sources like their biological experiment set up. The designed experiment can be
+used in different analysis pipelines that match the sequencing type of the data
+sources, e.g., DNA or RNA sequencing. Each analysis pipeline combines different
+tool chains and comes with their corresponding tool parameters for user to
+adjust. After an analysis pipeline has been configured, it is submitted to the
+job queue of online platform and will execute the underlying tool chains when
+the computation resources are available.
 
 As soon as the analysis execution has been completed, the report generator,
-BCReport, is called and generates a summary report by parsing the results of
-the execution. Report are given in HTML format so BCReport can be seamlessly
+BCReport, is called and generates a summary report by parsing results of the
+execution. Report are given in HTML format so BCReport can be seamlessly
 integrated into BioCloud and user can view their report via the BioCloud
 website. In the report, the output of each tool is collected and parsed as
 interactive charts and tables for user to explore the result. One of the
 convenient features about the summary report is that results are grouped by
 their samples and condition settings so user can compare the result between
 different conditions naturally. They can also download the raw result output by
-links provided in the report. Reports and results can be easily shared by
-providing their URL link. Though the links are publicly accessible via
-internet, they can be well protected if user apply different permission rules
-for each analysis.
+links provided in the report. Reports and results can be easily shared via URL
+link. Though the links are publicly accessible on internet, they can be well
+protected if user change the access policy to private access only.
 
 
 
@@ -90,24 +89,24 @@ for each analysis.
 \label{s:ngs}
 
 Next-generation sequencing (NGS) is a group of sequencing technologies that
-succeeds automated Sanger sequencing which is considered as the first-generation
-sequencing, by providing much higher read throughput while shorter read length
-that reduces the cost and time to complete genome-wide sequencing study
-\cite{metzker2010:sequencing}. Generally speaking, a NGS experiment undergoes
-steps of template preparation, sequencing, imaging and data analysis. During
-template preparation, DNA samples are broken into fragments of shorter length,
-which the desired length varies across different NGS technologies but generally
-in the range of few tens to few thousands of nucleotides. Proper adapters and
-barcode will be added to these DNA fragments for further manipulation, fixation
-on the sequencing chip, and mixed multiple samples in one experiment run. Each
-template will then be positioned separately on the sequencing chip by for
-example, ligation with adapter in illumina NGS technology. Sequencing is done
-by multiple cycles which read out one base at a time using deoxyribonucleotide
-triphosphates (dNTPs) with four or two fluorescent chemical labels and
-reversible terminator. Reading base detection in a sequencing cycle is done by
-image capturing the fluorescent emission of all templates on chip. Sequencing
-and imaging steps enables NGS determine the sequencing millions of DNA
-fragments in parallel.
+succeeds automated Sanger sequencing which is considered as the
+first-generation sequencing, by providing much higher read throughput while
+shorter read length that reduces the cost and time to complete genome-wide
+sequencing study \cite{metzker2010:sequencing}. Generally speaking, a NGS
+experiment undergoes steps of template preparation, sequencing, imaging and
+data analysis. During template preparation, DNA samples are broken into
+fragments of shorter length, which the desired length varies across different
+NGS technologies but generally falls within the range of few tens to few
+thousands of nucleotides. Proper adapters and barcode will be added to these
+DNA fragments for further manipulation, fixation on the sequencing chip, and
+mixed multiple samples in one experiment run. Each template will then be
+positioned separately on the sequencing chip by for example, ligation with
+adapter in illumina NGS technology. Sequencing is done by multiple cycles which
+read out one base at a time using deoxyribonucleotide triphosphates (dNTPs)
+with four or two fluorescent chemical labels and reversible terminator. Reading
+base detection in a sequencing cycle is done by image capturing the fluorescent
+emission of all templates on chip. Sequencing and imaging steps make NGS
+determine the sequencing millions of DNA fragments in parallel.
 
 Next-generation sequencing has been playing an important role in current
 genomic researches. In the last decade, next-generation sequencing has become
@@ -131,8 +130,8 @@ somatic mutations in tumor samples and analyzing individual genomes in
 metagenomics. Although the sequencing data from single-cell sequencing may have
 different properties with that from NGS, including statistical distribution and
 sequencing error model, the overall workflow and file format for data storage
-shares a lot in common. Therefore, the currently developed analysis platform
-can still analyze data from future sequencing technologies without large
+share a lot in common. Therefore, the currently developed analysis platform can
+still analyze data from future sequencing technologies without large
 modification.
 
 
@@ -154,19 +153,20 @@ However, \textit{de novo} assembly requires high sequencing coverage and takes
 substantial computing resources, which is not feasible for normal applications.
 Also, it is hard to comparing the results based on genome from different
 studies if people rely on their own distinct genome assembly. Many genomic
-studies requires integration of multiple annotations including gene, transcript,
-and variant formation, thus having sufficient number of sequencing runs, a
-consensus of genome assembly forms the genome reference. A genome reference
+studies require integration of multiple annotations including gene, transcript,
+and variant information, thus with sufficient number of sequencing runs, a
+consensus of genome assembly can form the genome reference. A genome reference
 needs not to be the exact sequence of a specimen but represents the most common
-sequence of the given genomic region.
+sequence in the given genomic region.
 
 Once a genome reference is released, different types of annotations, e.g.,
-different gene databases, are aligned to the new genome reference. These
+different gene databases, are then aligned to the new genome reference. These
 annotations can be browsed by the given chromosomal location via genome
-browser. Normal applications now only needs to align to the genome reference,
-which not only save both time and cost, but also are able to access to many
-other annotations. Thus for model organisms like human and mouse, analyses
-generally rely on certain version of genome reference.
+browser. Sequencing of normal applications now only needs to align to the
+genome reference, which not only saves both time and cost, but also benefits by
+the multiple annotations on the genome reference. Thus for model organisms like
+human and mouse, analyses generally rely on certain version of genome
+reference.
 
 % time and cost
 % hard to compare other result
@@ -190,11 +190,11 @@ It should be noted that there are two types of genome reference updates: major
 and minor updates. Major updates, e.g., from hg19 to GRCh38, breaks the
 chromosomal location compatibility, whose genomic coordinates of primary
 assemblies, e.g., major chromosomes and plasmids, will change. One could use
-tools such as liftOver to handle the coordination conversion. On the contrary,
-minor updates, e.g., from GRCh38 to GRCh38.p1, don't introduce backward
-breakage on primary assemblies, but release the updates as patches and
-alternative loci. Patches fix the sequencing errors or fill in the gap between
-scaffolds of primary assembly, which will be displayed along their
+tools such as liftOver to handle the conversion between different coordinate
+systems. On the contrary, minor updates, e.g., from GRCh38 to GRCh38.p1, don't
+introduce backward breakage on primary assemblies, but release the updates as
+patches and alternative loci. Patches fix the sequencing errors or fill in the
+gap between scaffolds of primary assembly, which will be displayed along their
 corresponding genomic regions and overwrites the primary assembly in the next
 major release. Alternative loci appear in when some regions have high allelic
 diversity so one common sequence cannot well represent the specified gnomic
