@@ -132,7 +132,6 @@
   {\clearpages
    \chapter*{\centerline{#1}}
    \addcontentsline{toc}{chapter}{#1}
-   \vspace*{-5em}
    \quotation}
   {\endquotation}
 
