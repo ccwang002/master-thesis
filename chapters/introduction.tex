@@ -109,16 +109,16 @@ emission of all templates on chip. Sequencing and imaging steps make NGS
 determine the sequencing millions of DNA fragments in parallel.
 
 Next-generation sequencing has been playing an important role in current
-genomic researches. In the last decade, next-generation sequencing has become
-the \textit{de facto} way to understand genome \cite{vandijk2014:ten} including
+genomic research. In the last decade, next-generation sequencing has become the
+\textit{de facto} way to understand genome \cite{vandijk2014:ten} including
 quantification of transcriptome expression \cite{wang2009:rnaseq}, variant
 calling and genotype inference \cite{nielsen2011:genotype}. The ability to
 determine novel sequence reads opens the door for \textit{de novo}
 transcriptome and genome assembly. Comparing to the renowned Human Genome
 Project \cite{lander2001:initial}, finishing a new organism assembly now
-requires significantly shorter time and lower budget and makes study of
+requires significantly shorter time and lower budget which makes study of
 non-model organisms becoming feasible. As the sequencing cost for a whole human
-genome passing below USD 1,000, we can expect a wider application of NGS and
+genome dropping below USD 1,000, we can expect a wider application of NGS and
 more and more fields adopt this technology.
 
 % single-cell sequencing
@@ -141,13 +141,13 @@ modification.
 
 Once a NGS experiment is complete, the sequence reads are merely sequences of
 DNA fragments and lack biological meaning. However, since fragments are often
-overlap with each other, one can concatenate fragments into longer sequences
+overlapped with each other, one can concatenate fragments into longer sequences
 called scaffolds. Multiple scaffolds can later construct chromosomes and hence
 complete a whole genome sequencing. The whole process of joining reads into
 scaffolds and chromosomes is referred to as genome assembly. The counterpart
 for RNA sequencing and cDNA fragments is referred to as transcriptome assembly.
-If such sequence assembly is done on a novel organism, the assembly is called
-a \textit{de novo} assembly.
+If such sequence assembly is done on a novel organism, the assembly is called a
+\textit{de novo} assembly.
 
 However, \textit{de novo} assembly requires high sequencing coverage and takes
 substantial computing resources, which is not feasible for normal applications.
@@ -226,16 +226,18 @@ reference. Though the generated sequence reads are shorter, they are long
 enough to determine their genomic location. Aligned reads may have mismatched
 sequences with genome reference and the all alignment information will be
 stored in the alignment result file, usually in the format of BAM or SAM files.
-Alignment methods of RNA and DNA sequencing are different, since RNA-Seq the
-sequences are the product of splicing event and will map to multiple distinct
-exon regions during alignment. After sequences have been aligned to the genome,
-user can annotate the reads about the gene information it locates, whether the
-variant is a common SNP. The annotation in use will depend on the type of
-sequencing and intended application, as long as annotation and the sample
-alignment share the same version of genome reference. With proper annotation,
-statistical inference and modeling help researcher answer questions like how a
-gene or transcript is expressed, whether a genomic location has mutation, or a
-genomic region has copy number gain or loss.
+Alignment methods of RNA and DNA sequencing are different. Alignment of DNA-Seq
+is straight-forward by looking up the full sequence in the genome, while in
+RNA-Seq, the sequences are the product of splicing events and will be mapped to
+multiple distinct exon regions during alignment. After sequences have been
+aligned to the genome, user can annotate the reads with the gene information it
+locates, and whether the variant is a common SNP. Possible annotations depend
+on the type of sequencing and intended application, as long as annotation and
+the sample alignment share the same version of genome reference. With proper
+annotation, statistical inference and modeling help researcher answer
+biological questions such as how a gene or transcript is expressed, whether a
+genomic location has mutation, or a genomic region has copy number gain or
+loss.
 
 
 % \section{RNA and DNA sequencing application}

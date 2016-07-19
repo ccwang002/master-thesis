@@ -5,7 +5,7 @@ In the following, BioCloud is compared with currently available and popular
 frameworks, tools and platforms for either NGS analysis pipeline execution or
 result report generation. Overall, commercial products such as DNAnexus and
 Partek Flow provide more comprehensive functionalities and support than open
-source projects and tools. Comparison between a larger sets of related works
+source projects and tools do. Comparison between a larger sets of related works
 can be found in \citeauthor{leipzig2016:review}'s study
 \cite{leipzig2016:review}.
 
@@ -18,8 +18,8 @@ available. The role DNAnexus plays in a typical sequencing-driven study is
 illustrated in Figure~\ref{fig:dnanexus-workflow}. It covers sequencing samples
 management, online analysis pipeline execution, and a result view integrated
 with its custom crafted genome browser. All of its functionalities are designed
-to be user friendly and does require little understanding of programming and
-how to mangle with multiple sequencing formats. However, due to its by-design
+to be user friendly and require little understanding of programming and how to
+mangle with multiple sequencing formats. However, due to its by-design
 simplicity, user cannot easily customize their own pipeline to adopt new
 published tools or update the tool version in use. On top of that, the usage of
 clinical data may be subjected to different law restrictions in different
@@ -29,16 +29,16 @@ and private issues for hosting data with patient and clinical information.
 
 \input{figures/dnanexus_workflow}
 
-Another commercial product, Partek Flow \cite{:partek}, focus more oriented to
-bioinformatic researchers by offering custom pipeline design and online
+Another commercial product, Partek Flow \cite{:partek}, focuses more oriented
+to bioinformatic researchers by offering custom pipeline design and online
 analysis pipeline execution. An example of the custom pipeline design on Partek
 Flow is shown in Figure~\ref{fig:partek-flow-pipeline}. User can drag and drop
 different function blocks from its tool panel and connect them as a pipeline,
 which is very flexible for researchers to explore different combinations of
 tools. For different function blocks they can append with different type of
-reports or quality assessment. The whole system can be hosted on one's own
+reports or quality assessments. The whole system can be hosted on one's own
 server. Due to its flexibility of pipeline design, however, Partek Flow user
-should be familiar with all analysis tools involved before conducting new
+needs to be familiar with all analysis tools involved before conducting new
 analysis. Though viewed convenient by bioinformatic researchers, it has a
 relatively complex interface to design and execute analysis pipelines.
 
@@ -54,21 +54,21 @@ in computational biology. Like commercial platforms previously mentioned,
 Galaxy can let user upload and manage their own data sources, execute tools
 remotely, and convert the execution history into reproducible workflow via its
 flexible workflow editor. Galaxy can be deployed on one's own cloud or server,
-while they also maintain a list of public Galaxy servers with commonly used
-toolboxes to let anyone to try on freely. Support for NGS data analysis has
-reached a relatively mature state where most common tools are available and can
-be accessed on their public servers. Figure~\ref{fig:galaxy-workflow} shows how
-a typical RNA-Seq analysis workflow called Tuxedo looks like in Galaxy's
-workflow editor, which best demonstrates the powerfulness and flexibility the
-editor provides. However, it is more specifically designed for bioinformatic
-researchers than Partek Flow. Also it has been developed for years, some of the
-Galaxy dependencies make its source code obscure for normal Python developers,
-which they often craft their own tool chains without adopting language agnostic
-standards. A pile of specially developed tool chains make the Galaxy plugin
-development more difficult then it seems at first. It may also lead to security
-issues since most of their own developed web tools have not been publicly
-battle tested, whereas standard Python web frameworks and tools like Flask and
-Django have been audited and publicly tested by worldwide companies for years.
+while they also maintain a list of public Galaxy servers to let anyone try on
+freely. Support for NGS data analysis has reached a relatively mature state
+where most common tools are available and can be accessed on their public
+servers. Figure~\ref{fig:galaxy-workflow} shows how a typical RNA-Seq analysis
+workflow called Tuxedo looks like in Galaxy's workflow editor, which best
+demonstrates the powerfulness and flexibility the editor provides. However, it
+is more specifically designed for bioinformatic researchers than Partek Flow.
+Also it has been developed for years, some of the Galaxy dependencies make its
+source code obscure for normal Python developers. Galaxy often crafts their
+own tool chains without adopting language agnostic standards. A pile of
+specially developed tool chains make the Galaxy plugin development more
+difficult then it seems at first. It may also lead to security issues since
+most of their own developed web tools have not been publicly battle tested,
+whereas standard Python web frameworks and tools like Flask and Django have
+been audited and publicly tested by worldwide companies for years.
 
 \input{figures/galaxy_workflow}
 
@@ -96,22 +96,21 @@ focus on the automated analysis pipeline design, including bcbio-nextgen
 traits with BioCloud or inspire some features of BioCloud.
 
 In bcbio-nextgen \cite{:bcbionextgen,guimera2012:bcbionextgen}, user can adopt
-existed or design custom analysis type, and then specify the input samples,
-genome reference, and other necessary parameters through a pipeline
-configuration file in YAML format, which is human readable and simple to write
-from scratch in plain text. An configuration example of RNA-Seq analysis is
-shown in Listing~\ref{lst:bcbio-nextgen-config}, whose structure and syntax
-share plenty of common with BioCloud's analysis configuration file.
-Bcbio-nextgen by default ships with predefined of DNA-Seq, RNA-Seq, small
-RNA-Seq, and CHIP-Seq pipelines so real analysis can be performed with little
-effort. The pipeline execution can utilize multi-core processors and even scale
-across multiple machines through IPython Parallel framework
-\cite{:ipython-parallel}. Scripts to deploy on Amazon Web Service (AWS) are
-available so user can scale up the number of AWS computing instances
-dynamically when needed. Bcbio-nextgen is also gradually adding support of
-Common Workflow Language \cite{amstutz2016:common}, which is an ongoing
-workflow specification standard proposed by multiple analysis platform vendors.
-The integration of IPython Parallel framework and AWS cloud infrastructure
+existed or design custom analysis type, and specify the input samples, genome
+reference, and other necessary parameters through a pipeline configuration file
+in YAML format, which is human readable and simple to write from scratch in
+plain text. An configuration example of RNA-Seq analysis is shown in
+Listing~\ref{lst:bcbio-nextgen-config}, whose structure and syntax are similar
+to those of BioCloud. Bcbio-nextgen by default ships with predefined of
+DNA-Seq, RNA-Seq, small RNA-Seq, and CHIP-Seq pipelines so real analysis can be
+performed with ease. The pipeline execution utilizes multi-core computing
+processors and is able to scale across multiple machines through IPython
+Parallel framework \cite{:ipython-parallel}. Scripts to deploy on Amazon Web
+Service (AWS) are available so user can scale up the number of AWS computing
+instances dynamically when needed. Bcbio-nextgen is also gradually adding
+support of Common Workflow Language \cite{amstutz2016:common}, which is an
+ongoing workflow specification standard proposed by multiple analysis platform
+vendors. Integration of IPython Parallel framework and AWS cloud infrastructure
 makes bcbio-nextgen a competitive tool to perform large scale and parallel
 pipeline analysis.
 
@@ -146,23 +145,22 @@ details:
 \end{lstlisting}
 
 Snakemake \cite{koster2012:snakemakea} is a low-level pipeline execution tool
-which is inspired by source code build automation tool Make \cite{:gnu-make}
-and its rule file format Makefile. User constructs a Snakemake pipeline by
-writing a series of rules which each rule corresponds to commands of a tool.
-Each rule also defines its input and output file patterns, which Snakemake will
-use them to construct the execution dependencies between rules as a directed
-acyclic graph (DAG). Listing~\ref{lst:snakemake-rule} shows an example of
-writing Snakemake rule to run BWA MEM genome alignment. Like Makefile, the
-variable \texttt{\{sample\}} specified in the input FASTQ files will be auto
-expanded to all files matching the given pattern, that is, all files with
-suffix \texttt{.fastq} under the folder \texttt{data/samples/}. Before
-execution, these rules are first evaluated and expanded to all matched files to
-build the DAG dependencies, shown in Figure~\ref{fig:snakemake-dag}. Snakemake
-will detect outdated output files by comparing creation timestamp with input
-files. Only outdated outputs will be re-executed, which reduces the total
-execution time. Other parameters of the Snakemake rule can further control the
-resources a job can use, e.g., number of threads and read-only files to prevent
-output files from being rewritten.
+which is inspired by source code build automation tool Make \cite{:gnu-make}.
+User constructs a Snakemake pipeline by writing a series of rules which each
+rule corresponds to shell commands. Each rule also defines its input and output
+file patterns, which Snakemake uses to construct the execution dependencies
+between rules as a directed acyclic graph (DAG).
+Listing~\ref{lst:snakemake-rule} shows an example of writing Snakemake rule to
+run BWA MEM genome alignment. Like Makefile, the variable \texttt{\{sample\}}
+specified in the input FASTQ files will be auto expanded to all files matching
+the given pattern, that is, all files with suffix \texttt{.fastq} under the
+folder \texttt{data/samples/}. Before execution, these rules are first
+evaluated and expanded to all matched files to build the DAG dependencies,
+shown in Figure~\ref{fig:snakemake-dag}. Only outdated outputs will be
+re-executed, which reduces the total execution time. Other parameters of the
+Snakemake rule can further control the resources a job can use, e.g., number of
+threads and memory usage. It can also mark files as read-only to prevent output
+files from being accidentally overwritten.
 
 \begin{lstlisting}[
     caption={
@@ -186,20 +184,13 @@ rule bwa_map:
 
 \input{figures/snakemake_dag}
 
-Though Snakemake may not be directly used by biological researchers and
-clinicians, integrating it into a cloud platform may not be as trivial as it
-seems. Monitoring the Snakemake execution process can be complicated since it
-treats individual inputs as separate jobs. One could either show the detailed
-execution progress or trying to deep integrate with Snakemake to collect all
-the job details and organize them externally. The latter deep integration can
-be easily broken if Snakemake changes its internal structure.
-
 Two pipeline execution tools mentioned above can be used as the way Biocloud
 run analysis pipelines. However, due to time constraint and development
 complexity a developer can manage, BioCloud rolls out its only basic pipeline
 execution method with stage monitoring. There are possibilities for BioCloud to
 leverage these pipeline execution tools in future and such integrations are
-discussed in Chapter \ref{c:discussion}.
+discussed in Chapter~\ref{c:discussion}.
+
 
 
 \section{Analysis report generation}
@@ -217,13 +208,13 @@ some open sourced works also focus on the summarization of the sequencing
 analysis. MultiQC \cite{ewels2016:multiqc} is a quality assessment tool for
 sequencing data. After its first release in Nov 2015 it has been gaining
 popularity. At the time of writing, both bcbio-nextgen and Galaxy can integrate
-with MultiQC report. An example of the MultiQC report is shown in
-Figure~\ref{fig:multiqc-report}, which is a single page HTML report. The first
-general information table collects important statistics of each sample produced
-by each tools, which user can select which of them should be displayed by
-tweaking the column visibility. Following the general information, the report
-shows interactive figures which user can zoom in and out, filter unwanted
-samples, and export current figure state as static JPEG or PNG picture format.
+MultiQC reports. An example of the MultiQC report is shown in
+Figure~\ref{fig:multiqc-report}. In the single page HTML report, first general
+information table collects important statistics of each sample produced by each
+tools, which user can select which of them should be displayed by tweaking the
+column visibility. Following the general information, the report shows
+interactive figures which user can zoom in and out, filter unwanted samples,
+and export current figure state as static JPEG or PNG files.
 
 However, since MultiQC focuses on quality assessment, it cannot parse the end
 results of typical sequencing analysis. MultiQC treats samples independently,
@@ -232,10 +223,10 @@ their conditions. For example, it cannot display the differentially expressed
 genes and genomic variants called in all samples of the same condition. Also,
 due to its single page web structure, showing figures of too many stages will
 impact the viewing experience due to low rendering frame rate. Though MultiQC
-does provide innovative ways to display sequencing results, BioCloud cannot
+indeed provides innovative ways to display sequencing results, BioCloud cannot
 directly integrate MultiQC and need to develop its own way displaying figures
 considering sample grouping.
 
 \input{figures/multiqc_report}
 
-% vim: set textwidth=79:
+% vim: set textwidth=79 spell:

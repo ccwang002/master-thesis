@@ -4,12 +4,12 @@
 In the following sections, first a number of typical RNA-Seq and DNA-Seq
 pipelines that BioCloud supports are defined and explained. Then the design of
 BioCloud is explained by breaking down into two main parts: the website and the
-report generator. For the website, the components including account
-registration, data sources management, experiment design, and pipeline
-execution are described and their roles are illustrated in the website overview
-workflow. For the report generator, the workflow is shown to demonstrate how
-outputs of each tool is extracted, parsed, and rendered into pre-defined
-web-based report templates.
+report generator. For the website, components including account registration,
+data sources management, experiment design, and pipeline execution are
+described and their roles are illustrated in the website overview workflow. For
+the report generator, its workflow is shown to demonstrate how outputs of each
+tool is extracted, parsed, and rendered into pre-defined web-based report
+templates.
 
 
 
@@ -22,7 +22,7 @@ different pipelines. The goal of RNA-Seq analysis is to infer differential
 expression of gene or transcripts across different conditions. Based on
 different assumptions of the distribution of gene and transcript expression,
 three different methods are used: Cufflinks, DESeq2, and kallisto, which yield
-FPKM based, count-based, and abundance-based expression value respectively.
+FPKM based, count-based, and TPM-based expression value respectively.
 
 \input{figures/rnaseq_pipelines}
 
@@ -30,16 +30,15 @@ Cufflinks \cite{trapnell2010:transcript} and its differential analysis method
 Cuffdiff \cite{trapnell2013:differential} are best used for gene expression
 considering its isoforms, e.g., differential expression on transcript-level.
 The output of Cuffdiff can be further visualized using R package cummeRbund
-\cite{:cummerbund} from the same development team of Cufflinks. The unit of
-expression Cufflinks uses is reads per kilobase of exon per million reads
-mapped (FPKM). For DESeq2 \cite{love2014:moderated}, its model analyzes
-expression change on gene level using read counts, which cannot be applied to
-transcript level analysis. The unit of expression DESeq2 uses is normalized
-read counts. The read counts are computed by featureCounts
-\cite{liao2014:featurecounts}. Another popular alternative for computing read
-counts is HTSeq \cite{anders2015:htseqa}. HTSeq generally acts the same as
-featureCoutns while having slower processing speed so it is not used in
-BioCloud.
+\cite{:cummerbund} from the same development team of Cufflinks. The expression
+unit Cufflinks uses is reads per kilobase of exon per million reads mapped
+(FPKM). For DESeq2 \cite{love2014:moderated}, its model analyzes expression
+change on gene level using read counts, which cannot be applied to transcript
+level analysis. The expression unit DESeq2 uses is normalized read counts. The
+read counts are computed by featureCounts \cite{liao2014:featurecounts}. A
+popular alternative for computing read counts is HTSeq
+\cite{anders2015:htseqa}. HTSeq generally behaves same as featureCounts while
+having slower processing speed so it is not used in BioCloud.
 
 Both Cufflinks and DESeq2 require genomic location of reads so their analysis
 is prepended by the genome alignment step. Three aligners are supported:
@@ -47,10 +46,10 @@ Tophat2 \cite{kim2013:tophat2}, HISAT2 \cite{kim2015:hisat}, and STAR
 \cite{dobin2013:star}. Though the underlying alignment algorithms of these
 tools are different, all of their alignment output in BAM file format can be
 used interchangeably by the following expression inference tools. The most
-discernible difference is computation time. Given the same execution
-environment on a same sequencing sample, Tophat2 takes a hundred times the
-computation time of STAR to complete the alignment. HISAT2 uses even slighter
-shorter time and significantly less memory than STAR.
+discernible difference between aligners is computation time. Given the same
+execution environment on a same sequencing sample, Tophat2 takes a hundred
+times the computation time of STAR to complete the alignment. HISAT2 uses even
+slighter shorter time and significantly less memory than STAR.
 
 Between the genome alignment and expression inference step, an optional step of
 removing PCR duplicated reads can be added, which can be done by Picard
@@ -67,9 +66,9 @@ another read. Since this empirical rule clamps the dynamic range of gene and
 transcript expression, user can choose to skip the step if their NGS technology
 does not involve PCR or the PCR duplication effect is negligible.
 
-Contrary to aligning RNA-Seq reads to genome, the concept of pseudoalignment
-which does not require actual genome alignment has been brought up in the last
-two years. For each sequence read, pseudoalignment finds the most compatible
+Contrary to genome alignment of reads, the concept of pseudoalignment which
+does not require actual genome alignment has been brought up in the last two
+years. For each sequence read, pseudoalignment finds the most compatible
 transcript by sharing the most number of k-mers and use the abundance of k-mers
 to infer the estimated the expression of the transcript. By skipping the step
 of spliced genome alignment, transcript quantification can be fast and maintain
@@ -78,7 +77,9 @@ first proposed by Salifish \cite{patro2014:sailfish}, formalized and continued
 by kallisto \cite{bray2016:nearoptimal} and Salmon \cite{patro2015:accurate}.
 Though the differential expression analysis can utilize the existed count-based
 analysis tools by rounding the estimated abundance of all transcripts and
-summing them to gene level expression, their statistical models on read count
+sFastQC does not affect the content of sequences
+thus this step is optional.
+umming them to gene level expression, their statistical models on read count
 distribution are different. Thus additional tools are developed to provide
 better integration with pesudoalignment results, including sleuth
 \cite{pimentel2016:differential} and SUPPA \cite{alamancos2015:leveraging}.
@@ -87,28 +88,26 @@ implemented on BioCloud. User can use kaillisto and sleuth, tools developed by
 the same lab, to do pseudoalignment differential expression analysis.
 
 Raw sequence reads are first quality checked using FastQC \cite{:fastqc}.
-FastQC provide comprehensive visualization of the quality of sequencing
+FastQC provides comprehensive visualization of the quality of sequencing
 experiment including per base quality plot, sequencing duplication rate plot,
-and adapter sequencing check. FastQC does not affect the content of sequences
-thus this step is optional.
+and adapter sequencing check.
 
 
 
 \section{DNA-Seq pipelines}
 \label{s:dnaseq-pipeline}
 
-The DNA-Seq analysis pipelines that BioCloud supports are summarized in
-Figure~\ref{fig:dnaseq-pipeline}. Some of the tools overlap with RNA-Seq
-pipelines which have been already mentioned and described in
-Section~\ref{s:rnaseq-pipeline}. To find germline variants, sequence reads are
-first aligned to genome by the tool Burrows-Wheeler Alignment (BWA)
-\cite{li2009:fast} using its MEM local alignment algorithm.
+The DNA-Seq analysis pipelines BioCloud supports are summarized in
+Figure~\ref{fig:dnaseq-pipeline}. Some of the tools have been already mentioned
+and described in Section~\ref{s:rnaseq-pipeline}. To find germline variants,
+sequence reads are first aligned to genome by the tool Burrows-Wheeler
+Alignment (BWA) \cite{li2009:fast} using its MEM local alignment algorithm.
 
 \input{figures/dnaseq_pipelines}
 
 For variant calling, BioCloud supports two callers: VarScan
 \cite{koboldt2012:varscan} and GATK
-\cite{vanderauwera2013:fastq,mckenna2010:genome}. To use with VarScan, the
+\cite{vanderauwera2013:fastq,mckenna2010:genome}. To analyze with VarScan, the
 output alignment BAM file is processed by samtools' mpileup subcommand to
 compare the aligned reads with genome reference sequence. VarScan take the
 mpileup output and determine if it is a significant variant that beyond the
@@ -116,7 +115,6 @@ given threshold for each base. To use with GATK, the best practice
 \cite{vanderauwera2013:fastq} made by \citeauthor{vanderauwera2013:fastq} is
 adopted. However, since our lab does not use GATK for variant calling as
 frequently as VarScan, the development to support GATK has been postponed.
-Currently existed GATK protocols in our lab are for GATK 3.3.
 
 After variant calling, these variants are further annotated with gene
 information, SNP database records, animo acid and protein structure change
@@ -132,14 +130,14 @@ all database in use updated.
 \section{BioCloud Website}
 \label{s:biocloud-website}
 
-In this section, the architecture of BioCloud website is introduced and an
-overall picture is given. The workflow for generating summary report is
-explained in Section~\ref{s:report-generation}. Except for summary report
-generation, the mechanism of each component is explained per subsection,
-including a message authentication method for access control and account
-validation; experiment design for grouping samples in conditions and is reused
-for multiple analyses; analysis submission with parameter settings; job queue;
-and finally access control for report and results of an analysis.
+% In this section, the architecture of BioCloud website is introduced and an
+% overall picture is given. The workflow for generating summary report is
+% explained in Section~\ref{s:report-generation}. Except for summary report
+% generation, the mechanism of each component is explained per subsection,
+% including a message authentication method for access control and account
+% validation; experiment design for grouping samples in conditions and is
+% reused for multiple analyses; analysis submission with parameter settings;
+% job queue; and finally access control for report and results of an analysis.
 
 
 
@@ -147,42 +145,41 @@ and finally access control for report and results of an analysis.
 
 Shown in Figure~\ref{fig:overview-arch}, BioCloud website can be viewed as
 three main parts: data storage, computing cluster, and web frontend. For normal
-user, they only interact with the web frontend and the architecture of BioCloud
-will remain unknown for them. However, in the BioCloud internal structures,
-these main parts can exist on different machines. So when large computing
-resource is needed, more machines can be added to the computer cluster without
-modifying the settings and source code of BioCloud. Data storage includes the
-database and local file system to store data sources, genome references and
-analysis results and reports. File systems like NFS can be used to allow access
-from multiple machines if BioCloud operates across one and more servers.
+users, they only interact with the web frontend and the architecture of
+BioCloud remains unknown for them. However, in the BioCloud internal
+structures, these main parts can exist on multiple machines. So when large
+computing resource is needed, more machines can be added to the computer
+cluster without modifying the settings nor the source code of BioCloud. Data
+storage includes the database and local file system to store data sources,
+genome references and analysis results and reports. File systems like NFS can
+be used to share files over multiple machines if BioCloud operates across one
+and more servers.
 
 \input{figures/overview_arch}
 
-We further breakdown this general BioCloud architecture into independently
-operating components and demonstrate how these components interact in a
-workflow of a user completing one analysis in
-Figure~\ref{fig:overview-workflow}. Before going down the workflow explanation,
-some terminologies BioCloud use should be clarified at first. A data source
-represent an file on file system. A sample can be a collection of multiple data
+Some terminologies BioCloud use should be clarified at first. A data source
+represents an file on file system. A sample is a collection of multiple data
 sources. For example, a pair-end sequencing sample contains two data sources
-corresponding to the R1 (or forward strand) and the R2 (or reversed strand) of
-the sequencing result.
+corresponding to the R1 (forward strand) and R2 (reversed strand) of
+the sequencing output.
 
 \input{figures/overview_workflow}
 
-The journey of the analysis starts by adding new sequencing samples. These new
-samples are added under the user's data source directory. During the auto
-discovery, sample name, file type and other information of a source are guessed
-by BioCloud but allowed for user to override them. An additional checksum can
-be supplied for each source to confirm the data integrity. Data sources or
-samples come in group of biological experiments. For example, a experiment can
-have control group and test group with 4 samples each. In BioCloud we define
-experiment as well, which is a collection of samples. In an experiment, each
-selected sample is assigned a condition which can be used for grouping later-on
-stages such as differential expression analysis. An experiment can be used in
-one and more analyses such as trying different analysis parameters or using
-different analysis pipeline. Therefore, an experiment contains which samples to
-use and how they are grouped in terms of sample conditions.
+Details of how these components interact are explained in the workflow shown in
+Figure~\ref{fig:overview-workflow}. The journey of the analysis starts by
+adding new sequencing samples. These new samples are added under the user's
+data source directory. During the auto discovery, sample name, file type and
+other information of a source are guessed by BioCloud but allowed for user to
+override them. An additional checksum can be supplied for each source to
+confirm the data integrity. Data sources or samples come in group of biological
+experiments. For example, a experiment can have control group and test group
+with 4 samples each. In BioCloud we define experiment as well, which is a
+collection of samples. In an experiment, each selected sample is assigned a
+condition which can be used for grouping later-on stages such as differential
+expression analysis. An experiment can be used in one and more analyses such as
+trying different analysis parameters or using different analysis pipeline.
+Therefore, an experiment contains which samples to use and how they are grouped
+in terms of sample conditions.
 
 Finally, user can now submit an analysis by specifying a pre-defined experiment
 and tuning the parameters available for the chosen analysis. User is also
@@ -236,27 +233,26 @@ SHA2-256 hash algorithm can be passed during the data source discovery can be
 provided. Checksum summarizes the file into a fixed length of bits no matter of
 the file size. The checksum algorithm is sensitive to minor changes, so if a
 file has a few bytes corrupted during the network transmission, its checksum
-will be drastically different to the correct counterpart. Checksum is not file
-compression so it can only be used for data integrity check. The checksum of
-two different files can be identical, the incident being referred to as
-collision. The checksum algorithm in use, SHA2-256, generates 256bits long
-checksum.
+will be drastically changed. Checksum is not file compression so it can only be
+used for data integrity check. The checksum of two different files can be
+identical, the incident being referred to as collision. The checksum algorithm
+in use, SHA2-256, generates 256bits long checksum.
 
 For authentication, hash-based message authentication code (HMAC) is used to
 create the authentication key. A HMAC string consists of two parts: the
 original message and a signature for the original message, which is generated
 with a secret key and a salt string in the current BioCloud implementation. The
-signature is a hash is generated based on the given secret key concatenating to
-salt string and the original message. Since the secret key is not disclosed to
-user, knowing the original message and the salt string cannot re-create the
-signature. The only way to forge the signature is through hash collision.
-However, by choosing cryptographic hash function such as SHA-1\footnote{
+signature is a hash of the given secret key concatenating to salt string and
+the original message. Since the secret key is not disclosed to user, knowing
+the original message and the salt string cannot re-create the signature. The
+only way to forge the signature is through hash collision. However, by
+choosing cryptographic hash function such as SHA-1\footnote{
     SHA-1 is not considered collision resistant anymore, though it is still
     suitable to be used as the hash function of HMAC.
-} and SHA-2, they are collision resistant so it is hard to find a collision
-in feasible time. The salt key, public or private, extends the computation
-effort to crack the underlying secret key. By passing JSON as the original
-message, one can store complex data structure in one HMAC string.
+} and SHA-2, they are collision resistant so it is hard to find a collision in
+feasible time. The salt key, public or private, extends the computation effort
+to crack the underlying secret key. By passing JSON as the original message,
+one can store complex data structure in one HMAC string.
 
 
 \subsection{User account management}
@@ -294,19 +290,14 @@ data sources based on the user ID. User ID is auto generated and unique. User
 can either move or link their data sources under this folder.
 
 User then add these data sources using ``data source discovery'' function of
-BioCloud. It scans user's data source folder and filter newly added sources
-with the user's database records. Sample name and type of the data source is
-guessed by BioCloud. After the discovery, user can override the guessed values
-and add checksum for each discovered files. User can later change these
-properties after the data sources are added as well.
-
-The representation of data source in the database is a straight-forward
-mapping, as table \texttt{data\_sources\_datasource} shown in
-Figure~\ref{fig:biocloud-erd}. However, there are some metadata that are only
-required for certain file types. For example, only FASTA and FASTQ files can be
-pair-end, e.g., R1 and R2. Metadata is stored as a column of JSON type.
-Metadata can be a hierarchical data structure in one column and database won't
-complain if some substructure of a metadata record cannot be found in another.
+BioCloud. It scans user's data source folder and adds newly added sources by
+comparing the scanning with one's database records. Sample name and type of the
+data source is guessed by BioCloud. The representation of data source in the
+database is a straight-forward mapping, as table
+\texttt{data\_sources\_datasource} shown in Figure~\ref{fig:biocloud-erd}.
+However, some metadata are required for certain file types. For example, only
+FASTA and FASTQ files can be pair-end, e.g., R1 and R2. Metadata is stored as
+JSON in one database column, where it can be a hierarchical data structure.
 
 
 \subsection{Experiment design}
@@ -321,12 +312,11 @@ while rest of the samples are of condition testing.
 
 BioCloud creates an interactive frontend for user to filter and select the data
 sources they want to include in this experiment. Since a simple may have
-multiple data sources, by default BioCloud guesses using the sample information
-during discovery. However, user can override the sample name during experiment
-design. For example, user can create a new sample called AC and include all
-four data sources originally of sample A and C. After finalizing the samples,
-user defines the available conditions for this experiment and assign sample to
-them.
+multiple data sources, by default BioCloud use the sample name attached to the
+data source. However, user can override them during experiment design. For
+example, user can create a new sample called AC and include all four data
+sources originally of sample A and C. After finalizing the sample naming, user
+defines the available conditions for this experiment and assign sample to them.
 
 To sum up, there are three steps to design an experiment: select data sources,
 label sample name on data sources, label condition on samples. However, user
@@ -353,10 +343,10 @@ setting of conditions and samples.
 
 \subsection{Genome reference}
 
-Genome reference store all related references and annotations for a given
+Genome reference stores all related references and annotations for a given
 version of genome reference. For human, there are hg38 (UCSC), hg38 (Ensembl
 Release v84), and hg19 (UCSC); for mouse, there are mm10 (UCSC) and mm10
-(Ensembl v84). All tools required index files and the annotations should be
+(Ensembl v84). Index files for all tools and the annotations should be
 available for every supported genome reference. For example, if one decides to
 support hg38 (UCSC) genome reference, all aligners' genome index including
 HISAT2, STAR, Bowtie and BWA needs to be generated; dbSNP needs to be version
@@ -364,15 +354,14 @@ HISAT2, STAR, Bowtie and BWA needs to be generated; dbSNP needs to be version
 primary assembly of genome won't change across patch releases. So primary
 assembly sequence of GRCh38 and GRCh38.p5 remain the same.
 
-Genome reference are managed via the table
-\texttt{analyses\_genomereference} using BioCloud admin interface. By providing
-the release data of the genome reference, BioCloud can sort the reference in
-chronological order. If a newer genome reference comes out, one can specify the
-upgrade path in the column \texttt{newer\_reference\_id} so downstream analysis
-tools can provide a better hint to user about the new genome reference release.
-Genome references are all stored under a same folder specified through the
-BioCloud's setting file. Its internal folder structure resembles that of
-iGenome \cite{:igenomes}.
+Genome reference are managed via the table \texttt{analyses\_genomereference}
+using BioCloud admin interface. By providing the release date of genome
+references, BioCloud can sort the reference in chronological order. If a newer
+genome reference comes out, one can specify the upgrade path in the column
+\texttt{newer\_reference\_id} so downstream analysis tools can provide a better
+hint to user about the new genome reference release. Genome references are all
+stored under a same folder specified through the BioCloud's setting file. Its
+internal folder structure resembles that of iGenome \cite{:igenomes}.
 
 
 \subsection{Analysis submission}
