@@ -87,9 +87,9 @@
       \vspace{1.5cm}
       中華民國 \@yearzh 年 \@monthzh 月\\
       \@monthen, \@yearen
+      %\vspace{1cm}
     \end{center}
     \end{singlespace}
-    \vspace{1cm}
   \end{titlepage}
 }
 
