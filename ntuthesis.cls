@@ -63,9 +63,9 @@
 
 \DeclareRobustCommand{\makecover}{
   \begin{titlepage}
-    \vspace{1cm}
     \begin{singlespace}
     \begin{center}
+      \vspace*{1cm}
       \fontsize{18}{27}\selectfont
       \@universityzh\@collegezh\@institutezh\par
         \@typezh{}\@classzh\par
