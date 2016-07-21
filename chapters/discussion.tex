@@ -6,13 +6,13 @@
 
 BioCloud does not offer the ability to upload data sources from local to
 BioCloud's data storage since the uploading is extremely hard to implement
-correctly and few people store their data in local anyway. Uploading a pair-end
-sample of 22M 63 base pair long reads takes about 3.5 hours for normal ADSL
-connection or 20 minutes for education network to complete\footnote{
-    The upload speed is given 1MB/s for normal ADSL connection and 10MB/s for
-    education environment; The pair-end sample of 22M reads with 63 base pair
-    consumes total 12 GiB disk space.
-}. Upload a dataset having 10 samples may take days for users of low connection
+correctly and few people store their data in local anyway. Given uploading
+speed 1MB/s for normal ADSL connection and 10MB/s for education environment,
+uploading a pair-end sample of 22M 63 base pair long reads (12GiB disk space)
+takes about 3.5 hours for normal ADSL connection or 20 minutes for education
+network to complete.
+
+Upload a dataset having 10 samples may take days for users of low connection
 speed. Though a lot of HTTP-based uploading frameworks exist, they are only
 suitable for uploading few hundreds of MBs at a time. Moreover, most users may
 not upload any data sources in their lifetime since their raw sequencing data

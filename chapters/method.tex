@@ -246,12 +246,12 @@ secret key concatenating to salt string and the original message. Since the
 secret key is not disclosed to user, knowing the original message and the salt
 string cannot re-create the signature. The only way to forge the signature is
 through hash collision. However, by choosing cryptographic hash function such
-as SHA-1\footnote{ SHA-1 is not considered collision resistant anymore, though
-    it is still suitable to be used as the hash function of HMAC.  } and SHA-2,
-they are collision resistant so it is hard to find a collision in feasible
-time. The salt key, public or private, extends the computation effort to crack
-the underlying secret key. By passing JSON as the original message, one can
-store complex data structure in one HMAC string.
+as SHA-1 (SHA-1 is not considered collision resistant anymore, though it is
+still suitable to be used as the hash function of HMAC) and SHA-2, they are
+collision resistant so it is hard to find a collision in feasible time. The
+salt key, public or private, extends the computation effort to crack the
+underlying secret key. By passing JSON as the original message, one can store
+complex data structure in one HMAC string.
 
 
 \subsection{User account management}
