@@ -32,7 +32,6 @@
 \RequirePackage[top=2cm,left=3cm,bottom=3cm,right=3cm]{geometry}
 \RequirePackage{xeCJK}
 \RequirePackage{setspace}
-\RequirePackage{titlesec}
 \RequirePackage{indentfirst}
 \RequirePackage{tocloft} % for centering title
 \RequirePackage[notbib]{tocbibind} % include ToC/LoF/LoT into ToC
@@ -130,7 +129,9 @@
 
 \newenvironment{quotationpage}[1]
   {\clearpages
-   \chapter*{\centerline{#1}}
+   % Don't use TeX's command \centerline.
+   % Ref http://tex.stackexchange.com/q/60651
+   \chapter*{\makebox[1.0\linewidth]{#1}}
    \addcontentsline{toc}{chapter}{#1}
    \quotation}
   {\endquotation}
