@@ -122,6 +122,9 @@ Markdown syntax and an editor based on SimpleMDE was provided, as shown in
 Figure~\ref{fig:biocloud-experiment-design}(a). Headings, enumerated lists, and
 hyperlinks can be created to help user collect all the related information. The
 rendered description can be live previewed in full screen side-by-side mode.
+For example, one could follow the submission guideline of Sequence Read Archive
+(SRA) to fill in the experiment's description. Headings can be used to group
+different sections of the SRA submission information.
 
 % sample selection
 To actually construct the experiment design, user first started with sample
@@ -233,19 +236,21 @@ the quality check. Stages behind the currently running stage, e.g. Cuffdiff
 stage in the figure, were marked as waiting.
 
 As the analysis execution ended, user was notified by mail with the link to the
-analysis detail page, as shown in Figure~\ref{fig:biocloud-job-monitor}(d). If
-the analysis execution was successful, the summary report was generated and its
-link would be shown in its analysis detail page.
-Figure~\ref{fig:biocloud-job-monitor}(c) showed the successful execution of the
-analysis described above. Summary report was generated and its canonical link
-was given below the execution detail. When user clicked on the link, one would
-be redirect to the report link with HMAC-based access token. During logged in,
-both links will maintain valid until user modifies one's authentication number
-at the user profile page, which invalidate the current HMAC-based access token
-while the canonical link will always be accessible. By default, all reports and
-results were restricted to private access only. User can opt the current
-analysis to be public by changing the ``is public'' setting shown in
-Figure~\ref{fig:biocloud-job-monitor}(c).
+analysis detail page, as shown in Figure~\ref{fig:biocloud-job-monitor}(d). For
+the airway smooth muscle dataset with 15 samples, it took around 6 to 8 hours
+to complete the analysis pipeline on a server with two 6-core Intel E5-2620
+hyperthreading CPUs and 128 GB memory. If the analysis execution was
+successful, the summary report was generated and its link would be shown in its
+analysis detail page.  Figure~\ref{fig:biocloud-job-monitor}(c) showed the
+successful execution of the analysis described above. Summary report was
+generated and its canonical link was given below the execution detail. When
+user clicked on the link, one would be redirect to the report link with
+HMAC-based access token. During logged in, both links will maintain valid until
+user modifies one's authentication number at the user profile page, which
+invalidate the current HMAC-based access token while the canonical link will
+always be accessible. By default, all reports and results were restricted to
+private access only. User can opt the current analysis to be public by changing
+the ``is public'' setting shown in Figure~\ref{fig:biocloud-job-monitor}(c).
 
 
 
