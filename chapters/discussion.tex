@@ -27,11 +27,42 @@ is needed, one can resort to traditional while robust tools  such as
 
 %- Why use STAR instead of Tophat
 %    - faster
-%    - citation about the accuracy \cite{engstrom2013:systematic}
-%- Plot will change if algorithms are changed
-%- Specify the test and normalization done for other DE RNA-SEq pipeline
-%    - t-test \cite{rapaport2013:comprehensive}
+%    - citation about the accuracy
+% - Specify the test and normalization done for other DE RNA-SEq pipeline
+%    - t-test
 %    - Normalization via FPKM
+
+In Chapter~\ref{c:result} we showed a RNA-Seq analysis using STAR as genome
+aligner and Cufflinks to infer the gene expression. Currently BioCloud also
+supports Tophat2 as the aligner. It was not used in the demonstration mainly
+due to the computation time of Tophat2 is about 100 times that of STAR. Study
+by \citeauthor{engstrom2013:systematic} supported the usage of STAR over
+Tophat2 for better accuracy and specificity \cite{engstrom2013:systematic}.
+Normalization in this pipeline was done within Cufflinks stage using FPKM unit.
+For differential expression statistical test, $t$-test was used by Cuffdiff
+\cite{rapaport2013:comprehensive}. For other RNA-Seq differential expression
+pipelines, different tools and methods may be adopted for normalization and
+statistical tests. For DNA-Seq variant calling, the pipeline of BWA MEM as
+aligner and VarScan as variant caller is supported.
+
+% - Specify what BioCloud can or cannot do:
+%     - Genome organism: Human and possibly mouse
+%     - Analysis pipeline:
+%         - RNA-Seq differential expression
+%         - DNA-Seq variant calling
+%         - DID NOT TEST miRNA and lncRNA expression
+%         - DID NOT TEST GO enrichment analysis
+%         - CANNOT de novo
+%         - CANNOT ChIP seq
+
+BioCloud is only tested with human sequencing samples and genome, though it is
+possible to support other well modelled organisms such as mouse and rat.
+Similarly, RNA-Seq pipeline is possible to quantify the expression of miRNA or
+lncRNA with proper annotation sources, while the pipeline has not been tested.
+BioCloud currently can not perform GO enrichment analysis, \textit{de novo}
+assembly, and ChIP-Seq analysis. One needs to provide the corresponding
+annotations, pipeline execution script, and report template design to customize
+a new analysis pipeline.
 
 
 
