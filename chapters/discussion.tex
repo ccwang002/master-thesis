@@ -23,12 +23,6 @@ is needed, one can resort to traditional while robust tools  such as
 \texttt{rsync}, \texttt{sftp} and \texttt{ftp} to help transfer large files.
 
 
-\section{Job queuing}
-
-% - More description on how the job is queue
-
-
-
 \section{Supported analyses}
 
 %- Why use STAR instead of Tophat
@@ -86,12 +80,19 @@ The issue about customization of pipeline execution will be addressed in the
 following section.
 
 For report generation, the situation is similar to that of defining underlying
-pipeline execution. Even though an abstract summary report is defined and user
-can utilize the existed result parsers, it still requires substantial effort to
-customize a new interactive figure in summary report.
-
-% Raw result output downloading problem
-% Interactive plot design
+pipeline execution. An abstract summary report is defined by BioCloud which
+handles the processing of analysis information and defines the workflow. User
+summarize the result of a new tool by creating a new report stage. In the stage
+user define how the results are parsed and the HTML template and static
+Javascript and CSS files for report rendering. Even though an abstract summary
+report is defined and user can utilize the existed result parsers, it still
+requires substantial effort to customize a new interactive figure in summary
+report. Due to the different output formats for different tools, even tools of
+similar function may not generate the same figures and tables in the summary
+report. For example, both BWA and STAR are genome aligner, the ways they
+describe the alignment types of the input sequence reads are different, though
+one can still conclude the proportion of unique and multiple alignment from
+their results.
 
 
 
@@ -109,14 +110,12 @@ resources and parallelize the execution of independent subroutines. Updating
 the stage status will be harder to determine since now commands of a stage need
 not to execute together. Some sentinel commands can be designated for stage
 status update by specifying the input to be all outputs of the current stage.
-Similarly, one could also integrates bcbio-nextgen
+Snakemake supports sending an analysis job to qsub computing cluster, which
+splits the analysis into independent tasks to fully utilize all the available
+nodes of the cluster. Similarly, one could also integrates bcbio-nextgen
 \cite{:bcbionextgen,guimera2012:bcbionextgen} and combines its abundant
-resources of analysis workflows with BioCloud's analysis design form.
-
-% TODO: MultiQC and other plotting libraries
-
-
-% TODO: Reproducible research
-
+resources of analysis workflows with BioCloud's analysis design form. It also
+supports submitting jobs and storing results on virtual private server (VPS)
+provides such as Amazon and Google.
 
 % vim: set textwidth=79 spell:
